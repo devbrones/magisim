@@ -37,6 +37,10 @@ def measure_execution_time(cpu, gpu, width, height, x_min, x_max, y_min, y_max, 
 
     total_cpu_time = 0
     total_gpu_time = 0
+    width = int(width)
+    height = int(height)
+    max_iter = int(max_iter)
+
 
     for _ in range(num_iterations):
         if cpu:
