@@ -46,18 +46,32 @@ mandelbrot_set_gpu[blocks_per_grid, threads_per_block](image_gpu, width, height,
 image_cpu = image_gpu.copy_to_host()
 img = ax.imshow(image_cpu, extent=(x_min, x_max, y_min, y_max), cmap=cmap, interpolation='bilinear')
 
-# Define a callback function for rectangle selection
-def on_select(eclick, erelease):
-    x1, y1 = eclick.xdata, eclick.ydata
-    x2, y2 = erelease.xdata, erelease.ydata
-    ax.set_xlim(min(x1, x2), max(x1, x2))
-    ax.set_ylim(min(y1, y2), max(y1, y2))
-    mandelbrot_set_gpu[blocks_per_grid, threads_per_block](image_gpu, width, height, ax.get_xlim()[0], ax.get_xlim()[1], ax.get_ylim()[0], ax.get_ylim()[1], max_iter)
-    image_cpu = image_gpu.copy_to_host()
-    img.set_data(image_cpu)
-    fig.canvas.draw()
+# Define an event handler for zooming
+def on_click(event):
+    if event.button == 1:  # Left mouse button
+        x_range = ax.get_xlim()
+        y_range = ax.get_ylim()
+        x_center = (x_range[0] + x_range[1]) / 2
+        y_center = (y_range[0] + y_range[1]) / 2
+        x_width = (x_range[1] - x_range[0]) / 4
+        y_width = (y_range[1] - y_range[0]) / 4
+        ax.set_xlim(x_center - x_width, x_center + x_width)
+        ax.set_ylim(y_center - y_width, y_center + y_width)
+        mandelbrot_set_gpu[blocks_per_grid, threads_per_block](
+            image_gpu,
+            width,
+            height,
+            ax.get_xlim()[0],
+            ax.get_xlim()[1],
+            ax.get_ylim()[0],
+            ax.get_ylim()[1],
+            max_iter,
+        )
+        image_cpu = image_gpu.copy_to_host()
+        img.set_data(image_cpu)
+        fig.canvas.draw()
 
-# Add the rectangle selector to the plot
-rect_selector = RectangleSelector(ax, on_select, drawtype='box', rectprops=dict(edgecolor='red', facecolor='none'))
+# Connect the event handler
+fig.canvas.mpl_connect("button_press_event", on_click)
 
 plt.show()
