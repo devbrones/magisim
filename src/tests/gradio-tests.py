@@ -1,9 +1,11 @@
-# test for gradio
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 from numba import cuda, jit
 import time
 import gradio as gr
+import cv2
+import io
 
 # Define a Numba JIT-compiled function to calculate the Mandelbrot set on CPU
 @jit
@@ -76,7 +78,15 @@ def mandelbrot_visualize(cpu, gpu, width, height, x_min, x_max, y_min, y_max, ma
         interpolation="bilinear",
     )
 
-    plt.show()
+    # Return the image as a numpy array
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png")
+    buf.seek(0)
+    img_array = np.frombuffer(buf.getvalue(), dtype=np.uint8)
+    img = cv2.imdecode(img_array, 1)
+    plt.close()
+
+    return img
 
 iface = gr.Interface(
     fn=mandelbrot_visualize,
@@ -91,7 +101,7 @@ iface = gr.Interface(
         gr.inputs.Number(default=1.5, label="Y Max"),
         gr.inputs.Number(default=1000, label="Max Iter"),
     ],
-    outputs=gr.outputs.Image(type="plot"),
+    outputs=gr.outputs.Image(),
 )
 
 iface.launch()
