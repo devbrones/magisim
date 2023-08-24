@@ -47,31 +47,43 @@ image_cpu = image_gpu.copy_to_host()
 img = ax.imshow(image_cpu, extent=(x_min, x_max, y_min, y_max), cmap=cmap, interpolation='bilinear')
 
 # Define an event handler for zooming
-def on_click(event):
-    if event.button == 1:  # Left mouse button
-        x_range = ax.get_xlim()
-        y_range = ax.get_ylim()
-        x_center = (x_range[0] + x_range[1]) / 2
-        y_center = (y_range[0] + y_range[1]) / 2
-        x_width = (x_range[1] - x_range[0]) / 4
-        y_width = (y_range[1] - y_range[0]) / 4
-        ax.set_xlim(x_center - x_width, x_center + x_width)
-        ax.set_ylim(y_center - y_width, y_center + y_width)
-        mandelbrot_set_gpu[blocks_per_grid, threads_per_block](
-            image_gpu,
-            width,
-            height,
-            ax.get_xlim()[0],
-            ax.get_xlim()[1],
-            ax.get_ylim()[0],
-            ax.get_ylim()[1],
-            max_iter,
-        )
-        image_cpu = image_gpu.copy_to_host()
-        img.set_data(image_cpu)
-        fig.canvas.draw()
+def on_scroll(event):
+    if event.button == "up":
+        factor = 0.9
+    elif event.button == "down":
+        factor = 1.1
+    else:
+        return
+
+    x_range = ax.get_xlim()
+    y_range = ax.get_ylim()
+    x_center = (x_range[0] + x_range[1]) / 2
+    y_center = (y_range[0] + y_range[1]) / 2
+    x_width = (x_range[1] - x_range[0]) / 2
+    y_width = (y_range[1] - y_range[0]) / 2
+    new_x_width = x_width * factor
+    new_y_width = y_width * factor
+
+    x, y = event.xdata, event.ydata
+    if x is None or y is None:
+        return
+
+    new_x_min = x - (x - x_range[0]) * (new_x_width / x_width)
+    new_x_max = x + (x_range[1] - x) * (new_x_width / x_width)
+    new_y_min = y - (y - y_range[0]) * (new_y_width / y_width)
+    new_y_max = y + (y_range[1] - y) * (new_y_width / y_width)
+
+    ax.set_xlim(new_x_min, new_x_max)
+    ax.set_ylim(new_y_min, new_y_max)
+
+    mandelbrot_set_gpu[blocks_per_grid, threads_per_block](
+        image_gpu, width, height, new_x_min, new_x_max, new_y_min, new_y_max, max_iter
+    )
+    image_cpu = image_gpu.copy_to_host()
+    img.set_data(image_cpu)
+    fig.canvas.draw()
 
 # Connect the event handler
-fig.canvas.mpl_connect("button_press_event", on_click)
+fig.canvas.mpl_connect("scroll_event", on_scroll)
 
 plt.show()
