@@ -163,27 +163,27 @@ cython_debug/
 # Obsidian files
 
 # to exclude Obsidian workspace settings (including plugin and hotkey configurations)
-.obsidian/*
+docs/obsidian/MAGISIM-NOTES/.obsidian/*
 
 # OR only to exclude workspace cache
-.obsidian/workspace/*
+docs/obsidian/MAGISIM-NOTES/.obsidian/workspace/*
 
 # Exclude plugins
-.obsidian/plugins/*
+docs/obsidian/MAGISIM-NOTES/.obsidian/plugins/*
 
 # Exclude consultant specific files "personal"
-05*-*Personal/
+docs/obsidian/MAGISIM-NOTES/05*-*Personal/
 
 # Exclude Day Planner directory placed in vault root
-Day*Planners/*
+docs/obsidian/MAGISIM-NOTES/Day*Planners/*
 
 # This file is used to keep track of last auto backup/pull
-.obsidian-git-data
+docs/obsidian/MAGISIM-NOTES/.obsidian-git-data
 
 # Exclude Untitled Notes
-Untitled*
+docs/obsidian/MAGISIM-NOTES/Untitled*
 # Exclude "bad" names
-null*
+docs/obsidian/MAGISIM-NOTES/null*
 
 # Add below lines to exclude OS settings and caches
 .trash/
