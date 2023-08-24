@@ -32,7 +32,6 @@ def mandelbrot_set_gpu(image, width, height, x_min, x_max, y_min, y_max, max_ite
             if abs(z) > 2.0:
                 break
         image[j, i] = iter
-
 def measure_execution_time(cpu, gpu, width, height, x_min, x_max, y_min, y_max, max_iter):
     num_iterations = 10  # Number of iterations for averaging
 
@@ -42,7 +41,7 @@ def measure_execution_time(cpu, gpu, width, height, x_min, x_max, y_min, y_max, 
     for _ in range(num_iterations):
         if cpu:
             start_time_cpu = time.time()
-            image_cpu = np.empty((height, width), dtype=np.uint32)
+            image_cpu = np.empty((height, width), dtype=np.uint32)  # Corrected line
             mandelbrot_set_cpu(image_cpu, width, height, x_min, x_max, y_min, y_max, max_iter)
             cpu_execution_time = time.time() - start_time_cpu
             total_cpu_time += cpu_execution_time
