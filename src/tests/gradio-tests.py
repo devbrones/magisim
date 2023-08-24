@@ -40,8 +40,8 @@ def measure_execution_time(cpu, gpu, width, height, x_min, x_max, y_min, y_max, 
 
     for _ in range(num_iterations):
         if cpu:
+            image_cpu = np.empty((height, width), dtype=np.uint32)
             start_time_cpu = time.time()
-            image_cpu = np.empty((height, width), dtype=np.uint32)  # Corrected line
             mandelbrot_set_cpu(image_cpu, width, height, x_min, x_max, y_min, y_max, max_iter)
             cpu_execution_time = time.time() - start_time_cpu
             total_cpu_time += cpu_execution_time
