@@ -8,7 +8,7 @@ if conda env list | grep -q "magisim"; then
 fi
 echo "magisim environment does not exist, creating..."
 conda env create -f conda-env.yml
-conda activate magisim
+conda env activate magisim
 exit 0
 
 
