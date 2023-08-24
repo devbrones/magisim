@@ -4,8 +4,9 @@ from matplotlib.colors import LinearSegmentedColormap
 from numba import cuda, jit
 import time
 import gradio as gr
-import cv2
+from PIL import Image
 import io
+
 
 # Define a Numba JIT-compiled function to calculate the Mandelbrot set on CPU
 @jit
@@ -36,7 +37,6 @@ def mandelbrot_set_gpu(image, width, height, x_min, x_max, y_min, y_max, max_ite
             if abs(z) > 2.0:
                 break
         image[j, i] = iter
-
 def mandelbrot_visualize(cpu, gpu, width, height, x_min, x_max, y_min, y_max, max_iter):
     plt.interactive(True)  # Enable interactive mode for matplotlib
     fig, ax = plt.subplots()
@@ -71,22 +71,24 @@ def mandelbrot_visualize(cpu, gpu, width, height, x_min, x_max, y_min, y_max, ma
         # Transfer the image data back to the CPU
         image_cpu = image_gpu.copy_to_host()
 
-    img = ax.imshow(
+    ax.imshow(
         image_cpu,
         extent=(x_min, x_max, y_min, y_max),
         cmap="viridis",
         interpolation="bilinear",
     )
 
-    # Return the image as a numpy array
+    # Convert the matplotlib plot to a PIL image
     buf = io.BytesIO()
     plt.savefig(buf, format="png")
     buf.seek(0)
-    img_array = np.frombuffer(buf.getvalue(), dtype=np.uint8)
-    img = cv2.imdecode(img_array, 1)
-    plt.close()
+    pil_img = Image.open(buf)
 
-    return img
+    # Convert the PIL image to a numpy array
+    np_img = np.array(pil_img)
+
+    plt.close()
+    return np_img
 
 iface = gr.Interface(
     fn=mandelbrot_visualize,
@@ -101,7 +103,7 @@ iface = gr.Interface(
         gr.inputs.Number(default=1.5, label="Y Max"),
         gr.inputs.Number(default=1000, label="Max Iter"),
     ],
-    outputs=gr.outputs.Image(),
+    outputs=gr.outputs.Image(type="numpy"),
 )
 
 iface.launch()
