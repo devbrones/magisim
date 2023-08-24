@@ -6,10 +6,10 @@ from matplotlib.widgets import RectangleSelector
 import time
 
 # Define the size of the image and other parameters
-width, height = 800, 800
+width, height = 1800, 1800
 x_min, x_max = -2.0, 1.0
 y_min, y_max = -1.5, 1.5
-max_iter = 1000
+max_iter = 10000
 cmap = plt.cm.viridis
 
 # Define a Numba JIT-compiled function to calculate the Mandelbrot set on CPU
