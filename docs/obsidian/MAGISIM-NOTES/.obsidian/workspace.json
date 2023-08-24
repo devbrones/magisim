@@ -1,0 +1,178 @@
+{
+  "main": {
+    "id": "8cc72a2fbac2253b",
+    "type": "split",
+    "children": [
+      {
+        "id": "75389be00f80bee3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5b6d539ccc391011",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "8edd4eed46294d12",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Research And Development/Whitepapers.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "825915513fd9b3a3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Research And Development/Videos and Courses.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "814997f205020ad2",
+    "type": "split",
+    "children": [
+      {
+        "id": "e47782725fec06de",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e4b0fda13d9db5cc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "449bf858c4ef6efa",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e763904af2654d4b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c398d89610751963",
+    "type": "split",
+    "children": [
+      {
+        "id": "3778b3425fa57872",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "09ad7b985643f461",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Research And Development/Videos and Courses.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "e55fa365457435b4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Research And Development/Videos and Courses.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ca1d95dcfe5575d5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "d936b221e9dbc659",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Research And Development/Videos and Courses.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "e4b0fda13d9db5cc",
+  "lastOpenFiles": [
+    "Research And Development/Whitepapers.md",
+    "Research And Development/Videos and Courses.md",
+    "Surveys",
+    "Marketing and Pitching",
+    "Research And Development"
+  ]
+}
