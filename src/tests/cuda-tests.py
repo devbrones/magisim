@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from numba import cuda, jit
 from matplotlib.widgets import RectangleSelector
+import time
 
 # Define the size of the image and other parameters
 width, height = 800, 800
@@ -11,7 +12,22 @@ y_min, y_max = -1.5, 1.5
 max_iter = 1000
 cmap = plt.cm.viridis
 
-# Define a Numba JIT-compiled function to calculate the Mandelbrot set
+# Define a Numba JIT-compiled function to calculate the Mandelbrot set on CPU
+@jit
+def mandelbrot_set_cpu(image, width, height, x_min, x_max, y_min, y_max, max_iter):
+    for i in range(width):
+        for j in range(height):
+            x = x_min + (x_max - x_min) * i / width
+            y = y_min + (y_max - y_min) * j / height
+            c = complex(x, y)
+            z = complex(0.0, 0.0)
+            for iter in range(max_iter):
+                z = z * z + c
+                if abs(z) > 2.0:
+                    break
+            image[j, i] = iter
+
+# Define a Numba JIT-compiled function to calculate the Mandelbrot set on GPU
 @cuda.jit
 def mandelbrot_set_gpu(image, width, height, x_min, x_max, y_min, y_max, max_iter):
     i, j = cuda.grid(2)
@@ -35,16 +51,33 @@ ax.set_title("Mandelbrot Set")
 # Allocate GPU memory for the image
 image_gpu = cuda.device_array((height, width), dtype=np.uint32)
 
+# Calculate the Mandelbrot set on the CPU
+start_time_cpu = time.time()
+image_cpu = np.empty((height, width), dtype=np.uint32)
+mandelbrot_set_cpu(image_cpu, width, height, x_min, x_max, y_min, y_max, max_iter)
+cpu_execution_time = time.time() - start_time_cpu
+
 # Calculate the Mandelbrot set on the GPU
 threads_per_block = (16, 16)
 blocks_per_grid_x = (width + threads_per_block[0] - 1) // threads_per_block[0]
 blocks_per_grid_y = (height + threads_per_block[1] - 1) // threads_per_block[1]
 blocks_per_grid = (blocks_per_grid_x, blocks_per_grid_y)
-mandelbrot_set_gpu[blocks_per_grid, threads_per_block](image_gpu, width, height, x_min, x_max, y_min, y_max, max_iter)
+start_time_gpu = time.time()
+mandelbrot_set_gpu[blocks_per_grid, threads_per_block](
+    image_gpu, width, height, x_min, x_max, y_min, y_max, max_iter
+)
+cuda.synchronize()
+gpu_execution_time = time.time() - start_time_gpu
+
+# Print execution times
+print(f"CPU Execution Time: {cpu_execution_time:.4f} seconds")
+print(f"GPU Execution Time: {gpu_execution_time:.4f} seconds")
 
 # Transfer the image data back to the CPU
 image_cpu = image_gpu.copy_to_host()
-img = ax.imshow(image_cpu, extent=(x_min, x_max, y_min, y_max), cmap=cmap, interpolation='bilinear')
+img = ax.imshow(
+    image_cpu, extent=(x_min, x_max, y_min, y_max), cmap=cmap, interpolation="bilinear"
+)
 
 # Define an event handler for zooming
 def on_scroll(event):
