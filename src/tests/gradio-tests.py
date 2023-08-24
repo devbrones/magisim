@@ -1,12 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
 from numba import cuda, jit
 import time
 import gradio as gr
-from PIL import Image
-import io
-
 
 # Define a Numba JIT-compiled function to calculate the Mandelbrot set on CPU
 @jit
@@ -37,63 +32,44 @@ def mandelbrot_set_gpu(image, width, height, x_min, x_max, y_min, y_max, max_ite
             if abs(z) > 2.0:
                 break
         image[j, i] = iter
-def mandelbrot_visualize(cpu, gpu, width, height, x_min, x_max, y_min, y_max, max_iter):
-    plt.interactive(True)  # Enable interactive mode for matplotlib
-    fig, ax = plt.subplots()
-    ax.set_xlim(x_min, x_max)
-    ax.set_ylim(y_min, y_max)
-    ax.set_title("Mandelbrot Set")
 
-    # Allocate GPU memory for the image
-    image_gpu = cuda.device_array((height, width), dtype=np.uint32)
+def measure_execution_time(cpu, gpu, width, height, x_min, x_max, y_min, y_max, max_iter):
+    num_iterations = 10  # Number of iterations for averaging
 
-    # Calculate the Mandelbrot set on the CPU and GPU
-    if cpu:
-        start_time_cpu = time.time()
-        image_cpu = np.empty((height, width), dtype=np.uint32)
-        mandelbrot_set_cpu(image_cpu, width, height, x_min, x_max, y_min, y_max, max_iter)
-        cpu_execution_time = time.time() - start_time_cpu
-        print(f"CPU Execution Time: {cpu_execution_time:.4f} seconds")
+    total_cpu_time = 0
+    total_gpu_time = 0
 
-    if gpu:
-        threads_per_block = (16, 16)
-        blocks_per_grid_x = (width + threads_per_block[0] - 1) // threads_per_block[0]
-        blocks_per_grid_y = (height + threads_per_block[1] - 1) // threads_per_block[1]
-        blocks_per_grid = (blocks_per_grid_x, blocks_per_grid_y)
-        start_time_gpu = time.time()
-        mandelbrot_set_gpu[blocks_per_grid, threads_per_block](
-            image_gpu, width, height, x_min, x_max, y_min, y_max, max_iter
-        )
-        cuda.synchronize()
-        gpu_execution_time = time.time() - start_time_gpu
-        print(f"GPU Execution Time: {gpu_execution_time:.4f} seconds")
+    for _ in range(num_iterations):
+        if cpu:
+            start_time_cpu = time.time()
+            image_cpu = np.empty((height, width), dtype=np.uint32)
+            mandelbrot_set_cpu(image_cpu, width, height, x_min, x_max, y_min, y_max, max_iter)
+            cpu_execution_time = time.time() - start_time_cpu
+            total_cpu_time += cpu_execution_time
 
-        # Transfer the image data back to the CPU
-        image_cpu = image_gpu.copy_to_host()
+        if gpu:
+            threads_per_block = (16, 16)
+            blocks_per_grid_x = (width + threads_per_block[0] - 1) // threads_per_block[0]
+            blocks_per_grid_y = (height + threads_per_block[1] - 1) // threads_per_block[1]
+            blocks_per_grid = (blocks_per_grid_x, blocks_per_grid_y)
+            start_time_gpu = time.time()
+            image_gpu = cuda.device_array((height, width), dtype=np.uint32)
+            mandelbrot_set_gpu[blocks_per_grid, threads_per_block](
+                image_gpu, width, height, x_min, x_max, y_min, y_max, max_iter
+            )
+            cuda.synchronize()
+            gpu_execution_time = time.time() - start_time_gpu
+            total_gpu_time += gpu_execution_time
 
-    ax.imshow(
-        image_cpu,
-        extent=(x_min, x_max, y_min, y_max),
-        cmap="viridis",
-        interpolation="bilinear",
-    )
+    average_cpu_time = total_cpu_time / num_iterations if cpu else 0
+    average_gpu_time = total_gpu_time / num_iterations if gpu else 0
 
-    # Convert the matplotlib plot to a PIL image
-    buf = io.BytesIO()
-    plt.savefig(buf, format="png")
-    buf.seek(0)
-    pil_img = Image.open(buf)
-
-    # Convert the PIL image to a numpy array
-    np_img = np.array(pil_img)
-
-    plt.close()
-    return np_img
+    return f"Average CPU Execution Time: {average_cpu_time:.4f} seconds", f"Average GPU Execution Time: {average_gpu_time:.4f} seconds"
 
 iface = gr.Interface(
-    fn=mandelbrot_visualize,
+    fn=measure_execution_time,
     inputs=[
-        gr.inputs.Checkbox(default=False, label="Calculate CPU"),
+        gr.inputs.Checkbox(default=True, label="Calculate CPU"),
         gr.inputs.Checkbox(default=True, label="Calculate GPU"),
         gr.inputs.Number(default=800, label="Width"),
         gr.inputs.Number(default=800, label="Height"),
@@ -103,7 +79,10 @@ iface = gr.Interface(
         gr.inputs.Number(default=1.5, label="Y Max"),
         gr.inputs.Number(default=1000, label="Max Iter"),
     ],
-    outputs=gr.outputs.Image(type="numpy"),
+    outputs=[
+        gr.outputs.Textbox(label="CPU Time"),
+        gr.outputs.Textbox(label="GPU Time"),
+    ],
 )
 
 iface.launch()
