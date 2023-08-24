@@ -1,11 +1,8 @@
-# simple test that runs a mandelbrot set on the GPU
-#
-
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from numba import cuda, jit
-from scipy import misc
+from matplotlib.widgets import RectangleSelector
 
 # Define the size of the image and other parameters
 width, height = 800, 800
@@ -17,7 +14,6 @@ cmap = plt.cm.viridis
 # Define a Numba JIT-compiled function to calculate the Mandelbrot set
 @cuda.jit
 def mandelbrot_set_gpu(image, width, height, x_min, x_max, y_min, y_max, max_iter):
-    # Calculate grid and block indices
     i, j = cuda.grid(2)
     if i < width and j < height:
         x = x_min + (x_max - x_min) * i / width
@@ -29,6 +25,12 @@ def mandelbrot_set_gpu(image, width, height, x_min, x_max, y_min, y_max, max_ite
             if abs(z) > 2.0:
                 break
         image[j, i] = iter
+
+# Create a figure with an initial plot of the Mandelbrot set
+fig, ax = plt.subplots()
+ax.set_xlim(x_min, x_max)
+ax.set_ylim(y_min, y_max)
+ax.set_title("Mandelbrot Set")
 
 # Allocate GPU memory for the image
 image_gpu = cuda.device_array((height, width), dtype=np.uint32)
@@ -42,16 +44,20 @@ mandelbrot_set_gpu[blocks_per_grid, threads_per_block](image_gpu, width, height,
 
 # Transfer the image data back to the CPU
 image_cpu = image_gpu.copy_to_host()
+img = ax.imshow(image_cpu, extent=(x_min, x_max, y_min, y_max), cmap=cmap, interpolation='bilinear')
 
-# Create a plot of the Mandelbrot set
-plt.figure(figsize=(10, 8))
-plt.imshow(image_cpu, extent=(x_min, x_max, y_min, y_max), cmap=cmap, interpolation='bilinear')
-plt.colorbar()
-plt.title("Mandelbrot Set")
-plt.xlabel("Real")
-plt.ylabel("Imaginary")
+# Define a callback function for rectangle selection
+def on_select(eclick, erelease):
+    x1, y1 = eclick.xdata, eclick.ydata
+    x2, y2 = erelease.xdata, erelease.ydata
+    ax.set_xlim(min(x1, x2), max(x1, x2))
+    ax.set_ylim(min(y1, y2), max(y1, y2))
+    mandelbrot_set_gpu[blocks_per_grid, threads_per_block](image_gpu, width, height, ax.get_xlim()[0], ax.get_xlim()[1], ax.get_ylim()[0], ax.get_ylim()[1], max_iter)
+    image_cpu = image_gpu.copy_to_host()
+    img.set_data(image_cpu)
+    fig.canvas.draw()
 
-# Export the plot to a PNG file
-plt.savefig("mandelbrot.png", dpi=300)
+# Add the rectangle selector to the plot
+rect_selector = RectangleSelector(ax, on_select, drawtype='box', rectprops=dict(edgecolor='red', facecolor='none'))
+
 plt.show()
-

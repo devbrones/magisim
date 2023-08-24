@@ -4,6 +4,7 @@ dependencies:
   - numba
   - numpy
   - scipy
+  - cudatoolkit
   - conda-forge:
     - gradio
     - cupy
