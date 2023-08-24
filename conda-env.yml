@@ -1,0 +1,11 @@
+name: magisim
+dependencies:
+  - python=3.9
+  - numba
+  - numpy
+  - scipy
+  - conda-forge:
+    - gradio
+    - cupy
+  - pip
+  - matplotlib
