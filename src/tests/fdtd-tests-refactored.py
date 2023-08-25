@@ -9,12 +9,17 @@ import os
 epsilon_0 = 8.854e-12  # F/m (vacuum permittivity)
 mu_0 = 4e-7 * np.pi    # H/m (vacuum permeability)
 c = 1 / np.sqrt(epsilon_0 * mu_0)  # Speed of light in m/s
+air = True  # Whether to simulate in air or vacuum
+if air:
+    # Permittivity of atmospheric air (F/m)
+    epsilon_0 = 1.0006
+    # Permeability of atmospheric air (H/m)
+    mu_0 = mu_0  # Assume it's the same as vacuum permeability
 
 # Simulation parameters
 simulation_time_ns = 1e-9  # Simulation time in nanoseconds
-grid_size = (200, 200)
-dx = 1.5e-3
-dy = 1.5e-3
+grid_size = (2000, 2000)
+dx = dy = 1e-3
 dt = dx / (2 * c)  # CFL stability condition for FDTD
 num_steps = int(simulation_time_ns / dt)  # Calculate the number of steps based on simulation time
 
