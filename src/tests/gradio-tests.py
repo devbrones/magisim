@@ -69,6 +69,12 @@ def measure_execution_time(cpu, gpu, width, height, x_min, x_max, y_min, y_max, 
 
     return f"Average CPU Execution Time: {average_cpu_time:.4f} seconds", f"Average GPU Execution Time: {average_gpu_time:.4f} seconds"
 
+## gradio initialization
+
+theme = gr.themes.Base(
+    primary_hue="sky",
+)
+
 iface = gr.Interface(
     fn=measure_execution_time,
     inputs=[
@@ -87,5 +93,28 @@ iface = gr.Interface(
         gr.outputs.Textbox(label="GPU Time"),
     ],
 )
+
+with gr.Blocks() as iface:
+    with gr.Row():
+        cp_time = gr.outputs.Textbox(label="CPU Time")
+        gp_time = gr.outputs.Textbox(label="GPU Time")
+    
+    with gr.Column():
+        gr.Label("CPU", gradio_style=theme)
+        
+        gr.Label("GPU", gradio_style=theme)
+    
+    with gr.Column():    
+        gr.Label("Width", gradio_style=theme)
+        gr.Label("Height", gradio_style=theme)
+        gr.Label("X Min", gradio_style=theme)
+        gr.Label("X Max", gradio_style=theme)
+        gr.Label("Y Min", gradio_style=theme)
+        gr.Label("Y Max", gradio_style=theme)
+        gr.Label("Max Iter", gradio_style=theme)
+    
+    
+
+
 
 iface.launch(share=True)
