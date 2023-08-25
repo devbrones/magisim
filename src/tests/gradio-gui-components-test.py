@@ -10,10 +10,6 @@ class grid:
         self.width = width
         self.height = height
         self.depth = depth
-    x,y = np.meshgrid(np.linspace(-width/2,width/2,depth),np.linspace(-height/2,height/2,depth))
-    u = x/np.sqrt(x**2 + y**2)
-    v = y/np.sqrt(x**2 + y**2)
-
     
 class object:
     position: tuple
