@@ -6,6 +6,10 @@ class grid:
     width: int
     height: int
     depth: int
+    def __init__(self, width, height, depth):
+        self.width = width
+        self.height = height
+        self.depth = depth
     x,y = np.meshgrid(np.linspace(-width/2,width/2,depth),np.linspace(-height/2,height/2,depth))
     u = x/np.sqrt(x**2 + y**2)
     v = y/np.sqrt(x**2 + y**2)
