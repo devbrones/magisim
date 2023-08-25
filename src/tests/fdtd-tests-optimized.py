@@ -37,7 +37,12 @@ def update_fields(EzHy):
 with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
     for step in range(num_steps):
         update_fields[grid_size, 1](EzHy_gpu)
-        EzHy_gpu[grid_size[0] // 2, grid_size[1] // 2] += np.exp(-(0.5 * ((step - 30) / 10) ** 2))
+        
+        # Add a pulse source (Gaussian pulse)
+        pulse_center = grid_size[0] // 2
+        pulse_duration = 10
+        pulse_amplitude = np.exp(-(0.5 * ((step - 30) / pulse_duration) ** 2))
+        EzHy_gpu[pulse_center, pulse_center] += pulse_amplitude
 
         pbar.update(1)
 print("Simulation complete! Saving frames...")
@@ -51,4 +56,3 @@ for step in tqdm(range(num_steps), desc="Saving Frames"):
     plt.clf()  # Clear the figure
 
 print("Frames saved.")
-
