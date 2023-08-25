@@ -9,10 +9,10 @@ epsilon_0 = 8.854187817e-12  # Permittivity of free space in F/m
 mu_0 = 4 * np.pi * 1e-7  # Permeability of free space in H/m
 
 # Simulation parameters
-grid_size = (200, 200)
+grid_size = (20, 20)
 dx = dy = 1e-3
 dt = dx / (2 * c)
-simulation_time = 3.0  # seconds
+simulation_time = 1.0  # seconds
 num_steps = int(simulation_time / dt)
 
 # CUDA kernel
