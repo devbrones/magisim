@@ -18,6 +18,9 @@ class object:
     
 
 def display_plot(h,w,d):
+    # make sure plot is empty
+    plt.clf()
+    # create grid
     grid.width = w
     grid.height = h
     grid.depth = d
