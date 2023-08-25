@@ -24,9 +24,8 @@ with gr.Blocks() as gui:
         
     with gr.Tab("Workspace"):
         # Workspace
-        with gr.Column():
+        with gr.Row():
             object.model = gr.Model3D()
-            object.output = gr.Model3D(clear_color=[0.0, 0.0, 0.0, 0.0],  label="3D Model")
             with gr.Box():
                 grid.height = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Height")
                 grid.width = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Width")
