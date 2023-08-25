@@ -17,7 +17,7 @@ if air:
     mu_0 = mu_0  # Assume it's the same as vacuum permeability
 
 # Simulation parameters
-simulation_time_ns = 1e-9  # Simulation time in nanoseconds
+simulation_time_ns = 1e-10  # Simulation time in nanoseconds
 grid_size = (2000, 2000)
 dx = dy = 1e-3
 dt = dx / (2 * c)  # CFL stability condition for FDTD
@@ -66,6 +66,7 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
         ims.append([im])
         
         pbar.update(1)  # Update the progress bar
+print("Simulation complete! Saving animation...")
 
 # Create the animation
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
