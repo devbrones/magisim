@@ -61,13 +61,19 @@ for step in range(num_steps):
     # Update H field using CUDA
     update_h_field[grid_size, 1](Ez, Hy, step)
     
+    # Print field values for debugging
+    if step % 10 == 0:  # Print every 10 steps
+        print(f"Step {step}: Ez[100, 100] = {Ez[100, 100]}, Hy[100, 100] = {Hy[100, 100]}")
+    
+
     # Append current Ez field to the animation frames
     im = plt.imshow(Ez, animated=True, cmap='RdBu', vmin=-0.1, vmax=0.1)
     ims.append([im])
 
      # Save the frame as a PNG
     frame_filename = f"frames/frame_{step:04d}.png"
-    plt.savefig(frame_filename)
+    
+    plt.savefig(frame_filename format="png")
     plt.clf()  # Clear the figure to avoid overwriting
     
     # Print a simple progress indicator
@@ -77,4 +83,4 @@ for step in range(num_steps):
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
 
 # Save animation as GIF
-ani.save('fdtd_simulation.gif', writer='pillow')
+ani.save('frames/fdtd_simulation.gif', writer='pillow')
