@@ -93,26 +93,6 @@ iface = gr.Interface(
         gr.outputs.Textbox(label="GPU Time"),
     ],
 )
-
-with gr.Blocks() as iface:
-    with gr.Row():
-        cp_time = gr.outputs.Textbox(label="CPU Time")
-        gp_time = gr.outputs.Textbox(label="GPU Time")
-    
-    with gr.Column():
-        gr.Label("CPU", gradio_style=theme)
-        
-        gr.Label("GPU", gradio_style=theme)
-    
-    with gr.Column():    
-        gr.Label("Width", gradio_style=theme)
-        gr.Label("Height", gradio_style=theme)
-        gr.Label("X Min", gradio_style=theme)
-        gr.Label("X Max", gradio_style=theme)
-        gr.Label("Y Min", gradio_style=theme)
-        gr.Label("Y Max", gradio_style=theme)
-        gr.Label("Max Iter", gradio_style=theme)
-    
     
 
 
