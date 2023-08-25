@@ -34,10 +34,13 @@ def load_model(mesh_filename: str):
 
 
 with gr.Blocks() as gui:
+    gr.Markdown("""
+                ![MagisimLogo](https://upload.wikimedia.org/wikipedia/commons/3/3f/Magnets_symbol.svg)
+                #Magisim""")
     with gr.Tab("Welcome"):
         #
         
-        gr.Markdown("# Magisim\ -\ Electromagnetic\ Simulation\ Software")
+        gr.Markdown("# Magisim\nElectromagnetic Simulation Software")
         
     with gr.Tab("Workspace"):
         # Workspace
