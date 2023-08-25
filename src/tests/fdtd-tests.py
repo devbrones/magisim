@@ -53,6 +53,7 @@ ims = []
 Ez_gpu = cuda.to_device(Ez)
 Hy_gpu = cuda.to_device(Hy)
 
+# Run simulation
 # Main simulation loop without saving individual frames
 animation_images = []  # List to store animation images
 
@@ -61,22 +62,23 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
         # Update H field using CUDA
         update_h_field[grid_size, 1](Ez, Hy)
         
-        # Source excitation (a simple Gaussian pulse)
+        # Source excitation using the specified Gaussian pulse pattern
         for i in range(grid_size[0]):
             for j in range(grid_size[1]):
                 distance = np.sqrt((i - grid_size[0] // 2)**2 + (j - grid_size[1] // 2)**2)
-                Ez[i, j] = np.exp(-(0.5 * ((step - 30) / 10) ** 2)) * np.exp(-0.1 * distance)        
+                Ez[i, j] = np.exp(-(0.5 * ((step - 30) / 10) ** 2)) * np.exp(-0.1 * distance)
+        
         # Update E field using CUDA
         update_e_field[grid_size, 1](Ez, Hy)
         
-        # Plot and append the current Ez field to the animation images
+        # Plot the current Ez field and store the pixel data
         im = plt.imshow(Ez, animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
-        animation_images.append(im)
+        animation_images.append(im.get_array())  # Store pixel data
         
         pbar.update(1)  # Update the progress bar
 
 # Create the animation
-ani = animation.ArtistAnimation(fig, animation_images, interval=50, blit=True)
+ani = animation.ArtistAnimation(fig, [], interval=50, blit=True)
 
 # Save animation as MP4
 ani.save('fdtd_simulation.mp4', writer='ffmpeg')
@@ -85,6 +87,8 @@ ani.save('fdtd_simulation.mp4', writer='ffmpeg')
 if not os.path.exists("frames"):
     os.makedirs("frames")
 
-for i, im in enumerate(animation_images):
+for i, im_data in enumerate(animation_images):
+    plt.imshow(im_data, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
     frame_filename = f"frames/frame_{i:04d}.png"
-    im.figure.savefig(frame_filename, format="png")
+    plt.savefig(frame_filename, format="png")
+    plt.clf()  # Clear the figure to avoid overwriting
