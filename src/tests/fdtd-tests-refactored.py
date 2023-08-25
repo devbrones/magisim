@@ -17,9 +17,9 @@ if air:
     mu_0 = mu_0  # Assume it's the same as vacuum permeability
 
 # Simulation parameters
-simulation_time_ns = 1e-10  # Simulation time in nanoseconds
+simulation_time_ns = 1e-9  # Simulation time in nanoseconds
 grid_size = (2000, 2000)
-dx = dy = 1e-3
+dx = dy = 1e-3/2
 dt = dx / (2 * c)  # CFL stability condition for FDTD
 num_steps = int(simulation_time_ns / dt)  # Calculate the number of steps based on simulation time
 
