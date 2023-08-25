@@ -72,10 +72,12 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
         update_e_field[grid_size, 1](Ez, Hy)
         
         # Plot the current Ez field and store the pixel data
-        im = plt.imshow(Ez, animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
+        im = plt.imshow(Ez, animated=True, cmap='jet', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
         animation_images.append(im.get_array())  # Store pixel data
         
         pbar.update(1)  # Update the progress bar
+
+print("Simulation complete! Saving animation...")
 
 # Create the animation
 ani = animation.ArtistAnimation(fig, [], interval=50, blit=True)
