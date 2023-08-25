@@ -17,7 +17,7 @@ num_steps = int(simulation_time / dt)
 
 # CUDA kernel
 @cuda.jit
-def update_e_field(Ez, Hy):
+def update_e_field(Ez, Hy, step):
     i, j = cuda.grid(2)
     
     if i < Ez.shape[0] - 1 and j < Ez.shape[1] - 1:
@@ -27,9 +27,12 @@ def update_e_field(Ez, Hy):
         # Update Ez field
         if i > 0 and j > 0:
             Ez[i, j] += c1 * (Hy[i, j] - Hy[i - 1, j]) - c2 * (Hy[i, j] - Hy[i, j - 1])
+    
+    if i == 0 and j == 0:
+        print(f"Step {step}: Updated E field")
 
 @cuda.jit
-def update_h_field(Ez, Hy):
+def update_h_field(Ez, Hy, step):
     i, j = cuda.grid(2)
     
     if i < Hy.shape[0] - 1 and j < Hy.shape[1] - 1:
@@ -39,7 +42,9 @@ def update_h_field(Ez, Hy):
         # Update Hy field
         if i < Ez.shape[0] - 1 and j < Ez.shape[1] - 1:
             Hy[i, j] += c3 * (Ez[i, j + 1] - Ez[i, j]) - c4 * (Ez[i + 1, j] - Ez[i, j])
-
+    
+    if i == 0 and j == 0:
+        print(f"Step {step}: Updated H field")
 # Initialize fields
 Ez = np.zeros(grid_size, dtype=np.float32)
 Hy = np.zeros(grid_size, dtype=np.float32)
@@ -51,14 +56,17 @@ ims = []
 # Main simulation loop
 for step in range(num_steps):
     # Update E field using CUDA
-    update_e_field[grid_size, 1](Ez, Hy)
+    update_e_field[grid_size, 1](Ez, Hy, step)
     
     # Update H field using CUDA
-    update_h_field[grid_size, 1](Ez, Hy)
+    update_h_field[grid_size, 1](Ez, Hy, step)
     
     # Append current Ez field to the animation frames
     im = plt.imshow(Ez, animated=True, cmap='RdBu', vmin=-0.1, vmax=0.1)
     ims.append([im])
+    
+    # Print a simple progress indicator
+    print(f"Progress: [{step}/{num_steps}] ({(step / num_steps) * 100:.2f}%)")
 
 # Create the animation
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
