@@ -32,11 +32,8 @@ with gr.Blocks() as gui:
             grid.width = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Width")
             grid.depth = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Depth")
             #grid.grid = np.zeros((int(grid.height), int(grid.width), int(grid.depth)))
-            
-            
-        
-        
     with gr.Tab("Settings"):
         # Settings
         with gr.Column():
             gr.Label("Settings")
+gui.launch(share=True)
