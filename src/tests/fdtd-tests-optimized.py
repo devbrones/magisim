@@ -20,30 +20,39 @@ dx = dy = 5e-3
 dt = dx / (2 * c)
 num_steps = int(simulation_time_ns / dt)
 
-# Allocate a single GPU array for both Ez and Hy
-EzHy_gpu = cuda.device_array(grid_size, dtype=np.float32)
+# Allocate GPU arrays for Ez and Hy
+Ez_gpu = cuda.device_array(grid_size, dtype=np.float64)
+Hy_gpu = cuda.device_array(grid_size, dtype=np.float64)
 
-# Define the update function as a CUDA kernel
+# Define the update functions as CUDA kernels
 @cuda.jit
-def update_fields(EzHy):
+def update_h_field(Ez, Hy):
     i, j = cuda.grid(2)
     if 0 < i < grid_size[0] - 1 and 0 < j < grid_size[1] - 1:
-        EzHy[i, j] += (EzHy[i + 1, j] - EzHy[i, j]) * dt * c / dx
-        EzHy[i, j] += (EzHy[i, j + 1] - EzHy[i, j]) * dt * c / dy
+        Hy[i, j] -= (Ez[i + 1, j] - Ez[i, j]) * dt / (mu_0 * dx)
+        Hy[i, j] -= (Ez[i, j + 1] - Ez[i, j]) * dt / (mu_0 * dy)
+
+@cuda.jit
+def update_e_field(Ez, Hy):
+    i, j = cuda.grid(2)
+    if 0 < i < grid_size[0] - 1 and 0 < j < grid_size[1] - 1:
+        Ez[i, j] += (Hy[i, j] - Hy[i - 1, j]) * dt * c / dx
+        Ez[i, j] += (Hy[i, j] - Hy[i, j - 1]) * dt * c / dy
 
 
 # Main simulation loop
 with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
     for step in range(num_steps):
-        update_fields[grid_size, 1](EzHy_gpu)
 
-        # Add a pulse source (Gaussian pulse)
-        pulse_center = grid_size[0] // 2
-        pulse_duration = 10
-        if step >= 30:
-            pulse_amplitude = np.exp(-(0.5 * ((step - 30) / pulse_duration) ** 2))
-            EzHy_gpu[pulse_center, pulse_center] += pulse_amplitude
-
+        # Update H field using CUDA
+        update_h_field[grid_size, 1](Ez_gpu, Hy_gpu)
+        
+        # Source excitation (a simple Gaussian pulse)
+        Ez_gpu[grid_size[0] // 2, grid_size[1] // 2] = np.exp(-(0.5 * ((step - 30) / 10) ** 2))
+        
+        # Update E field using CUDA
+        update_e_field[grid_size, 1](Ez_gpu, Hy_gpu)
+        
         pbar.update(1)
 
 print("Simulation complete! Saving frames...")
@@ -52,9 +61,15 @@ print("Simulation complete! Saving frames...")
 if not os.path.exists("frames"):
     os.makedirs("frames")
 
-for step in tqdm(range(num_steps), desc="Saving Frames"):
-    plt.imshow(EzHy_gpu.copy_to_host(), cmap='jet', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
-    plt.savefig(f"frames/frame_{step:04d}.png", format="png")
-    plt.clf()  # Clear the figure
+frame_folder = "frames"  # Set the folder where frames will be saved
+frame_filenames = []  # List to store frame filenames
 
+for step in tqdm(range(num_steps), desc="Saving Frames"):
+    plt.imshow(Ez_gpu.copy_to_host(), cmap='jet', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
+    
+    frame_filename = os.path.join(frame_folder, f"frame_{step:04d}.png")
+    frame_filenames.append(frame_filename)  # Store the filename
+    
+    plt.savefig(frame_filename, format="png")
+    plt.clf()  # Clear the figure
 print("Frames saved.")
