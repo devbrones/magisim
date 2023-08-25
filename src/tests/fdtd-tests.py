@@ -10,7 +10,7 @@ c = 299792458.0  # Speed of light in m/s
 epsilon_0 = 8.854187817e-12  # Permittivity of free space in F/m
 mu_0 = 4 * np.pi * 1e-7  # Permeability of free space in H/m
 grid_size = (200, 200)
-dx = dy = 1e-4
+dx = dy = 1e-3
 dt = dx / (2 * c)
 simulation_time = (1e-9)/1.5  # seconds
 num_steps = int(simulation_time / dt)
@@ -53,32 +53,25 @@ ims = []
 Ez_gpu = cuda.to_device(Ez)
 Hy_gpu = cuda.to_device(Hy)
 
-# Main simulation loop with frame saving and progress indicator
+# Main simulation loop without saving individual frames
 with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
     for step in range(num_steps):
         # Update H field using CUDA
-        update_h_field[grid_size, 1](Ez_gpu, Hy_gpu)
+        update_h_field[grid_size, 1](Ez, Hy)
         
         # Source excitation (a simple Gaussian pulse)
-        source_pos = (grid_size[0] // 2, grid_size[1] // 2)
-        Ez_gpu[source_pos] = np.exp(-(0.5 * ((step - 30) / 10) ** 2))
-        
+        for i in range(grid_size[0]):
+            for j in range(grid_size[1]):
+                distance = np.sqrt((i - grid_size[0] // 2)**2 + (j - grid_size[1] // 2)**2)
+                Ez[i, j] = np.exp(-(0.5 * ((step - 30) / 10) ** 2)) * np.exp(-0.1 * distance)
+
         # Update E field using CUDA
-        update_e_field[grid_size, 1](Ez_gpu, Hy_gpu)
-        
-        # Append current Ez field to the animation frames
-        im = plt.imshow(Ez_gpu.copy_to_host(), animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
-        ims.append([im])
-        
-        # Save the frame as a PNG
-        frame_filename = f"frames/frame_{step:04d}.png"
-        plt.savefig(frame_filename, format="png")
-        plt.clf()  # Clear the figure to avoid overwriting
+        update_e_field[grid_size, 1](Ez, Hy)
         
         pbar.update(1)  # Update the progress bar
 
 # Create the animation
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
 
-# Save animation as GIF
-ani.save('fdtd_simulation.gif', writer='pillow')
+# Save animation as MP4
+ani.save('fdtd_simulation.mp4', writer='ffmpeg')
