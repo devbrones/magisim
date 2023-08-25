@@ -40,7 +40,7 @@ with gr.Blocks() as gui:
     gr.Markdown("""
                 <img src="/file=magisim_logo256.png" alt="Description" width="5%">
                 
-                #Magisim""")
+                <h1>Magisim</h1>""")
     with gr.Tab("Welcome"):
         #
         
