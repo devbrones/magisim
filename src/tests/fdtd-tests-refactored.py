@@ -19,7 +19,7 @@ if air:
 # Simulation parameters
 simulation_time_ns = 1e-9  # Simulation time in nanoseconds
 grid_size = (2000, 2000)
-dx = dy = 1e-3/2
+dx = dy = 1e-3/1.5 
 dt = dx / (2 * c)  # CFL stability condition for FDTD
 num_steps = int(simulation_time_ns / dt)  # Calculate the number of steps based on simulation time
 
