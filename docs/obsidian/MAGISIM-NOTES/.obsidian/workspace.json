@@ -45,18 +45,6 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ba982eebf77b0c84",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
                 "file": "Marketing and Pitching/Pitching.md",
                 "mode": "source",
                 "source": false
@@ -64,7 +52,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,13 +98,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "c398d89610751963",
@@ -193,16 +179,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "449bf858c4ef6efa",
+  "active": "08f39fb0422a811b",
   "lastOpenFiles": [
+    "GitHub Inspiration/links.md",
     "magisim_logo256.png",
     "Marketing and Pitching/Pitching.md",
+    "Marketing and Pitching",
     "Research And Development/Whitepapers.md",
-    "GitHub Inspiration/links.md",
     "GitHub Inspiration",
     "Research And Development/Videos and Courses.md",
     "Surveys",
-    "Marketing and Pitching",
     "Research And Development"
   ]
 }

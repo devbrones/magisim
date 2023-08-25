@@ -2,7 +2,7 @@
 # Magisim 
 ---
 
-- Making High-cost software available to consumers and hobbyists.
+- Making High-cost software available to consumers and hobbyists. CEM
 - Providing a playground to experiment and learn RF engineering as well as optics. 
 - Intelligent design:
 	- Each tab is a Workspace and can hence be modified using the built in Workspace Editor.
@@ -12,4 +12,9 @@
 - Cross-platform Client and Server, all you need is a Nvidia-model graphics card!
 - Decreased computational strain thanks to workload parallelisation. 
 - Can support a variety of computational models, such as FEM, MoM and FDTD which is our primary focus.
+
+## our business model
+Magisim Core is free (the server and client software) but extensions are **bought**
+
+
 
