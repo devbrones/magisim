@@ -15,7 +15,7 @@ if air:
 
 # Simulation parameters
 simulation_time_ns = 50e-9
-grid_size = (2000, 2000)
+grid_size = (200, 200)
 dx = dy = 5e-3
 dt = dx / (2 * c)
 num_steps = int(simulation_time_ns / dt)
@@ -41,8 +41,9 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
         # Add a pulse source (Gaussian pulse)
         pulse_center = grid_size[0] // 2
         pulse_duration = 10
-        pulse_amplitude = np.exp(-(0.5 * ((step - 30) / pulse_duration) ** 2))
-        EzHy_gpu[pulse_center, pulse_center] += pulse_amplitude
+        if step >= 30:
+            pulse_amplitude = np.exp(-(0.5 * ((step - 30) / pulse_duration) ** 2))
+            EzHy_gpu[pulse_center, pulse_center] += pulse_amplitude
 
         pbar.update(1)
 print("Simulation complete! Saving frames...")
