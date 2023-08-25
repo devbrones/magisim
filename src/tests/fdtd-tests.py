@@ -62,6 +62,7 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
         update_e_field[grid_size, 1](Ez, Hy)
         
         # Append current Ez field to the animation frames
+        plt.axis('equal')  # Set aspect ratio to be equal
         im = plt.imshow(Ez, animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
         ims.append([im])
         
