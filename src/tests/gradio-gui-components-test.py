@@ -35,7 +35,7 @@ def load_model(mesh_filename: str):
 
 with gr.Blocks() as gui:
     gr.Markdown("""
-                <img src="magisim_logo256.png" alt="Description" width="5%">
+                <img src="/file=magisim_logo256.png" alt="Description" width="5%">
                 
                 #Magisim""")
     with gr.Tab("Welcome"):
