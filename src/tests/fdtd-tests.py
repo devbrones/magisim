@@ -53,12 +53,12 @@ ims = []
 Ez_gpu = cuda.to_device(Ez)
 Hy_gpu = cuda.to_device(Hy)
 
-# Main simulation loop without saving individual frames
+animation_frames = []  # List to store animation frames
+
 with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
     for step in range(num_steps):
         # Update H field using CUDA
         update_h_field[grid_size, 1](Ez, Hy)
-        
         # Source excitation (a simple Gaussian pulse)
         for i in range(grid_size[0]):
             for j in range(grid_size[1]):
@@ -68,10 +68,22 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
         # Update E field using CUDA
         update_e_field[grid_size, 1](Ez, Hy)
         
+        # Append current Ez field to the animation frames
+        im = plt.imshow(Ez, animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
+        animation_frames.append(im)
+        
         pbar.update(1)  # Update the progress bar
 
 # Create the animation
-ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
+ani = animation.ArtistAnimation(fig, animation_frames, interval=50, blit=True)
 
 # Save animation as MP4
 ani.save('fdtd_simulation.mp4', writer='ffmpeg')
+
+# Save individual frames as PNG images
+if not os.path.exists("frames"):
+    os.makedirs("frames")
+
+for i, im in enumerate(animation_frames):
+    frame_filename = f"frames/frame_{i:04d}.png"
+    im.figure.savefig(frame_filename, format="png")
