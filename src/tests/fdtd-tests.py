@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from numba import cuda
 import os
+from tqdm import tqdm
 
 # Constants and simulation parameters
 c = 299792458.0  # Speed of light in m/s
@@ -48,26 +49,28 @@ Hy = np.zeros(grid_size, dtype=np.float32)
 # Create a figure for animation
 fig = plt.figure()
 ims = []
-
-# Main simulation loop with frame saving
-for step in range(num_steps):
-    # Update H field using CUDA
-    update_h_field[grid_size, 1](Ez, Hy)
-    
-    # Source excitation (a simple Gaussian pulse)
-    Ez[grid_size[0] // 2, grid_size[1] // 2] = np.exp(-(0.5 * ((step - 30) / 10) ** 2))
-    
-    # Update E field using CUDA
-    update_e_field[grid_size, 1](Ez, Hy)
-    
-    # Append current Ez field to the animation frames
-    im = plt.imshow(Ez, animated=True, cmap='RdBu', vmin=-0.1, vmax=0.1)
-    ims.append([im])
-    
-    # Save the frame as a PNG
-    frame_filename = f"frames/frame_{step:04d}.png"
-    plt.savefig(frame_filename, format="png")
-    plt.clf()  # Clear the figure to avoid overwriting
+# Main simulation loop with frame saving and progress indicator
+with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
+    for step in range(num_steps):
+        # Update H field using CUDA
+        update_h_field[grid_size, 1](Ez, Hy)
+        
+        # Source excitation (a simple Gaussian pulse)
+        Ez[grid_size[0] // 2, grid_size[1] // 2] = np.exp(-(0.5 * ((step - 30) / 10) ** 2))
+        
+        # Update E field using CUDA
+        update_e_field[grid_size, 1](Ez, Hy)
+        
+        # Append current Ez field to the animation frames
+        im = plt.imshow(Ez, animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
+        ims.append([im])
+        
+        # Save the frame as a PNG
+        frame_filename = f"frames/frame_{step:04d}.png"
+        plt.savefig(frame_filename, format="png")
+        plt.clf()  # Clear the figure to avoid overwriting
+        
+        pbar.update(1)  # Update the progress bar
 
 # Create the animation
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
