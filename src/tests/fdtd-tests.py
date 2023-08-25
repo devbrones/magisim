@@ -10,8 +10,8 @@ c = 299792458.0  # Speed of light in m/s
 epsilon_0 = 8.854187817e-12  # Permittivity of free space in F/m
 mu_0 = 4 * np.pi * 1e-7  # Permeability of free space in H/m
 grid_size = (200, 200)
-dx = dy = 1e-3
-dt = dx / (4 * c)
+dx = dy = 1e-4
+dt = dx / (2 * c)
 simulation_time = (1e-9)/1.5  # seconds
 num_steps = int(simulation_time / dt)
 
@@ -49,21 +49,25 @@ Hy = np.zeros(grid_size, dtype=np.float32)
 # Create a figure for animation
 fig = plt.figure()
 ims = []
+# Allocate GPU arrays for Ez and Hy
+Ez_gpu = cuda.to_device(Ez)
+Hy_gpu = cuda.to_device(Hy)
+
 # Main simulation loop with frame saving and progress indicator
 with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
     for step in range(num_steps):
         # Update H field using CUDA
-        update_h_field[grid_size, 1](Ez, Hy)
+        update_h_field[grid_size, 1](Ez_gpu, Hy_gpu)
         
         # Source excitation (a simple Gaussian pulse)
-        Ez[grid_size[0] // 2, grid_size[1] // 2] = np.exp(-(0.5 * ((step - 30) / 10) ** 2))
+        source_pos = (grid_size[0] // 2, grid_size[1] // 2)
+        Ez_gpu[source_pos] = np.exp(-(0.5 * ((step - 30) / 10) ** 2))
         
         # Update E field using CUDA
-        update_e_field[grid_size, 1](Ez, Hy)
+        update_e_field[grid_size, 1](Ez_gpu, Hy_gpu)
         
         # Append current Ez field to the animation frames
-        plt.axis('equal')  # Set aspect ratio to be equal
-        im = plt.imshow(Ez, animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
+        im = plt.imshow(Ez_gpu.copy_to_host(), animated=True, cmap='RdBu', extent=[0, grid_size[1] * dx, 0, grid_size[0] * dy], vmin=-0.1, vmax=0.1)
         ims.append([im])
         
         # Save the frame as a PNG
