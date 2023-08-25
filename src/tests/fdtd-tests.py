@@ -12,7 +12,7 @@ mu_0 = 4 * np.pi * 1e-7  # Permeability of free space in H/m
 grid_size = (20, 20)
 dx = dy = 1e-3
 dt = dx / (2 * c)
-simulation_time = 1.0  # seconds
+simulation_time = 1e-9  # seconds
 num_steps = int(simulation_time / dt)
 
 # CUDA kernel
