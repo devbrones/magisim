@@ -35,7 +35,8 @@ def load_model(mesh_filename: str):
 
 with gr.Blocks() as gui:
     gr.Markdown("""
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Magnets_symbol.svg" alt="Description" width="200" height="200">
+                <img src="magisim_logo256.png" alt="Description" width="5%">
+                
                 #Magisim""")
     with gr.Tab("Welcome"):
         #
