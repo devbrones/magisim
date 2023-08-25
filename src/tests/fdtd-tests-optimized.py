@@ -28,14 +28,8 @@ EzHy_gpu = cuda.device_array(grid_size, dtype=np.float32)
 def update_fields(EzHy):
     i, j = cuda.grid(2)
     if 0 < i < grid_size[0] - 1 and 0 < j < grid_size[1] - 1:
-        #EzHy[i, j] += (EzHy[i, j] - EzHy[i - 1, j]) * dt * c / dx
-        #EzHy[i, j] += (EzHy[i, j] - EzHy[i, j - 1]) * dt * c / dy
-        #EzHy[i, j] -= (EzHy[i + 1, j] - EzHy[i, j]) * dt / (mu_0 * dx)
-        #EzHy[i, j] -= (EzHy[i, j + 1] - EzHy[i, j]) * dt / (mu_0 * dy)
-        EzHy[i, j] += (EzHy[i, j] - EzHy[i - 1, j]) * dt * c / dx
-        EzHy[i, j] += (EzHy[i, j] - EzHy[i, j - 1]) * dt * c / dy
-        EzHy[i, j] -= (EzHy[i, j] - EzHy[i + 1, j]) * dt * c / dx
-        EzHy[i, j] -= (EzHy[i, j] - EzHy[i, j + 1]) * dt * c / dy
+        EzHy[i, j] += (EzHy[i + 1, j] - EzHy[i, j]) * dt * c / dx
+        EzHy[i, j] += (EzHy[i, j + 1] - EzHy[i, j]) * dt * c / dy
 
 
 # Main simulation loop
