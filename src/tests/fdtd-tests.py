@@ -27,9 +27,6 @@ def update_e_field(Ez, Hy, step):
         # Update Ez field
         if i > 0 and j > 0:
             Ez[i, j] += c1 * (Hy[i, j] - Hy[i - 1, j]) - c2 * (Hy[i, j] - Hy[i, j - 1])
-    
-    if i == 0 and j == 0:
-        print(f"Step {step}: Updated E field")
 
 @cuda.jit
 def update_h_field(Ez, Hy, step):
@@ -43,8 +40,7 @@ def update_h_field(Ez, Hy, step):
         if i < Ez.shape[0] - 1 and j < Ez.shape[1] - 1:
             Hy[i, j] += c3 * (Ez[i, j + 1] - Ez[i, j]) - c4 * (Ez[i + 1, j] - Ez[i, j])
     
-    if i == 0 and j == 0:
-        print(f"Step {step}: Updated H field")
+
 # Initialize fields
 Ez = np.zeros(grid_size, dtype=np.float32)
 Hy = np.zeros(grid_size, dtype=np.float32)
@@ -55,6 +51,7 @@ ims = []
 
 # Main simulation loop
 for step in range(num_steps):
+    print('step: ', step, ' of ', num_steps, ' steps')
     # Update E field using CUDA
     update_e_field[grid_size, 1](Ez, Hy, step)
     
