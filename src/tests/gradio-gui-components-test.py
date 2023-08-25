@@ -28,9 +28,9 @@ with gr.Blocks() as gui:
             object.model = gr.Model3D()
             object.output = gr.Model3D(clear_color=[0.0, 0.0, 0.0, 0.0],  label="3D Model")
         with gr.Column():
-            grid.height = gr.Slider(minimum=1, maximum=100, step=1, default=10, label="Height")
-            grid.width = gr.Slider(minimum=1, maximum=100, step=1, default=10, label="Width")
-            grid.depth = gr.Slider(minimum=1, maximum=100, step=1, default=10, label="Depth")
+            grid.height = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Height")
+            grid.width = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Width")
+            grid.depth = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Depth")
             #grid.grid = np.zeros((int(grid.height), int(grid.width), int(grid.depth)))
             
             
