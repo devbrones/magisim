@@ -72,8 +72,8 @@ for step in range(num_steps):
 
      # Save the frame as a PNG
     frame_filename = f"frames/frame_{step:04d}.png"
-    
-    plt.savefig(frame_filename format="png")
+
+    plt.savefig(frame_filename, format="png")
     plt.clf()  # Clear the figure to avoid overwriting
     
     # Print a simple progress indicator
