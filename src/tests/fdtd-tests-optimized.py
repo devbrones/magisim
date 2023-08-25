@@ -15,7 +15,7 @@ if air:
 
 # Simulation parameters
 simulation_time_ns = 50e-9
-grid_size = (200, 200)
+grid_size = (2000, 2000)
 dx = dy = 5e-3
 dt = dx / (2 * c)
 num_steps = int(simulation_time_ns / dt)
@@ -37,7 +37,7 @@ def update_fields(EzHy):
 with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
     for step in range(num_steps):
         update_fields[grid_size, 1](EzHy_gpu)
-        
+
         # Add a pulse source (Gaussian pulse)
         pulse_center = grid_size[0] // 2
         pulse_duration = 10
@@ -46,7 +46,9 @@ with tqdm(total=num_steps, desc="Simulation Progress") as pbar:
             EzHy_gpu[pulse_center, pulse_center] += pulse_amplitude
 
         pbar.update(1)
+
 print("Simulation complete! Saving frames...")
+
 # Save individual frames as PNG images
 if not os.path.exists("frames"):
     os.makedirs("frames")
