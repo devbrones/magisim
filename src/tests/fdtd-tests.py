@@ -1,76 +1,67 @@
-# fdtd tests for cpu and gpu
 import numpy as np
-from numba import jit, cuda
 import matplotlib.pyplot as plt
-import time
+import matplotlib.animation as animation
+from numba import cuda
 
-# Define simulation parameters
-nx = 200
-ny = 200
-nt = 100
+# Constants
+c = 299792458.0  # Speed of light in m/s
+epsilon_0 = 8.854187817e-12  # Permittivity of free space in F/m
+mu_0 = 4 * np.pi * 1e-7  # Permeability of free space in H/m
 
-# Define material properties
-c = 1.0
-dx = 0.01
-dy = 0.01
-dt = 0.001
+# Simulation parameters
+grid_size = (200, 200)
+dx = dy = 1e-3
+dt = dx / (2 * c)
+simulation_time = 3.0  # seconds
+num_steps = int(simulation_time / dt)
 
-# Define source parameters
-x0 = 100
-y0 = 100
-f0 = 50
-
-# Define update equations
-@jit
-def update_cpu(u, un):
-    for i in range(1, nx - 1):
-        for j in range(1, ny - 1):
-            un[i, j] = 2 * u[i, j] - un[i, j] + c ** 2 * dt ** 2 / dx ** 2 * (u[i + 1, j] - 2 * u[i, j] + u[i - 1, j]) + c ** 2 * dt ** 2 / dy ** 2 * (u[i, j + 1] - 2 * u[i, j] + u[i, j - 1])
-    return un
+# CUDA kernel
+@cuda.jit
+def update_e_field(Ez, Hy):
+    i, j = cuda.grid(2)
+    
+    if i < Ez.shape[0] - 1 and j < Ez.shape[1] - 1:
+        c1 = dt / epsilon_0 / dx
+        c2 = dt / epsilon_0 / dy
+        
+        # Update Ez field
+        if i > 0 and j > 0:
+            Ez[i, j] += c1 * (Hy[i, j] - Hy[i - 1, j]) - c2 * (Hy[i, j] - Hy[i, j - 1])
 
 @cuda.jit
-def update_gpu(u, un):
+def update_h_field(Ez, Hy):
     i, j = cuda.grid(2)
-    if 1 <= i < nx - 1 and 1 <= j < ny - 1:
-        un[i, j] = 2 * u[i, j] - un[i, j] + c ** 2 * dt ** 2 / dx ** 2 * (u[i + 1, j] - 2 * u[i, j] + u[i - 1, j]) + c ** 2 * dt ** 2 / dy ** 2 * (u[i, j + 1] - 2 * u[i, j] + u[i, j - 1])
+    
+    if i < Hy.shape[0] - 1 and j < Hy.shape[1] - 1:
+        c3 = dt / mu_0 / dx
+        c4 = dt / mu_0 / dy
+        
+        # Update Hy field
+        if i < Ez.shape[0] - 1 and j < Ez.shape[1] - 1:
+            Hy[i, j] += c3 * (Ez[i, j + 1] - Ez[i, j]) - c4 * (Ez[i + 1, j] - Ez[i, j])
 
-# Initialize arrays
-u = np.zeros((nx, ny))
-un = np.zeros((nx, ny))
+# Initialize fields
+Ez = np.zeros(grid_size, dtype=np.float32)
+Hy = np.zeros(grid_size, dtype=np.float32)
 
-# Set up source
-x = np.arange(nx)
-y = np.arange(ny)
-X, Y = np.meshgrid(x, y)
-u[x0, y0] = np.exp(-f0 * ((X - x0) ** 2 + (Y - y0) ** 2))
+# Create a figure for animation
+fig = plt.figure()
+ims = []
 
-# Run simulation on CPU
-start_cpu = time.time()
-for n in range(nt):
-    un = update_cpu(u, un)
-    u, un = un, u
-end_cpu = time.time()
+# Main simulation loop
+for step in range(num_steps):
+    # Update E field using CUDA
+    update_e_field[grid_size, 1](Ez, Hy)
+    
+    # Update H field using CUDA
+    update_h_field[grid_size, 1](Ez, Hy)
+    
+    # Append current Ez field to the animation frames
+    im = plt.imshow(Ez, animated=True, cmap='RdBu', vmin=-0.1, vmax=0.1)
+    ims.append([im])
 
-# Run simulation on GPU
-threadsperblock = (16, 16)
-blockspergrid_x = int(np.ceil(nx / threadsperblock[0]))
-blockspergrid_y = int(np.ceil(ny / threadsperblock[1]))
-blockspergrid = (blockspergrid_x, blockspergrid_y)
+# Create the animation
+ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True)
 
-u = np.zeros((nx, ny))
-un = np.zeros((nx, ny))
-u[x0, y0] = np.exp(-f0 * ((X - x0) ** 2 + (Y - y0) ** 2))
-
-start_gpu = time.time()
-for n in range(nt):
-    update_gpu[blockspergrid, threadsperblock](u, un)
-    u, un = un, u
-end_gpu = time.time()
-
-# Print timing results
-print("CPU time:", end_cpu - start_cpu)
-print("GPU time:", end_gpu - start_gpu)
-
-# Plot results
-plt.imshow(u)
-plt.show()
+# Save animation as GIF
+ani.save('fdtd_simulation.gif', writer='pillow')
