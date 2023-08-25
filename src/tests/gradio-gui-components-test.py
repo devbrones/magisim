@@ -31,7 +31,7 @@ with gr.Blocks() as gui:
             grid.height = gr.Slider(minimum=1, maximum=100, step=1, default=10, label="Height")
             grid.width = gr.Slider(minimum=1, maximum=100, step=1, default=10, label="Width")
             grid.depth = gr.Slider(minimum=1, maximum=100, step=1, default=10, label="Depth")
-            grid.grid = np.zeros((int(grid.height), int(grid.width), int(grid.depth)))
+            #grid.grid = np.zeros((int(grid.height), int(grid.width), int(grid.depth)))
             
             
         
