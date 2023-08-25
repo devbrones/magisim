@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from numba import cuda
+import os
 
 # Constants
 c = 299792458.0  # Speed of light in m/s
@@ -48,10 +49,12 @@ Hy = np.zeros(grid_size, dtype=np.float32)
 # Create a figure for animation
 fig = plt.figure()
 ims = []
+# Create a directory to store frames
+if not os.path.exists("frames"):
+    os.makedirs("frames")
 
 # Main simulation loop
 for step in range(num_steps):
-    print('step: ', step, ' of ', num_steps, ' steps')
     # Update E field using CUDA
     update_e_field[grid_size, 1](Ez, Hy, step)
     
@@ -61,6 +64,11 @@ for step in range(num_steps):
     # Append current Ez field to the animation frames
     im = plt.imshow(Ez, animated=True, cmap='RdBu', vmin=-0.1, vmax=0.1)
     ims.append([im])
+
+     # Save the frame as a PNG
+    frame_filename = f"frames/frame_{step:04d}.png"
+    plt.savefig(frame_filename)
+    plt.clf()  # Clear the figure to avoid overwriting
     
     # Print a simple progress indicator
     print(f"Progress: [{step}/{num_steps}] ({(step / num_steps) * 100:.2f}%)")
