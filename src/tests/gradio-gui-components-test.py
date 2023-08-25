@@ -1,16 +1,33 @@
 import gradio as gr
 import numpy as np
+import matplotlib.pyplot as plt
 
 class grid:
     width: int
     height: int
     depth: int
-    grid: np.ndarray
+    x,y = np.meshgrid(np.linspace(-width/2,width/2,depth),np.linspace(-height/2,height/2,depth))
+    u = x/np.sqrt(x**2 + y**2)
+    v = y/np.sqrt(x**2 + y**2)
+
     
 class object:
     position: tuple
     model: gr.Model3D
     output: gr.Model3D
+    
+
+def display_plot(h,w,d):
+    grid.width = w
+    grid.height = h
+    grid.depth = d
+    grid.x,grid.y = np.meshgrid(np.linspace(-w/2,w/2,d),np.linspace(-h/2,h/2,d))
+    grid.u = grid.x/np.sqrt(grid.x**2 + grid.y**2)
+    grid.v = grid.y/np.sqrt(grid.x**2 + grid.y**2)
+    # return matplotlib plot
+    plt.quiver(grid.x,grid.y,grid.u,grid.v)
+    return plt
+    
     
 def load_model(mesh_filename: str):
     return mesh_filename
@@ -25,12 +42,21 @@ with gr.Blocks() as gui:
     with gr.Tab("Workspace"):
         # Workspace
         with gr.Row():
-            object.model = gr.Model3D()
-            with gr.Box():
-                grid.height = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Height")
-                grid.width = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Width")
-                grid.depth = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Depth")
-                #grid.grid = np.zeros((int(grid.height), int(grid.width), int(grid.depth)))
+            with gr.Column():
+                object.model = gr.Model3D()
+                with gr.Box():
+                    h = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Height")
+                    w = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Width")
+                    d = gr.Slider(minimum=1, maximum=100, step=1, value=10, label="Depth")
+                    #grid.grid = np.zeros((int(grid.height), int(grid.width), int(grid.depth)))
+            with gr.Column():
+                plot = gr.Plot(label="Field")
+                update_btn = gr.Button(label="Update")
+            
+    update_btn.click(display_plot,[h,w,d], plot)
+                
+                
+                
     with gr.Tab("Settings"):
         # Settings
         with gr.Column():
