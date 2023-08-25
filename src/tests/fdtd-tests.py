@@ -9,6 +9,14 @@ from tqdm import tqdm
 c = 299792458.0  # Speed of light in m/s
 epsilon_0 = 8.854187817e-12  # Permittivity of free space in F/m
 mu_0 = 4 * np.pi * 1e-7  # Permeability of free space in H/m
+air = True  # Whether to simulate in air or vacuum
+if air:
+    # Permittivity of atmospheric air (F/m)
+    epsilon_0 = 1.0006
+    # Permeability of atmospheric air (H/m)
+    mu_0 = mu_0  # Assume it's the same as vacuum permeability
+
+
 grid_size = (2000, 2000)
 dx = dy = 1e-3
 dt = dx / (2 * c)
