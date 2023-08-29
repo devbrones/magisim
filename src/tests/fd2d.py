@@ -59,6 +59,9 @@ def animate(frame):
     fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
     ax.clear()
     plot_e_field(ax, ez, frame + 1)
+    if frame == nsteps - 1:
+        ani.event_source.stop()  # Stop the animation at the final step
+        ani.save('fdtd_simulation.gif', writer='pillow')  # Save animation as GIF
 
 def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
