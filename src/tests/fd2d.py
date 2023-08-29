@@ -70,7 +70,7 @@ ax = fig.add_subplot(111, projection='3d')
 X, Y = np.meshgrid(range(je), range(ie))
 
 def animate(frame):
-    fdtd_cuda[blockspergrid, threadsperblock](dz_d, ez_d, hx_d, hy_d, gaz_d, ic, jc, t0, spread, frame, pulse_d)
+    fdtd_cuda[blockspergrid, threadsperblock](dz_d, ez_d, hx_d, hy_d, gaz_d, ic, jc, t0, spread, frame, pulse_d, epsz_d)
     ez_d.copy_to_host(ez)
     
     ax.clear()
