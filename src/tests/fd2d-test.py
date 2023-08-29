@@ -64,6 +64,7 @@ def main(grid_size, sim_time_ns):
         plt.savefig(f"frame_{t:03d}.png")
         plt.clf()
 
+
     print("Simulation completed and frames saved.")
 
 if __name__ == "__main__":
