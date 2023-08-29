@@ -69,7 +69,7 @@ def main(grid_size, sim_time_ns):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="FDTD Simulation with CUDA")
     parser.add_argument("--gridsize", type=int, default=200, help="Grid size")
-    parser.add_argument("--simtimens", type=int, default=50, help="Simulation time in nanoseconds")
+    parser.add_argument("--simtimens", type=int, default=50e-9, help="Simulation time in nanoseconds")
     args = parser.parse_args()
 
     main(args.gridsize, args.simtimens)
