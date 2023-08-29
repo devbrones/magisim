@@ -65,8 +65,8 @@ def animate(frame):
 
 def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
-    ax.view_init(elev=20., azim=45)
-    ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
+    ax.view_init(elev=90., azim=0)  # Top-down view
+    surf = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
     ax.zaxis.set_rotate_label(False)
     ax.set_zlabel(r' $E_{Z}$', rotation=90, labelpad=10, fontsize=14)
     ax.set_zticks([0, 0.5, 1])
@@ -77,7 +77,6 @@ def plot_e_field(ax, data, timestep):
     ax.text2D(0.6, 0.7, "T = {}".format(timestep), transform=ax.transAxes)
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
-    ax.dist = 11
 
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
