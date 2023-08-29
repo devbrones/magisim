@@ -63,8 +63,7 @@ def animate(frame):
 def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
     ax.view_init(elev=20., azim=45)
-    cax = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
-    fig.colorbar(cax, ax=ax, pad=0.1)
+    ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
     ax.zaxis.set_rotate_label(False)
     ax.set_zlabel(r' $E_{Z}$', rotation=90, labelpad=10, fontsize=14)
     ax.set_zticks([0, 0.5, 1])
