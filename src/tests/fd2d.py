@@ -1,4 +1,3 @@
-# f2dt
 import numpy as np
 from math import exp
 from matplotlib import pyplot as plt
@@ -58,8 +57,7 @@ def animate(frame):
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
 # Function for plotting
-def plot_e_field(ax, data, timestep, label):   
-    """3d Plot of E field at a single time step""" 
+def plot_e_field(ax, data, timestep, label):
     ax.set_zlim(0, 1)
     ax.view_init(elev=20., azim=45)
     ax.plot_surface(X, Y, data[:, :], rstride=1, cstride=1, color='white', edgecolor='black', linewidth=.25)
@@ -70,10 +68,10 @@ def plot_e_field(ax, data, timestep, label):
     ax.set_ylabel('cm')
     ax.set_xticks(np.arange(0, 61, step=20))
     ax.set_yticks(np.arange(0, 61, step=20))
-    ax.text2D(0.6, 0.7, "T = {}".format(timestep), transform=ax. transAxes)
+    ax.text2D(0.6, 0.7, "T = {}".format(timestep), transform=ax.transAxes)
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
-    ax.text2D(-0.2, 0.8, "({})".format(label), transform=ax.transAxes) 
+    ax.text2D(-0.2, 0.8, "({})".format(label), transform=ax.transAxes)
     ax.dist = 11
 
 # Definition of plotting points
@@ -84,6 +82,7 @@ plotting_points = [
     {'label': 'd', 'num_steps': 50, 'data_to_plot': None},
 ]
 
+X, Y = np.meshgrid(range(je), range(ie))
+
 # Start the animation
 plt.show()
-
