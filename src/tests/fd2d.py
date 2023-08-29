@@ -33,7 +33,7 @@ pulse[ic, jc] = 1
 def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     i, j = cuda.grid(2)
 
-    if 1 <= i < ie and 1 <= j < je:
+    if 0 < i < ie - 1 and 0 < j < je - 1:
         dz[i, j] += 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
 
         if i == ic and j == jc:
@@ -41,9 +41,8 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
 
         ez[i, j] = gaz[i, j] * dz[i, j]
 
-        if 1 <= i < ie - 1 and 1 <= j < je - 1:
-            hx[i, j] += 0.5 * (ez[i, j] - ez[i, j + 1])
-            hy[i, j] += 0.5 * (ez[i + 1, j] - ez[i, j])
+        hx[i, j] += 0.5 * (ez[i, j] - ez[i, j + 1])
+        hy[i, j] += 0.5 * (ez[i + 1, j] - ez[i, j])
 
 # Animation setup
 fig = plt.figure(figsize=(8, 7))
@@ -52,12 +51,7 @@ ax = fig.add_subplot(111, projection='3d')
 def animate(frame):
     fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
     ax.clear()
-    
-    # Make sure the index is within the range of plotting_points
-    if frame < len(plotting_points):
-        plot_e_field(ax, ez, frame + 1, plotting_points[frame]['label'])
-    else:
-        print(f"Frame {frame} is out of range.")
+    plot_e_field(ax, ez, frame + 1, plotting_points[frame]['label'])
 
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
