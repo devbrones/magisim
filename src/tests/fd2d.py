@@ -34,10 +34,10 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     i, j = cuda.grid(2)
 
     if 0 < i < ie - 1 and 0 < j < je - 1:
-        if time_step == 1 and i == ic and j == jc:
+        dz[i, j] = dz[i, j] + 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
+        
+        if time_step == 1 and i == ic and j == jc:  # Generate the pulse only in the first time step
             dz[i, j] = pulse[i, j]
-        else:
-            dz[i, j] = dz[i, j] + 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
         
         ez[i, j] = gaz[i, j] * dz[i, j]
 
@@ -49,29 +49,22 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     if 0 < i < ie - 1 and j < je - 1:
         hy[i, j] = hy[i, j] + 0.5 * (ez[i + 1, j] - ez[i, j])
 
-# Create the figure and initial plot
+# Animation setup
 fig = plt.figure(figsize=(8, 7))
 ax = fig.add_subplot(111, projection='3d')
-cax = None  # Placeholder for colorbar
 
 X, Y = np.meshgrid(range(je), range(ie))
 
-# Function for plotting
-def plot_e_field(ax, data, timestep):
-    global cax  # Use the global colorbar object
-
+def animate(frame):
+    fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
     ax.clear()
+    plot_e_field(ax, ez, frame + 1)
+
+def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
     ax.view_init(elev=20., azim=45)
-    
-    if cax is None:
-        # Only create the colorbar once
-        cax = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
-        fig.colorbar(cax, ax=ax, pad=0.1)
-    else:
-        # Update the data in the existing colorbar
-        cax.set_array(data.ravel())
-    
+    cax = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
+    fig.colorbar(cax, ax=ax, pad=0.1)
     ax.zaxis.set_rotate_label(False)
     ax.set_zlabel(r' $E_{Z}$', rotation=90, labelpad=10, fontsize=14)
     ax.set_zticks([0, 0.5, 1])
@@ -83,10 +76,6 @@ def plot_e_field(ax, data, timestep):
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
     ax.dist = 11
-
-def animate(frame):
-    fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
-    plot_e_field(ax, ez, frame + 1)
 
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
