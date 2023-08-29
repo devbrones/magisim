@@ -17,7 +17,7 @@ if air:
 simulation_time_ns = 50e-9
 grid_size = (200, 200)
 dx = dy = 5e-3
-dt = dx / (2 * c)
+dt = dx / (2 * (c/2))
 num_steps = int(simulation_time_ns / dt)
 
 # Allocate GPU arrays for Ez and Hy
