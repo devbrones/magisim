@@ -60,7 +60,13 @@ def main(grid_size, sim_time_ns, dt):
 
     # Save frames as PNG images
     for t in tqdm(range(ez_result.shape[0]), desc="Saving Frames"):
-        plt.imshow(ez_result[t], cmap='RdBu', extent=[0, grid_size, 0, grid_size], origin='lower')
+        current_frame = ez_result[t]
+    
+        # Check for NaN and Inf values and replace them with 0
+        current_frame[np.isnan(current_frame)] = 0
+        current_frame[np.isinf(current_frame)] = 0
+    
+        plt.imshow(current_frame, cmap='RdBu', extent=[0, grid_size, 0, grid_size], origin='lower')
         plt.colorbar(label="Electric Field (V/m)")
         plt.title(f"Time Step {t}")
         plt.savefig(f"frame_{t:03d}.png")
