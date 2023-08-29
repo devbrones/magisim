@@ -34,19 +34,26 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     i, j = cuda.grid(2)
 
     if 0 < i < ie - 1 and 0 < j < je - 1:
-        dz[i, j] += 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
-
+        dz[i, j] = dz[i, j] + 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
+        
         if i == ic and j == jc:
             dz[i, j] = pulse[i, j]
-
+        
         ez[i, j] = gaz[i, j] * dz[i, j]
 
-        hx[i, j] += 0.5 * (ez[i, j] - ez[i, j + 1])
-        hy[i, j] += 0.5 * (ez[i + 1, j] - ez[i, j])
+    cuda.syncthreads()
+
+    if 0 < j < je - 1 and i < ie - 1:
+        hx[i, j] = hx[i, j] + 0.5 * (ez[i, j] - ez[i, j + 1])
+
+    if 0 < i < ie - 1 and j < je - 1:
+        hy[i, j] = hy[i, j] + 0.5 * (ez[i + 1, j] - ez[i, j])
 
 # Animation setup
 fig = plt.figure(figsize=(8, 7))
 ax = fig.add_subplot(111, projection='3d')
+
+X, Y = np.meshgrid(range(je), range(ie))
 
 def animate(frame):
     fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
@@ -71,8 +78,6 @@ def plot_e_field(ax, data, timestep):
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
     ax.dist = 11
-
-X, Y = np.meshgrid(range(je), range(ie))
 
 # Start the animation
 plt.show()
