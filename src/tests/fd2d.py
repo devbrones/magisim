@@ -3,6 +3,7 @@ from math import exp
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
 from numba import cuda
+from tqdm import tqdm
 
 # Parameters
 ie = 60
@@ -19,24 +20,32 @@ blockspergrid_x = (ie + threadsperblock[0] - 1) // threadsperblock[0]
 blockspergrid_y = (je + threadsperblock[1] - 1) // threadsperblock[1]
 blockspergrid = (blockspergrid_x, blockspergrid_y)
 
-# Initialize arrays
-ez = np.zeros((ie, je))
-dz = np.zeros((ie, je))
-hx = np.zeros((ie, je))
-hy = np.zeros((ie, je))
-gaz = np.ones((ie, je))
-pulse = np.zeros((ie, je))
+# Initialize arrays on host
+ez = np.zeros((ie, je), dtype=np.float32)
+dz = np.zeros((ie, je), dtype=np.float32)
+hx = np.zeros((ie, je), dtype=np.float32)
+hy = np.zeros((ie, je), dtype=np.float32)
+gaz = np.ones((ie, je), dtype=np.float32)
+pulse = np.zeros((ie, je), dtype=np.float32)
 pulse[ic, jc] = 1
 
-# CUDA functions
+# Allocate device arrays
+ez_d = cuda.to_device(ez)
+dz_d = cuda.to_device(dz)
+hx_d = cuda.to_device(hx)
+hy_d = cuda.to_device(hy)
+gaz_d = cuda.to_device(gaz)
+pulse_d = cuda.to_device(pulse)
+
+# CUDA kernel
 @cuda.jit
 def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     i, j = cuda.grid(2)
-
+    
     if 0 < i < ie - 1 and 0 < j < je - 1:
         dz[i, j] = dz[i, j] + 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
         
-        if time_step == 1 and i == ic and j == jc:  # Generate the pulse only in the first time step
+        if time_step == 1 and i == ic and j == jc:
             dz[i, j] = pulse[i, j]
         
         ez[i, j] = gaz[i, j] * dz[i, j]
@@ -56,7 +65,9 @@ ax = fig.add_subplot(111, projection='3d')
 X, Y = np.meshgrid(range(je), range(ie))
 
 def animate(frame):
-    fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
+    fdtd_cuda[blockspergrid, threadsperblock](dz_d, ez_d, hx_d, hy_d, gaz_d, ic, jc, t0, spread, frame, pulse_d)
+    ez_d.copy_to_host(ez)
+    
     ax.clear()
     plot_e_field(ax, ez, frame + 1)
     if frame == nsteps - 1:
@@ -66,7 +77,7 @@ def animate(frame):
 def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
     ax.view_init(elev=90., azim=0)  # Top-down view
-    surf = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
+    ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
     ax.zaxis.set_rotate_label(False)
     ax.set_zlabel(r' $E_{Z}$', rotation=90, labelpad=10, fontsize=14)
     ax.set_zticks([0, 0.5, 1])
@@ -81,4 +92,10 @@ def plot_e_field(ax, data, timestep):
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
 # Start the animation
-plt.show()
+with tqdm(total=nsteps) as pbar:
+    def update_progress(frame):
+        pbar.update(1)
+        return frame
+
+    ani.event_source.add_callback(update_progress)
+    plt.show()
