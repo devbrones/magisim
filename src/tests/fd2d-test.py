@@ -49,19 +49,15 @@ def main(grid_size, sim_time_ns):
     blockspergrid_y = (grid_size + threadsperblock[1] - 1) // threadsperblock[1]
     blockspergrid = (blockspergrid_x, blockspergrid_y)
 
-    # Initialize the ez_result array to store simulation results
-    ez_result = np.zeros((num_steps, grid_size, grid_size))
-
-    # Run simulation on GPU
+    # Run simulation on GPU and save frames
     for t in tqdm(range(num_steps), desc="Simulation Progress"):
         fdtd_simulation_kernel[blockspergrid, threadsperblock](ez_gpu, hx_gpu, hy_gpu, gaz_gpu, t, grid_size, dt, epsilon0)
         
-        # Copy the result back to the CPU and store it in ez_result
-        ez_result[t] = ez_gpu.copy_to_host()
+        # Copy the result back to the CPU
+        ez_result = ez_gpu.copy_to_host()
 
-    # Save frames as PNG images
-    for t in tqdm(range(ez_result.shape[0]), desc="Saving Frames"):
-        plt.imshow(ez_result[t], cmap='RdBu', extent=[0, grid_size, 0, grid_size], origin='lower')
+        # Save the current frame as a PNG image
+        plt.imshow(ez_result, cmap='RdBu', extent=[0, grid_size, 0, grid_size], origin='lower')
         plt.colorbar(label="Electric Field (V/m)")
         plt.title(f"Time Step {t}")
         plt.savefig(f"frame_{t:03d}.png")
