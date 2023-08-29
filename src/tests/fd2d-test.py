@@ -5,6 +5,7 @@ from tqdm import tqdm
 
 # Constants
 c = 299792458.0  # Speed of light in m/s
+euler_number = np.e  # Euler's number
 
 # FDTD simulation kernel
 @cuda.jit
@@ -21,7 +22,7 @@ def fdtd_simulation_kernel(ez, hx, hy, gaz, t, grid_size, dt, epsilon0):
             hy[i, j] += 0.5 * (ez[i + 1, j] - ez[i, j])
         
         if i == grid_size // 2 and j == grid_size // 2:
-            ez[i, j] = np.exp(-0.5 * ((t - 30) / 10)**2)
+            ez[i, j] = euler_number ** (-0.5 * ((t - 30) / 10)**2)  # Exponential calculation using Euler's number
 
 # Parameters
 grid_size = 200
