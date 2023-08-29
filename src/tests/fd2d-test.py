@@ -75,4 +75,4 @@ if __name__ == "__main__":
     parser.add_argument("--dt", type=float, default=5e-5, help="Time step in nanoseconds")
     args = parser.parse_args()
 
-    main(args.gridsize, args.simtimens)
+    main(args.gridsize, args.simtimens, args.dt)
