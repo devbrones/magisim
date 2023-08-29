@@ -93,9 +93,8 @@ ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
 # Start the animation
 with tqdm(total=nsteps) as pbar:
-    def update_progress(frame):
+    def update_progress():
         pbar.update(1)
-        return frame
 
     ani.event_source.add_callback(update_progress)
     plt.show()
