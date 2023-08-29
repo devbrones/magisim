@@ -52,7 +52,12 @@ ax = fig.add_subplot(111, projection='3d')
 def animate(frame):
     fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
     ax.clear()
-    plot_e_field(ax, ez, frame + 1, plotting_points[frame]['label'])
+    
+    # Make sure the index is within the range of plotting_points
+    if frame < len(plotting_points):
+        plot_e_field(ax, ez, frame + 1, plotting_points[frame]['label'])
+    else:
+        print(f"Frame {frame} is out of range.")
 
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
