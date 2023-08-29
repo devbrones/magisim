@@ -34,10 +34,10 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     i, j = cuda.grid(2)
 
     if 0 < i < ie - 1 and 0 < j < je - 1:
-        dz[i, j] = dz[i, j] + 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
-        
-        if time_step == 1 and i == ic and j == jc:  # Generate the pulse only in the first time step
+        if time_step == 1 and i == ic and j == jc:
             dz[i, j] = pulse[i, j]
+        else:
+            dz[i, j] = dz[i, j] + 0.5 * (hy[i, j] - hy[i - 1, j] - hx[i, j] + hx[i, j - 1])
         
         ez[i, j] = gaz[i, j] * dz[i, j]
 
