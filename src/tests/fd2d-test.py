@@ -52,9 +52,8 @@ def main(grid_size, sim_time_ns):
     # Run simulation on GPU
     for t in tqdm(range(num_steps), desc="Simulation Progress"):
         fdtd_simulation_kernel[blockspergrid, threadsperblock](ez_gpu, hx_gpu, hy_gpu, gaz_gpu, t, grid_size, dt, epsilon0)
-
-    # Copy the result back to the CPU
-    ez_result = ez_gpu.copy_to_host()
+        # Copy the result back to the CPU
+        ez_result = ez_gpu.copy_to_host()
 
     # Save frames as PNG images
     for t in tqdm(range(ez_result.shape[0]), desc="Saving Frames"):
