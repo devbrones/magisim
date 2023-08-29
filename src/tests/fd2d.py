@@ -70,8 +70,9 @@ def animate(frame):
     
     ax.clear()
     plot_e_field(ax, ez, frame + 1)
-    if frame == nsteps - 1:
-        ani.event_source.stop()  # Stop the animation at the final step
+    
+    # Save the figure as a PNG image
+    fig.savefig(f'frame_{frame:03d}.png')
 
 def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
@@ -88,15 +89,9 @@ def plot_e_field(ax, data, timestep):
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
 
-ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
+# Perform the animation
+for frame in tqdm(range(nsteps)):
+    animate(frame)
 
-# Start the animation
-with tqdm(total=nsteps) as pbar:
-    def update_progress():
-        pbar.update(1)
-
-    ani.event_source.add_callback(update_progress)
-    plt.show()
-
-# Save animation as GIF after animation completes
-ani.save('fdtd_simulation.gif', writer='pillow')
+# Close the figure to prevent any display
+plt.close(fig)
