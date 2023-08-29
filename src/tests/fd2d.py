@@ -14,6 +14,10 @@ nsteps = 60
 t0 = 20
 spread = 6
 
+# Permittivity and permeability
+epsz = 8.854e-12
+mu = 4 * np.pi * 1e-7
+
 # CUDA setup
 threadsperblock = (16, 16)
 blockspergrid_x = (ie + threadsperblock[0] - 1) // threadsperblock[0]
@@ -36,10 +40,11 @@ hx_d = cuda.to_device(hx)
 hy_d = cuda.to_device(hy)
 gaz_d = cuda.to_device(gaz)
 pulse_d = cuda.to_device(pulse)
+epsz_d = cuda.to_device(np.array([epsz], dtype=np.float32))  # Transfer epsz to the device
 
 # CUDA kernel
 @cuda.jit
-def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
+def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse, epsz):
     i, j = cuda.grid(2)
     
     if 0 < i < ie - 1 and 0 < j < je - 1:
@@ -48,7 +53,7 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
         if time_step == 1 and i == ic and j == jc:
             dz[i, j] = pulse[i, j]
         
-        ez[i, j] = gaz[i, j] * dz[i, j]
+        ez[i, j] = (gaz[i, j] / epsz[0]) * dz[i, j]  # Use epsz[0] from device
 
     cuda.syncthreads()
 
