@@ -9,7 +9,7 @@ ie = 60
 je = 60
 ic = int(ie / 2)
 jc = int(je / 2)
-nsteps = 50
+nsteps = 60
 t0 = 20
 spread = 6
 
@@ -51,12 +51,12 @@ ax = fig.add_subplot(111, projection='3d')
 def animate(frame):
     fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
     ax.clear()
-    plot_e_field(ax, ez, frame + 1, plotting_points[frame]['label'])
+    plot_e_field(ax, ez, frame + 1)
 
 ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
 # Function for plotting
-def plot_e_field(ax, data, timestep, label):
+def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
     ax.view_init(elev=20., azim=45)
     ax.plot_surface(X, Y, data[:, :], rstride=1, cstride=1, color='white', edgecolor='black', linewidth=.25)
@@ -70,16 +70,7 @@ def plot_e_field(ax, data, timestep, label):
     ax.text2D(0.6, 0.7, "T = {}".format(timestep), transform=ax.transAxes)
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
-    ax.text2D(-0.2, 0.8, "({})".format(label), transform=ax.transAxes)
     ax.dist = 11
-
-# Definition of plotting points
-plotting_points = [
-    {'label': 'a', 'num_steps': 20, 'data_to_plot': None},
-    {'label': 'b', 'num_steps': 30, 'data_to_plot': None},
-    {'label': 'c', 'num_steps': 40, 'data_to_plot': None},
-    {'label': 'd', 'num_steps': 50, 'data_to_plot': None},
-]
 
 X, Y = np.meshgrid(range(je), range(ie))
 
