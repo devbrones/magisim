@@ -49,29 +49,28 @@ def fdtd_cuda(dz, ez, hx, hy, gaz, ic, jc, t0, spread, time_step, pulse):
     if 0 < i < ie - 1 and j < je - 1:
         hy[i, j] = hy[i, j] + 0.5 * (ez[i + 1, j] - ez[i, j])
 
-# Animation setup
+# Create the figure and initial plot
 fig = plt.figure(figsize=(8, 7))
 ax = fig.add_subplot(111, projection='3d')
+cax = None  # Placeholder for colorbar
 
 X, Y = np.meshgrid(range(je), range(ie))
 
-def animate(frame):
-    fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
-    ax.clear()
-    plot_e_field(ax, ez, frame + 1)
-
-ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
-
-# Function for plotting
 # Function for plotting
 def plot_e_field(ax, data, timestep):
+    global cax  # Use the global colorbar object
+
     ax.clear()
     ax.set_zlim(0, 1)
     ax.view_init(elev=20., azim=45)
     
-    # Modify this line to include color mapping
-    cax = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
-    fig.colorbar(cax, ax=ax, pad=0.1)
+    if cax is None:
+        # Only create the colorbar once
+        cax = ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
+        fig.colorbar(cax, ax=ax, pad=0.1)
+    else:
+        # Update the data in the existing colorbar
+        cax.set_array(data.ravel())
     
     ax.zaxis.set_rotate_label(False)
     ax.set_zlabel(r' $E_{Z}$', rotation=90, labelpad=10, fontsize=14)
@@ -84,7 +83,12 @@ def plot_e_field(ax, data, timestep):
     ax.xaxis.pane.fill = ax.yaxis.pane.fill = ax.zaxis.pane.fill = False
     plt.gca().patch.set_facecolor('white')
     ax.dist = 11
-    ax.dist = 11
+
+def animate(frame):
+    fdtd_cuda[blockspergrid, threadsperblock](dz, ez, hx, hy, gaz, ic, jc, t0, spread, frame, pulse)
+    plot_e_field(ax, ez, frame + 1)
+
+ani = FuncAnimation(fig, animate, frames=nsteps, interval=200)
 
 # Start the animation
 plt.show()
