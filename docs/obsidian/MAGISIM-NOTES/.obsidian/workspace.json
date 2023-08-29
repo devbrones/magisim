@@ -45,26 +45,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "Marketing and Pitching/Pitching.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "ba982eebf77b0c84",
+            "id": "3b953b9f50f495ab",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Marketing and Pitching/Pitching.md",
+                "file": "worknotes/notes.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -110,13 +110,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "c398d89610751963",
@@ -132,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "worknotes/notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "worknotes/notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -172,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Research And Development/Whitepapers.md"
+                "file": "worknotes/notes.md"
               }
             }
           }
@@ -193,16 +191,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "08f39fb0422a811b",
+  "active": "3b953b9f50f495ab",
   "lastOpenFiles": [
     "Marketing and Pitching/Pitching.md",
-    "Research And Development/Whitepapers.md",
-    "magisim_logo256.png",
+    "worknotes/notes.md",
+    "worknotes",
     "GitHub Inspiration/links.md",
+    "magisim_logo256.png",
+    "Marketing and Pitching",
+    "Research And Development/Whitepapers.md",
     "GitHub Inspiration",
     "Research And Development/Videos and Courses.md",
     "Surveys",
-    "Marketing and Pitching",
     "Research And Development"
   ]
 }
