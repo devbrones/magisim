@@ -25,9 +25,8 @@ def fdtd_simulation_kernel(ez, hx, hy, gaz, t, grid_size, dt, epsilon0):
         if i == grid_size // 2 and j == grid_size // 2:
             ez[i, j] = euler_number ** (-0.5 * ((t - 30) / 10)**2)  # Exponential calculation using Euler's number
 
-def main(grid_size, sim_time_ns):
+def main(grid_size, sim_time_ns, dt):
     # Parameters
-    dt = 0.5e-4  # Reduced dt value
     epsilon0 = 8.854187817e-12
 
     # Calculate number of time steps
@@ -73,6 +72,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="FDTD Simulation with CUDA")
     parser.add_argument("--gridsize", type=int, default=200, help="Grid size")
     parser.add_argument("--simtimens", type=float, default=50e-5, help="Simulation time in nanoseconds")
+    parser.add_argument("--dt", type=float, default=5e-5, help="Time step in nanoseconds")
     args = parser.parse_args()
 
     main(args.gridsize, args.simtimens)
