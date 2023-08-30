@@ -6,11 +6,11 @@ from numba import cuda
 from tqdm import tqdm
 
 # Parameters
-ie = 60
-je = 60
+ie = 200
+je = 200
 ic = int(ie / 2)
 jc = int(je / 2)
-nsteps = 60
+nsteps = 80
 t0 = 20
 spread = 6
 
