@@ -76,7 +76,7 @@ def animate(frame):
 
 def plot_e_field(ax, data, timestep):
     ax.set_zlim(0, 1)
-    ax.view_init(elev=45., azim=135.)  # Top corner view
+    ax.view_init(elev=45., azim=100.)  # Top corner view
     ax.plot_surface(X, Y, data[:, :], cmap='jet', rstride=1, cstride=1, linewidth=0, antialiased=False)
     ax.zaxis.set_rotate_label(False)
     ax.set_zlabel(r' $E_{Z}$', rotation=90, labelpad=10, fontsize=14)
