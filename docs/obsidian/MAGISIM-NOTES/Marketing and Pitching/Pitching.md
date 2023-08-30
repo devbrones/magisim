@@ -12,9 +12,10 @@
 - Cross-platform Client and Server, all you need is a Nvidia-model graphics card!
 - Decreased computational strain thanks to workload parallelisation. 
 - Can support a variety of computational models, such as FEM, MoM and FDTD which is our primary focus.
+- Allows more businesses to run simulations that can help analyse product performance and energy efficiency.
 
 ## our business model
-Magisim Core is free (the server and client software) but extensions are **bought**
+Magisim Core is free (the server and client software) but extensions are **bought** or licensed to the user for a fee set by the developers, which helps to drive development forward using competitive pricing.
 
 
 
