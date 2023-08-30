@@ -6,13 +6,14 @@ from numba import cuda
 from tqdm import tqdm
 
 # Parameters
-ie = 200
-je = 200
+ie = 60
+je = 60
 ic = int(ie / 2)
 jc = int(je / 2)
-nsteps = 80
+nsteps = 60
 t0 = 20
 spread = 6
+dt = 0.1
 
 # CUDA setup
 threadsperblock = (16, 16)
@@ -91,7 +92,8 @@ def plot_e_field(ax, data, timestep):
 
 # Perform the animation
 for frame in tqdm(range(nsteps)):
-    animate(frame)
+    for i in range(frame/dt):
+        animate(i)
 
 # Close the figure to prevent any display
 plt.close(fig)
