@@ -13,6 +13,7 @@
 - Decreased computational strain thanks to workload parallelisation. 
 - Can support a variety of computational models, such as FEM, MoM and FDTD which is our primary focus.
 - Allows more businesses to run simulations that can help analyse product performance and energy efficiency.
+- We want to do to CEM what Automatic1111 did to consumer AI
 
 ## our business model
 Magisim Core is free (the server and client software) but extensions are **bought** or licensed to the user for a fee set by the developers, which helps to drive development forward using competitive pricing.
