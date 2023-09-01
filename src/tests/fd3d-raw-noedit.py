@@ -1,6 +1,7 @@
 from collections import namedtuple
 from math import exp, sqrt, cos, sin
 import numba
+from numba.experimental import jitclass
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -45,7 +46,7 @@ class Field:
         self.z = np.ones((x_cells, y_cells, z_cells),
         dtype=np.float32) * initial_value
         
-@numba.jitclass([
+@jitclass([
     ('x', numba.int16),
     ('y', numba.int16),
     ('z', numba.int16),
