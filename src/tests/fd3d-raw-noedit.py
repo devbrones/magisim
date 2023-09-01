@@ -24,7 +24,7 @@ def main(nsteps, num_freq, freq, dims):
     
 # the @numba.jitclass decorator allows us to pass our custom
 # class into a `numba.jit`ed function
-@numba.jitclass([
+@jitclass([
     ('x', numba.float32[:, :, :]),
     ('y', numba.float32[:, :, :]),
     ('z', numba.float32[:, :, :])
