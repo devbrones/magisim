@@ -18,5 +18,5 @@
 ## our business model
 Magisim Core is free (the server and client software) but extensions are **bought** or licensed to the user for a fee set by the developers, which helps to drive development forward using competitive pricing.
 
-
+- modellera, simulera, visualisera \> stilfigur 1
 
