@@ -36,39 +36,27 @@
   <defs
      id="defs1">
     <linearGradient
-       id="linearGradient17"
-       inkscape:collect="always">
-      <stop
-         style="stop-color:#ff0000;stop-opacity:1;"
-         offset="0.2554552"
-         id="stop18" />
-      <stop
-         style="stop-color:#2e00ff;stop-opacity:1;"
-         offset="0.75436395"
-         id="stop19" />
-    </linearGradient>
-    <linearGradient
        id="linearGradient13"
        inkscape:collect="always">
       <stop
          style="stop-color:#ff0000;stop-opacity:1;"
-         offset="0.10895345"
+         offset="0.2"
          id="stop13" />
       <stop
          style="stop-color:#fff500;stop-opacity:1;"
-         offset="0.33679146"
+         offset="0.34"
          id="stop15" />
       <stop
          style="stop-color:#65ff00;stop-opacity:1;"
-         offset="0.47559705"
+         offset="0.5"
          id="stop16" />
       <stop
          style="stop-color:#00e3fe;stop-opacity:1;"
-         offset="0.70445156"
+         offset="0.7"
          id="stop17" />
       <stop
          style="stop-color:#2f00cb;stop-opacity:1;"
-         offset="0.83851379"
+         offset="0.95"
          id="stop14" />
     </linearGradient>
     <clipPath
@@ -87,18 +75,9 @@
        xlink:href="#linearGradient13"
        id="linearGradient14"
        x1="9.0000001"
-       y1="32.406378"
+       y1="23"
        x2="57.212913"
        y2="32.406378"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient17"
-       id="linearGradient19"
-       x1="19.958398"
-       y1="42.002646"
-       x2="43.601382"
-       y2="42.002646"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g
