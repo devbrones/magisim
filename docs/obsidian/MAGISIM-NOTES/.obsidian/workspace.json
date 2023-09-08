@@ -16,30 +16,6 @@
             }
           },
           {
-            "id": "8edd4eed46294d12",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Research And Development/Whitepapers.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "825915513fd9b3a3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Research And Development/Whitepapers.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "08f39fb0422a811b",
             "type": "leaf",
             "state": {
@@ -63,8 +39,7 @@
               }
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -115,8 +90,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "c398d89610751963",
@@ -132,7 +106,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Marketing and Pitching/Pitching.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +122,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Marketing and Pitching/Pitching.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -171,9 +143,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Marketing and Pitching/Pitching.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -193,12 +163,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ba982eebf77b0c84",
+  "active": "5b6d539ccc391011",
   "lastOpenFiles": [
     "Research And Development/Whitepapers.md",
+    "Marketing and Pitching/Pitching.md",
     "worknotes/notes.md",
     "worknotes",
-    "Marketing and Pitching/Pitching.md",
     "magisim_logo256.png",
     "GitHub Inspiration/links.md",
     "GitHub Inspiration",
