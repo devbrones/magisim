@@ -8,13 +8,11 @@ import uuid
 extensions_folder = "extensions"
 
 def load_extension(file):
-    print("got file:" + file[0].name)
-    try:
-        with open(file[0].name, "r") as f:
-            # print contents
-            print(f.read())
-    except Exception as e:
-        print(e)
+    print("filelen:" + str(len(file)))
+    for f in file:
+        print(f.name)
+        print(f.read())
+    return None, None
     """       
     try:
         # Generate a unique filename using UUID
