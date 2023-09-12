@@ -14,6 +14,7 @@ PRO:
 - LOTS OF THEMING SUPPORT!
 - cross platform maybeeeeE?
 - easy to create extensions for
+- https://github.com/klauer/qtpynodeeditor THISSSS!!!!!
 
 AGAINST:
 - Fucking large library, which means large executable (not really a problem)
