@@ -15,6 +15,9 @@ PRO:
 - cross platform maybeeeeE?
 - easy to create extensions for
 - https://github.com/jchanvfx/NodeGraphQt
+- easy to migrate between pyqt and pyside2/6
+- good asset for future carreers (CV) since qt is practically standard for gui.
+- 
 
 AGAINST:
 - Fucking large library, which means large executable (not really a problem)
@@ -22,4 +25,18 @@ AGAINST:
 - We would have to write a separate server program and a separate client program, and create communication methods between them, API using flask or django - web bottleneck.
 - we have NO experience in qt.
 
+
+License differences between PyQT and PySide
+pyqt gpl - HAS TO BE FOSS! - NOT SUITABLE FOR EXTENSIONS!!!!!
+pyside lgpl - lgpl - does not need to be foss BUT QT NEEDS TO BE ATTRIBUTED IN THE PROJECT!!!!
+
+Need to read QT licenses! - could be a bad idea to use it if extensions will be proprietary
+
+
+
+
+VFX STANDARDS
+https://vfxplatform.com/
+
+^^^^ VERY IMPORTANT TO FOLLOW CY2023
 
