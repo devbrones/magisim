@@ -5,8 +5,7 @@ dependencies:
   - numpy
   - scipy
   - cudatoolkit
-  - conda-forge:
-    - gradio
-    - cupy
+  - conda-forge::gradio
+  - conda-forge::cupy
   - pip
   - matplotlib
