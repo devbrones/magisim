@@ -21,7 +21,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "worknotes/notes.md",
                 "mode": "source",
                 "source": false
               }
@@ -39,7 +39,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -106,6 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "worknotes/notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -122,6 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "worknotes/notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -143,7 +146,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "worknotes/notes.md"
+              }
             }
           }
         ]
@@ -163,7 +168,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5b6d539ccc391011",
+  "active": "08f39fb0422a811b",
   "lastOpenFiles": [
     "Research And Development/Whitepapers.md",
     "Marketing and Pitching/Pitching.md",
