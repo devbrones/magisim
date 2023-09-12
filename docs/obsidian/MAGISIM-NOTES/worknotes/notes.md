@@ -4,7 +4,8 @@ by moving the exponential calculations from the cpu (cuda kernel cannot run nump
 Should we switch to qt or pyside2?
 
 PRO:
-- Easy to develop using qtcreator.
+- Easy to develop using qtcreator or qtdesigner.
+- lots of users in the professional workspace thx. to autodesk!
 - plenty of libraries and modules.
 - support for nodes - allows us to visualise the workflow.
 - fast as fuck (built with cpp)
