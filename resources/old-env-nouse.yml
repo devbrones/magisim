@@ -4,7 +4,7 @@ dependencies:
   - numba
   - numpy
   - scipy
-  - cudatoolkit
+  - cudatoolkit=11.7.0
   - conda-forge::gradio
   - conda-forge::cupy
   - pip
