@@ -19,5 +19,9 @@ def zip_to_json(file_obj):
 
 demo = gr.Interface(zip_to_json, "file", "json")
 
+with gr.Blocks() as main_app:
+
+
+
 if __name__ == "__main__":
     demo.launch()

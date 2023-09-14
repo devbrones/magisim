@@ -58,7 +58,7 @@ with gr.Blocks() as main_app:
 
     # File Upload Tab
     with gr.Tab("Upload Extension"):
-        upload_button = gr.UploadButton("Click to Upload an Extension", file_count="multiple", file_types=[".py"])
+        upload_button = gr.UploadButton("Click to Upload an Extension", file_types=[".py"])
         upload_button.upload(load_extension, upload_button)
 
     # Information Tab

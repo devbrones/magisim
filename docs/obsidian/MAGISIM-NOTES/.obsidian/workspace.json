@@ -161,6 +161,16 @@
                 "file": "Extension SDK/Extension SDK notes.md"
               }
             }
+          },
+          {
+            "id": "e96cdb89c8ab8a81",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency"
+              }
+            }
           }
         ]
       }
