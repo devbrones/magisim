@@ -1,4 +1,5 @@
 import gradio as gr
+from ui.shared.config import Config
 import extensionmgr.builtin_extensionmgr_eload as builtin_extensionmgr_eload 
 import extensionmgr.extensionmgr as extensionmgr
 
@@ -8,12 +9,17 @@ def load_ui():
     extensions = extensionmgr.get_installed_extensions()
     # iterate through all extensions and load their UIs through their eload modules
     for extension in extensions:
-        loaded_extension = extensionmgr.import_extension(extension)
+        loaded_extension = extensionmgr.get_extension_eload(extension)
         if loaded_extension is not None:
-            ## get the eload
-            pass
-            
-
+            try:
+                loaded_extension.load_workspace()
+            except Exception as e:
+                print(e)
+                return None
+        else:
+            print("Error: Failed to load extension: " + extension)
+            return None
+    # load the builtin extension manager
     builtin_extensionmgr_eload.load_workspace() # load the extension manager
 
 # Define the Gradio interface
