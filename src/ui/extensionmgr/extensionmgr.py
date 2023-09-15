@@ -2,14 +2,15 @@ import os
 import importlib
 import zipfile
 from pathlib import Path
-from ui.shared.config import Config
+from shared.config import Config
+import gradio as gr
 # Define the extraction folder
 extraction_folder = "extensions"
 
 loaded_extensions = []
 
 
-def extract_and_run(zip_file):
+def extract_and_run(zip_file, reload_button):
     try:
         print("got extract_and_run")
         # Create the extraction folder if it doesn't exist
@@ -32,8 +33,8 @@ def extract_and_run(zip_file):
                 print("got eload: " + filename)
                 module_path = os.path.join(extraction_folder, extracted_folder, filename)
                 module_name = module_path.replace("/", ".").replace(".py", "")
-                print("got module_name: " + module_name)
                 print("got module_path: " + module_path)
+                print("got module_name: " + module_name)
                 # Import the module
                 try:
                     eload_module = importlib.import_module(module_name)
@@ -47,7 +48,7 @@ def extract_and_run(zip_file):
                     extension_meta = eload_module.eload.load_extension_meta()
                     return f"Extension loaded successfully. Meta: {extension_meta}"
                 else:
-                    return "Error: The loaded module does not have the required class or method."
+                    return "Error: The loaded module does not have the required class or method.", gr.Button.update(reload_button, interactive=True)
         
         return "Error: No suitable Python file found in the uploaded zip."
     
@@ -66,11 +67,12 @@ def get_extension_eload(extension_name):
             print("i gee and got module_name: " + module_name)
             # Import the module
             try:
+                print("i gee and got - trying to import module: " + module_name)
                 eload_module = importlib.import_module(module_name)
                 return eload_module
             except Exception as e:
                 print("i gee and got: " + str(e))
-                return f"Error: Failed to import the module: {module_name}"
+                return f"Error: Failed to import the module: {module_name} | {str(e)}"
     
     
 def get_installed_extensions() -> list:

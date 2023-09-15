@@ -1,6 +1,7 @@
 # shared extension imports
 import gradio as gr
 from shared.builtin import Extension
+from shared.config import Config
 
 # extension specific imports
 from extensionmgr.extensionmgr import extract_and_run
@@ -17,11 +18,17 @@ class ExtensionMeta:
 		types: list = [Extension.Builtin] # list of classes
 		layoutCompat: bool = False
 		hasNodes: list = []
-  
-def load_workspace():
+
+def reset_app(app: gr.Blocks):
+	return None
+
+def load_workspace(app: gr.Blocks):
     with gr.Tab(ExtensionMeta.name):
         gr.Markdown(ExtensionMeta.description)
         zip_file = gr.File(label="Upload a ZIP file")
         run_button = gr.Button("Install")
+        reload_button = gr.Button(Config.Icon.refresh_symbol + " Reload", interactive=False)
         output_text = gr.Textbox()
-        run_button.click(extract_and_run, inputs=[zip_file], outputs=[output_text])
+        run_button.click(extract_and_run, inputs=[zip_file, reload_button], outputs=[output_text, reload_button])
+        reload_button.click(reset_app(app))
+      
