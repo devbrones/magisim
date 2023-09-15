@@ -14,3 +14,5 @@ class Config:
         warning_symbol = '\U000026a0\ufe0f' # ⚠️
         error_symbol = '\U0000274c' # ❌
         question_symbol = '\U00002753' # ❓
+    class UI:
+        port: int = 8080
