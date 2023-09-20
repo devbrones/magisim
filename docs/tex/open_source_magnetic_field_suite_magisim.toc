@@ -1,0 +1,19 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Introduction to Computational Electromagnetics}{3}{}%
+\contentsline {section}{\numberline {2}}{3}{}%
+\contentsline {section}{\numberline {3}}{3}{}%
+\contentsline {section}{\numberline {4}User Experience}{3}{}%
+\contentsline {subsection}{\numberline {4.1}Workspaces}{3}{}%
+\contentsline {section}{\numberline {5}Modularity}{3}{}%
+\contentsline {subsection}{\numberline {5.1}Overview of the Magisim model}{3}{}%
+\contentsline {subsection}{\numberline {5.2}Extensions}{3}{}%
+\contentsline {section}{\numberline {6}The simulator}{4}{}%
+\contentsline {subsection}{\numberline {6.1}Introduction}{4}{}%
+\contentsline {subsection}{\numberline {6.2}Maxwell's Equations}{5}{}%
+\contentsline {subsection}{\numberline {6.3}FDTD: Applying Maxwell's Equations in the Time Domain}{6}{}%
+\contentsline {subsection}{\numberline {6.4}The compromise between accuracy and speed}{8}{}%
+\contentsline {subsection}{\numberline {6.5}Computation}{9}{}%
+\contentsline {subsubsection}{\numberline {6.5.1}Introduction to parallel computing}{9}{}%
+\contentsline {subsubsection}{\numberline {6.5.2}The application of parallel computation in time domain field simulations}{9}{}%
+\contentsline {section}{\numberline {7}Visualization}{9}{}%

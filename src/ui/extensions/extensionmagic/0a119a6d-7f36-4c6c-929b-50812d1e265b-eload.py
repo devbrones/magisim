@@ -19,6 +19,7 @@ class ExtensionMeta:
 		types: list = [Extension.Editor] # list of classes
 		layoutCompat: bool = False
 		hasNodes: list = []
+		hasSettings: bool = False # can be set to be checked by a function later if needed
   
 def load_workspace():
     with gr.Tab(ExtensionMeta.name):
@@ -31,4 +32,6 @@ def load_workspace():
             extension_name2 = gr.Textbox()
         run_extension_fn = gr.Button("Run Extension")
         run_extension_fn.click(extensionmagic.run_extension, outputs=[extension_name, extension_name2])
+
+
             
