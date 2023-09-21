@@ -33,7 +33,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Extension SDK/Extension SDK notes.md",
+                "file": "Research And Development/Whitepapers.md",
                 "mode": "source",
                 "source": false
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Extension SDK/Extension SDK notes.md",
+                "file": "Research And Development/Whitepapers.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +135,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Extension SDK/Extension SDK notes.md",
+                "file": "Research And Development/Whitepapers.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Extension SDK/Extension SDK notes.md"
+                "file": "Research And Development/Whitepapers.md"
               }
             }
           },
@@ -191,16 +191,16 @@
   },
   "active": "287e388d7f4daf1d",
   "lastOpenFiles": [
-    "worknotes/notes.md",
     "Extension SDK/Extension SDK notes.md",
-    "Extension SDK",
-    "Research And Development/Whitepapers.md",
     "Marketing and Pitching/Pitching.md",
+    "GitHub Inspiration/links.md",
+    "worknotes/notes.md",
+    "Research And Development/Videos and Courses.md",
+    "Research And Development/Whitepapers.md",
+    "Extension SDK",
     "worknotes",
     "magisim_logo256.png",
-    "GitHub Inspiration/links.md",
     "GitHub Inspiration",
-    "Research And Development/Videos and Courses.md",
     "Surveys",
     "Marketing and Pitching",
     "Research And Development"
