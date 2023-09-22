@@ -40,6 +40,18 @@
             }
           },
           {
+            "id": "3b08f72521606505",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ui dev notes.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "ba982eebf77b0c84",
             "type": "leaf",
             "state": {
@@ -52,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -118,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "ui dev notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "ui dev notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Research And Development/Whitepapers.md"
+                "file": "ui dev notes.md"
               }
             }
           },
@@ -189,14 +201,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "287e388d7f4daf1d",
+  "active": "3b08f72521606505",
   "lastOpenFiles": [
+    "Research And Development/Whitepapers.md",
+    "ui dev notes.md",
+    "ui deb",
     "Extension SDK/Extension SDK notes.md",
     "Marketing and Pitching/Pitching.md",
     "GitHub Inspiration/links.md",
     "worknotes/notes.md",
     "Research And Development/Videos and Courses.md",
-    "Research And Development/Whitepapers.md",
     "Extension SDK",
     "worknotes",
     "magisim_logo256.png",
