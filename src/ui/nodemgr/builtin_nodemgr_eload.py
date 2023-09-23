@@ -23,4 +23,18 @@ def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name):
 		gr.Markdown(ExtensionMeta.description)
 		#load the node manager
-		NodeManager.fetch_node_editor()
+		with gr.Row(min_height=600):
+			NodeManager.fetch_node_editor()
+			with gr.Column(min_width=200):
+				interface_nmgr_save = gr.Button(Config.Icon.save_style_symbol+"Save Nodes", interactive=True, variant="primary")
+				interface_nmgr_reload = gr.Button(Config.Icon.refresh_symbol+"Reload Nodes", interactive=False)				
+				gr.Checkbox(label=str(Config.Icon.warning_symbol+"Advanced Mode"), inline=True)
+				gr.CheckboxGroup(["Debug Mode","Use Math Nodes","Show Builtin Nodes","Show Node UUIDs","Custom API"], label="Advanced Properties", inline=True, interactive=False)
+
+
+				with gr.Accordion(label="Custom API", open=False, elem_id="interface_nmgr_advanced_property_custom_api_accordion"):
+					interface_nmgr_advanced_property_custom_api_url = gr.Textbox(label="URL")
+					interface_nmgr_advanced_property_custom_api_key = gr.Textbox(label="Key")
+
+		#with gr.Column(scale=0.5):
+			

@@ -99,7 +99,7 @@ def load_ui(app: gr.Blocks):
     builtin_settingsmgr_eload.load_workspace(app) # load the settings manager
 
 # Define the Gradio interface
-with gr.Blocks() as app:
+with gr.Blocks(theme=Config.UI.theme) as app:
     ## they did not say i could do this - but i did it anyway!
     load_ui(app)
 

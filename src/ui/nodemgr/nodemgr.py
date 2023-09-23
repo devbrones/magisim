@@ -16,8 +16,8 @@ class NodeManager:
                 </style>
             </head>
             <body>  
-                <div>
-                    <canvas id='nodecanvas' width='1024' height='720' style='border: 1px solid'></canvas>
+                <div min-height='600px'>
+                    <canvas id='nodecanvas' width='730px' height='730px'></canvas>
                 </div>
             </body>
         </html>

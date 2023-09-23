@@ -1,3 +1,4 @@
+import gradio as gr
 class Config:
     debug: bool = True
     class Icon:
@@ -16,3 +17,4 @@ class Config:
         question_symbol = '\U00002753' # ❓
     class UI:
         port: int = 8080
+        theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")
