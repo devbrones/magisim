@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-08-01" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.2.3230" locale="en_GB">
+    <description/>
+    <view zooming-state="default:9" id="gantt-chart">
+        <field id="tpd3" name="Name" width="200" order="0"/>
+        <field id="tpd4" name="Begin date" width="75" order="1"/>
+        <field id="tpd5" name="End date" width="75" order="2"/>
+        <option id="filter.completedTasks" value="false"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="UI" color="#8cb6ce" meeting="false" start="2023-09-20" duration="23" complete="0" thirdDate="2023-09-20" thirdDate-constraint="0" expand="true"/>
+        <task id="12" name="Model loading" color="#8cb6ce" meeting="false" start="2023-10-23" duration="14" complete="0" thirdDate="2023-09-25" thirdDate-constraint="0" expand="true"/>
+        <task id="1" name="Extension manager" color="#8cb6ce" meeting="false" start="2023-10-30" duration="14" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
+        <task id="3" name="Extension SDK base" color="#8cb6ce" meeting="false" start="2023-09-20" duration="37" complete="0" thirdDate="2023-10-13" thirdDate-constraint="0" expand="true"/>
+        <task id="4" name="First extension" color="#8cb6ce" meeting="false" start="2023-11-10" duration="15" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
+        <task id="2" name="Demo 1" color="#8cb6ce" meeting="true" start="2023-12-01" duration="0" complete="0" thirdDate="2023-10-13" thirdDate-constraint="0" expand="true"/>
+        <task id="6" name="Extension SDK UI &amp; docs" color="#8cb6ce" meeting="false" start="2023-12-01" duration="33" complete="0" thirdDate="2023-12-01" thirdDate-constraint="0" expand="true"/>
+        <task id="7" name="Extension 2 advanced renderer" color="#8cb6ce" meeting="false" start="2024-01-17" duration="8" complete="0" thirdDate="2023-12-26" thirdDate-constraint="0" expand="true"/>
+        <task id="8" name="Demo 2" color="#8cb6ce" meeting="true" start="2024-01-29" duration="0" complete="0" thirdDate="2024-02-20" thirdDate-constraint="0" expand="true"/>
+        <task id="9" name="Monetization, licenses, copyright" color="#8cb6ce" meeting="false" start="2024-01-29" duration="11" complete="0" thirdDate="2024-01-29" thirdDate-constraint="0" expand="true"/>
+        <task id="10" name="Finished" color="#8cb6ce" meeting="true" start="2024-02-13" duration="0" complete="0" thirdDate="2024-02-13" thirdDate-constraint="0" expand="true"/>
+        <task id="11" name="Writing" color="#8cb6ce" meeting="false" start="2024-02-13" duration="64" complete="0" thirdDate="2024-02-13" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Tibi" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Susanne" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="0" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="4" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="6" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="7" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="9" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="11" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="3" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="4" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="6" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="9" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="11" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
