@@ -18,6 +18,7 @@ class NodeManager:
             <body>  
                 <div min-height='600px'>
                     <canvas id='nodecanvas' width='100%' height='100%'></canvas>
+                    
                     <img src onerror='startNodeGraph()'>
                 </div>
             </body>
