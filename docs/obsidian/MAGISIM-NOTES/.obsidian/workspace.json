@@ -16,36 +16,36 @@
             }
           },
           {
-            "id": "8edd4eed46294d12",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Research And Development/Whitepapers.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "825915513fd9b3a3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Research And Development/Whitepapers.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "08f39fb0422a811b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
+                "file": "worknotes/notes.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "287e388d7f4daf1d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "Research And Development/Whitepapers.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3b08f72521606505",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ui dev notes.md",
                 "mode": "source",
                 "source": false
               }
@@ -64,7 +64,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,13 +110,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "c398d89610751963",
@@ -132,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Marketing and Pitching/Pitching.md",
+                "file": "ui dev notes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Marketing and Pitching/Pitching.md",
+                "file": "ui dev notes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -172,7 +170,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Marketing and Pitching/Pitching.md"
+                "file": "ui dev notes.md"
+              }
+            }
+          },
+          {
+            "id": "e96cdb89c8ab8a81",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency"
               }
             }
           }
@@ -193,16 +201,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ba982eebf77b0c84",
+  "active": "3b08f72521606505",
   "lastOpenFiles": [
     "Research And Development/Whitepapers.md",
-    "worknotes/notes.md",
-    "worknotes",
+    "ui dev notes.md",
+    "ui deb",
+    "Extension SDK/Extension SDK notes.md",
     "Marketing and Pitching/Pitching.md",
-    "magisim_logo256.png",
     "GitHub Inspiration/links.md",
-    "GitHub Inspiration",
+    "worknotes/notes.md",
     "Research And Development/Videos and Courses.md",
+    "Extension SDK",
+    "worknotes",
+    "magisim_logo256.png",
+    "GitHub Inspiration",
     "Surveys",
     "Marketing and Pitching",
     "Research And Development"

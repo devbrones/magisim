@@ -8,13 +8,11 @@ import uuid
 extensions_folder = "extensions"
 
 def load_extension(file):
-    print("got file:" + file[0].name)
-    try:
-        with open(file[0].name, "r") as f:
-            # print contents
-            print(f.read())
-    except Exception as e:
-        print(e)
+    print("filelen:" + str(len(file)))
+    for f in file:
+        print(f.name)
+        print(f.read())
+    return None, None
     """       
     try:
         # Generate a unique filename using UUID
@@ -60,7 +58,7 @@ with gr.Blocks() as main_app:
 
     # File Upload Tab
     with gr.Tab("Upload Extension"):
-        upload_button = gr.UploadButton("Click to Upload an Extension", file_count="multiple", file_types=[".py"])
+        upload_button = gr.UploadButton("Click to Upload an Extension", file_types=[".py"])
         upload_button.upload(load_extension, upload_button)
 
     # Information Tab

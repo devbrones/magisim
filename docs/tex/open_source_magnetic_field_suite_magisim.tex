@@ -1,41 +1,181 @@
-\documentclass[]{report}
+\documentclass[11pt, a4paper, titlepage]{article}
+\usepackage[margin=3.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage[style=ieee, block=ragged]{biblatex}
 
-
-% Title Page
-\title{Open source magnetic field simulations using parallelized computing on consumer hardware.}
-\author{Jonas Cronholm, Rasmus C. Ljung}
 
 
 \begin{document}
-\maketitle
+
+	\begin{titlepage}
+		% Title Page
+		\title{Open source time domain simulations using parallelized computing on consumer hardware\let\thefootnote\relax\footnotetext{Gymnasiearbete 100p}}
+		\author{Jonas Cronholm, Rasmus C. Ljung}
+		\maketitle
+	\end{titlepage}
+
+
 
 \begin{abstract}
 	
 	% THIS IS ONLY FOR BASE STRUCTURING!!! 
 	% NEEDS A FULL REWRITE IN ORDER TO BE COMPLIANT WITH RULESET !
 	
-	With serious competition in the modern market it is not trivial to create a product that can match the expectations of professional users and still appeal to hobby engineers, especially at a modest price point. The gap in capabilities between enterprise and open source simulation software is growing bigger due to lack of funding, which often results in limited research and development for open source projects. This growing disparity poses a significant challenge for developers aiming to balance advanced features with affordability. Striking a harmony between meeting the rigorous demands of professionals while remaining accessible to enthusiasts is a complex task.
+	With serious competition in the modern market it is not trivial to create a product that can match the expectations of professional users and still appeal to hobby engineers, especially at a modest price point. The gap in capabilities between enterprise and open source simulation software is growing bigger due to lack of funding, which often results in limited research and development for open source projects. This growing disparity poses a significant challenge for developers aiming to balance advanced features with affordability. Striking a harmony between meeting the rigorous demands of professionals while remaining accessible to enthusiasts is a complex task involving compromises.
 	
-	Enterprise simulation software benefits from substantial financial backing, enabling teams to invest in cutting-edge research, continuous enhancements, and dedicated customer support. This translates to robust features, high accuracy, and comprehensive technical support, making them the preferred choice for intricate and mission-critical projects. However, the cost associated with these solutions can be prohibitive for smaller businesses and individual hobbyists.
+	Enterprise simulation software benefits from substantial financial backing, enabling teams to invest in cutting-edge research, continuous enhancements, and dedicated customer support. This translates to robust features, high accuracy, and comprehensive technical support, making them the preferred choice for intricate and mission-critical projects. However, the cost associated with these solutions can be prohibitive for smaller businesses and individual hobbyists. This gap is further exacerbated by the intricate nature of simulation software. Meeting the needs of professionals frequently involves complex algorithms, intricate modeling, and high-performance computing. Striving to offer similar capabilities within a modest price range for hobbyists can be daunting, as the associated costs can quickly spiral upwards.
 	
-	This gap is further exacerbated by the intricate nature of simulation software. Meeting the needs of professionals frequently involves complex algorithms, intricate modelling, and high-performance computing. Striving to offer similar capabilities within a modest price range for hobbyists can be daunting, as the associated costs can quickly spiral upwards.
-	
-	This paper presents a proof-of-concept software project that aims to illustrate the potential of open source magnetic field simulations utilizing parallelized computing techniques on consumer-grade hardware. Magnetic field simulations hold immense significance across scientific, engineering, and technological domains, yet their resource-intensive nature often limits accessibility, particularly in the context of proprietary software and high-cost hardware.
-	
-	By conducting a thorough analysis of existing open source simulation tools, parallel computing frameworks, and optimization strategies, we lay the groundwork for a proof-of-concept that showcases the potential of democratizing magnetic field simulations. This paper provides an in-depth exposition of the technical underpinnings involved in parallelization implementation, optimization techniques, and comprehensive performance evaluations. Through our preliminary experimentation, we offer empirical evidence of substantial reductions in simulation runtime while maintaining accuracy levels comparable to established proprietary solutions.
+	This paper presents a proof-of-concept software project that aims to illustrate the potential of open source magnetic field simulations utilizing parallelized computing techniques on consumer-grade hardware. Magnetic field simulations hold immense significance across scientific, engineering, and technological domains, yet their resource-intensive nature often limits accessibility, particularly in the context of proprietary software and high-cost hardware. By conducting a thorough analysis of existing open source simulation tools, parallel computing frameworks, and optimization strategies, we lay the groundwork for a proof-of-concept that showcases the potential of democratizing magnetic field simulations. This paper provides an in-depth exposition of the technical underpinnings involved in parallelization implementation, optimization techniques, and comprehensive performance evaluations. Through our preliminary experimentation, we offer empirical evidence of substantial reductions in simulation runtime while maintaining accuracy levels comparable to established proprietary solutions.
 	
 	Moreover, the paper acknowledges and addresses the inherent challenges intrinsic to parallel programming, hardware limitations, and scalability concerns when deploying simulations on consumer-grade hardware. By providing practical insights and strategic recommendations, we outline potential avenues to navigate these challenges and attain optimal performance across varying hardware configurations.
+	\begin{flushleft}
+		{\small {\bf Keywords:} Computational electromagnetics, CEM, MoM, FEM, parallelization, simulator, CUDA, gradio, Neural Networks, Data Analysis, Visualization}
+	\end{flushleft}
 	
 \end{abstract}
+\refstepcounter{page}
+\setcounter{page}{2}
+\tableofcontents
+\newpage
 
-\section{Computation}
-A regular computer usually performs tasks serially, one operation at a time. While this might be the most efficient method for everyday tasks, it does not apply to computationally heavy tasks spanning multiple dimensions.
-One example of such a 
+\section{Introduction}
+\subsection{Background}
+\subsection{Problem}
+\subsection{Introduction to Computational Electromagnetics}
+\subsection{Previous Projects}
+\subsection{Purpose and Goals}
+\newpage
 
 
 
-$n-1$ dimensional computations are possible using a graphics card due to the ability to parallelise computational tasks. 
 
-$t(d,)$ 
+\section{Theory}
+\subsection{Maxwell's Equations}
+
+Maxwell's equations are a fundamental set of equations in the field of electromagnetism, providing the mathematical framework for understanding the behavior of electric and magnetic fields in space and time. In the context of computational electromagnetics, Maxwell's equations serve as the foundational principles upon which electromagnetic simulations, including magnetic field simulations, are based.
+
+
+Maxwell's equations consist of four essential equations that relate electric and magnetic fields to their sources (charges and currents). These equations can be expressed as follows:
+\begin{center}
+	1. \textbf{Gauss's Law for Electricity (Coulomb's Law):}
+	
+	\[
+	\nabla \cdot \mathbf{E} = \frac{\rho}{\varepsilon_0}
+	\]
+	
+	Here, \(\nabla \cdot \mathbf{E}\) represents the divergence of the electric field, and \(\varepsilon_0\) is the permittivity of free space.
+\end{center}
+\begin{center}
+	2. \textbf{Gauss's Law for Magnetism:}
+	
+	\[
+	\nabla \cdot \mathbf{B} = 0
+	\]
+	
+	This equation states that magnetic field lines are always closed loops and that there are no magnetic monopoles.
+\end{center}
+\begin{center}
+	3. \textbf{Faraday's Law of Electromagnetic Induction:}
+	
+	\[
+	\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}
+	\]
+	
+	It describes how a changing magnetic field induces an electromotive force (EMF).
+\end{center}
+\begin{center}
+	4. \textbf{Ampère's Circuital Law with Maxwell's Addition:}
+	
+	\[
+	\nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t}
+	\]
+	
+	This equation relates the circulation of the magnetic field (\(\oint \mathbf{B} \cdot d\mathbf{l}\)) to the electric current (\(I\)) and the rate of change of electric flux (\(\partial \mathbf{E}/\partial t\)). 
+\end{center}
+
+Maxwell's equations provide the theoretical foundation for magnetic field simulations. These equations allow scientists and engineers to mathematically describe and predict the behavior of electromagnetic fields, including magnetic fields, in various scenarios. 
+
+\newpage
+\subsection{FDTD: Applying Maxwell's Equations in the Time Domain}
+
+The Finite-Difference Time-Domain (FDTD) method is a powerful numerical technique used to solve Maxwell's equations in the time domain. It is a fundamental approach in computational electromagnetics, allowing for the simulation of electromagnetic wave propagation, interactions with materials, and the prediction of complex electromagnetic phenomena.
+
+\subsubsection{Overview of the FDTD Method}
+
+The FDTD method discretizes both time and space, allowing for the direct integration of Maxwell's equations in their time-domain form. This discretization divides the simulation domain into a grid of discrete points in both space and time. At each grid point, electromagnetic field values (electric and magnetic fields) are computed iteratively, advancing in discrete time steps.
+
+\subsubsection{Time-Stepping Scheme}
+
+In the FDTD method, the update of electromagnetic field components at each grid point follows a time-stepping scheme. The update equations are based on the finite-difference approximations of Maxwell's equations. For example, the update equations for the electric field (\(E\)) and magnetic field (\(H\)) components in 3D space can be expressed as:
+
+\begin{center} For the electric field: \end{center}
+\[
+E_x^{n+1}(i,j,k) = E_x^n(i,j,k) + \frac{\Delta t}{\varepsilon(i,j,k)} \left(\nabla \times H\right)_x^n(i,j,k)
+\]
+\begin{center}and similarly for  $E_y$ and $E_z$\end{center}
+
+
+
+\begin{center}For the magnetic field:\end{center}
+\[
+H_x^{n+1}(i,j,k) = H_x^n(i,j,k) + \frac{\Delta t}{\mu(i,j,k)} \left(\nabla \times E\right)_x^n(i,j,k)
+\]
+ \begin{center}and similarly for $H_y$ and $H_z$\end{center}
+ 
+ 
+Here, \(n\) represents the time step, \(\Delta t\) is the time step size, and \(\varepsilon\) and \(\mu\) are the permittivity and permeability of the material at the grid point (\(i, j, k\)).
+
+\subsubsection{Significance in Magnetic Field Simulations}
+The FDTD method is particularly significant in magnetic field simulations due to its ability to capture complex temporal behaviors of electromagnetic phenomena. It allows researchers and engineers to study magnetic field interactions with materials, structures, and devices over time. This is crucial in applications such as:
+\begin{itemize}
+	\item Magnetic resonance imaging (MRI)
+	\item Magnetic shielding design
+	\item Electromagnetic compatibility (EMC) analysis
+	\item Magnetic field exposure assessment
+	\item Magnetic field sensor development
+\end{itemize}
+By directly applying Maxwell's equations in the time domain, the FDTD method provides a comprehensive understanding of the dynamic behavior of magnetic fields, making it an indispensable tool in computational electromagnetics. 
+\subsection{The compromise between accuracy and speed}
+Achieving high simulation accuracy is every developers goal, especially in scientific research and mission-critical engineering applications. Accurate simulations yield results that closely mirror real-world phenomena, enabling scientists and engineers to make informed decisions, validate theoretical models, and gain deeper insights into the behavior of magnetic fields. 
+Conversely, computational speed is of equal importance, particularly when dealing with large-scale simulations or real-time applications. In today's fast-paced technological landscape, there's a growing demand for swift results. Delays caused by sluggish simulations can hinder progress and decrease the end users engagement with the product. 
+
+\newpage
+\subsection{Computation}
+\subsubsection{Introduction to parallel computing}
+A regular computer usually performs tasks serially, one operation at a time. While this might be the most efficient method for everyday tasks, it does not apply to computationally heavy tasks spanning multiple dimensions or matrix operations. This has largely been solved today thanks to the GPU (Graphics Processing Unit) or graphics card as it is more commonly referred to as.
+\subsubsection{The application of parallel computation in time domain field simulations}
+Computation is a critical aspect of time domain field simulations. These simulations involve solving complex differential mathematical models and processing large datasets, which can be extremely computationally demanding. The traditional serial computing approach is therefore insufficient for handling the computational complexity associated with magnetic field simulations.
+
+To address these challenges, we turn to parallelization, a technique that enables concurrent execution of computations across multiple processors or cores. Modern GPUs, designed for parallel processing, have become instrumental in accelerating computational tasks, including solving differential equations such as Maxwell's equations.
+
+
+%According to Moore's Law, the amount of transistors in a given area of microchips are doubled every year. 
+
+
+%With parallelization, the effectiveness of a computational can be increased drastically, essentially allowing for $n-1$ dimensional computation as illustrated in the below visualizations.
+\newpage
+\section{Approach}
+\newpage
+\section{Result}
+\newpage
+\section{Discussion}
+\newpage
+\section{Conclusion}
+\newpage
+\section{References}
+
+\newpage
+\newpage
+\addcontentsline{toc}{section}{Referenser} 
+\printbibliography
+
+
+
+
+\begin{center}
+	\large\textbf{Written in \LaTeX}
+\end{center}
 
 \end{document}          

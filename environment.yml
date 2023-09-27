@@ -1,0 +1,16 @@
+name: magisim
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - cudatoolkit=11.7.0=hd8887f6_10
+  - cupy=10.4.0=py39hc3c280e_0
+  - gradio=3.23.0=pyhd8ed1ab_0
+  - matplotlib=3.7.2=py39h06a4308_0
+  - numba=0.57.1=py39h1128e8f_0
+  - numpy=1.24.3=py39hf6e8229_1
+  - pandas=2.0.3=py39h1128e8f_0
+  - pip=23.2.1=py39h06a4308_0
+  - python=3.9.18=h955ad1f_0
+  - scipy=1.11.1=py39h5f9d8c6_0
+  - yaml=0.2.5=h7f98852_2

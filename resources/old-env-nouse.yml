@@ -4,9 +4,8 @@ dependencies:
   - numba
   - numpy
   - scipy
-  - cudatoolkit
-  - conda-forge:
-    - gradio
-    - cupy
+  - cudatoolkit=11.7.0
+  - conda-forge::gradio
+  - conda-forge::cupy
   - pip
   - matplotlib
