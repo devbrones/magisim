@@ -20,6 +20,7 @@ with open("nodemgr/static/js/litegraph.js", "r") as f:
 
 @fapp.middleware("http")
 async def some_fastapi_middleware(request: Request, call_next):
+    ## Middleware to inject litegraph.js into the index.html because gradio does not support custom js lol
     response = await call_next(request)
     path = request.scope["path"]
     if path == "/":
@@ -35,34 +36,29 @@ async def some_fastapi_middleware(request: Request, call_next):
 
         some2_javascript = f"""
         <script>
-            var graph = new LGraph();
+            function startNodeGraph() {{
+                var graph = new LGraph();
 
-            var canvas = new LGraphCanvas("#nodecanvas", graph);
+                var canvas = new LGraphCanvas("#nodecanvas", graph);
 
-            var node_const = LiteGraph.createNode("basic/const");
-            node_const.pos = [200,200];
-            graph.add(node_const);
-            node_const.setValue(4.5);
+                var node_const = LiteGraph.createNode("basic/const");
+                node_const.pos = [200,200];
+                graph.add(node_const);
+                node_const.setValue(4.5);
 
-            var node_watch = LiteGraph.createNode("basic/watch");
-            node_watch.pos = [700,200];
-            graph.add(node_watch);
+                var node_watch = LiteGraph.createNode("basic/watch");
+                node_watch.pos = [700,200];
+                graph.add(node_watch);
 
-            node_const.connect(0, node_watch, 0 );
+                node_const.connect(0, node_watch, 0 );
 
-            graph.start()
+                graph.start()
+            }}
         </script>
-        """
+        """ # this will literally never load in properly
 
-        #some_javascript = f"""
-        #<script type="text/javascript" id="">
-        #    function hellorld_test() {{
-        #        console.log("litegraph is loading")
-        #    }}
-        #</script>
-        #"""
 
-        response_body = response_body.replace("</head>", some_javascript + "</head>")
+        response_body = response_body.replace("</head>", some_javascript + some2_javascript + "</head>")
 
         del response.headers["content-length"]
 

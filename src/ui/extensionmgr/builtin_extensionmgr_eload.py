@@ -4,7 +4,7 @@ from shared.builtin import Extension
 from shared.config import Config
 
 # extension specific imports
-from extensionmgr.extensionmgr import extract_and_run
+from extensionmgr.extensionmgr import extract_and_run, get_extensions
 import os
 import threading
 import sys
@@ -37,16 +37,8 @@ def load_workspace(app: gr.Blocks):
         gr.Markdown(ExtensionMeta.description)
         zip_file = gr.File(label="Upload a ZIP file")
         run_button = gr.Button("Install")
-#        reload_button = gr.Button(Config.Icon.refresh_symbol + " Reload", interactive=False)
+       	#reload_button = gr.Button(Config.Icon.refresh_symbol + " Reload", interactive=False)
         output_text = gr.Textbox()
         run_button.click(extract_and_run, inputs=[zip_file], outputs=[output_text])
-        
-        # Add a click handler for the Reload button
-#        reload_button.click(trigger_reload)
-
-## Function to set the reload_requested flag
-#def trigger_reload():
-#    global reload_requested
-#    with reload_lock:
-#        reload_requested = True
-#        restart_ui()  # Restart the UI process without using signals
+		# list of installed extensions
+        installed_extensions_df = gr.Dataframe(headers=["Name", "Version", "Author", "Description", "Active"], interactive=False, value=get_extensions())

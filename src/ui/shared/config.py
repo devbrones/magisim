@@ -1,6 +1,7 @@
 import gradio as gr
 class Config:
     debug: bool = True
+    
     class Icon:
         refresh_symbol = '\U0001f504'  # 🔄
         save_style_symbol = '\U0001f4be'  # 💾
@@ -15,6 +16,7 @@ class Config:
         warning_symbol = '\U000026a0\ufe0f' # ⚠️
         error_symbol = '\U0000274c' # ❌
         question_symbol = '\U00002753' # ❓
+        
     class UI:
         port: int = 8080
         theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")

@@ -1,4 +1,4 @@
-
+## Extension types defined (in a dynamic language lol)
 class Extension:
     class Builtin:
         pass

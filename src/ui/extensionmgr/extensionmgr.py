@@ -88,3 +88,6 @@ def get_installed_extensions() -> list:
 
 def get_loaded_extensions() -> list:
     return loaded_extensions
+
+def get_extensions() -> list:
+    pass
