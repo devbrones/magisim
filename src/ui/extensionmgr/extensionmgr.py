@@ -14,7 +14,14 @@ loaded_extensions = []
 logger = Logger("ExtensionMgr")
 
 
-def extract_and_run(zip_file, reload_button):
+def extract_and_run(zip_file):
+    """
+    The function `extract_and_run` extracts an extension zip file, finds its associated eload file, imports
+    the module, and returns metadata about the module if it exists.
+    
+    :param zip_file: The `zip_file` parameter is the tempfile object of the uploaded zip file.
+    :return: The function `extract_and_run` returns different values based on certain conditions. If the function fails to extract the zip file, it returns `Error: Failed to extract the zip file.`. If the function fails to find a suitable Python file, it returns `Error: No suitable Python file found in the uploaded zip.`. If the function fails to import the module, it returns `Error: Failed to import the module: {module_name} | {str(e)}`. If the function fails to find any metadata, it returns `Info: The module: {module_name} does not contain any metadata, it will load and work as expected, but wont display any information.`. If the function succeeds, it returns a dictionary containing the metadata of the module.
+    """
     try:
         # Create the extraction folder if it doesn't exist
         try:
@@ -61,6 +68,16 @@ def extract_and_run(zip_file, reload_button):
         return f"Error: {str(e)}"
     
 def get_extension_eload(extension_name):
+    """
+    The function `get_extension_eload` imports a module with a specific naming convention and returns
+    the imported module.
+    
+    :param extension_name: The `extension_name` parameter is a string that represents the name of the
+    extension. It should be in the format of a Python module name.
+    :return: The function `get_extension_eload` returns the imported module `eload_module` if it is
+    successfully imported. If there is an error during the import process, it returns an error message
+    string indicating the failure to import the module.
+    """
     for filename in os.listdir(extension_name.replace(".", "/")):
         if filename.endswith("-eload.py"):
             module_path = os.path.join(extension_name.replace(".","/"), filename)
@@ -77,6 +94,10 @@ def get_extension_eload(extension_name):
     
     
 def get_installed_extensions() -> list:
+    """
+    The function `get_installed_extensions` returns a list of all installed extensions.
+    :return: The function `get_installed_extensions` returns a list of installed extensions.
+    """
     # get a list of all installed extensions and their paths
     extensions = []
     for extension in os.listdir(extraction_folder):

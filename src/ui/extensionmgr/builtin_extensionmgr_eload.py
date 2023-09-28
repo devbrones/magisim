@@ -23,14 +23,6 @@ class ExtensionMeta:
 		layoutCompat: bool = False
 		hasNodes: list = []
 
-# Shared variable to signal a UI reload
-reload_requested = False
-reload_lock = threading.Lock()
-
-## Function to restart the UI
-#def restart_ui():
-#    # Start a new UI process with stdin, stdout, and stderr connected to the current process
-#    subprocess.Popen([sys.executable, "ui.py"], stdin=subprocess.PIPE, stdout=sys.stdout, stderr=sys.stderr)
 
 def load_workspace(app: gr.Blocks):
     with gr.Tab(ExtensionMeta.name):
