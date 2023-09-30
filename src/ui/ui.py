@@ -20,6 +20,22 @@ with open("nodemgr/static/js/litegraph.js", "r") as f:
 
 @fapp.middleware("http")
 async def some_fastapi_middleware(request: Request, call_next):
+    """
+    The function `some_fastapi_middleware` is a FastAPI middleware that injects litegraph.js into the
+    index.html response to enable custom JavaScript functionality.
+    
+    :param request: The `request` parameter is an instance of the `Request` class from the `fastapi`
+    module. It represents the incoming HTTP request that is being processed by the middleware
+    :type request: Request
+    :param call_next: `call_next` is a callable that represents the next middleware or the endpoint
+    handler. It is responsible for processing the request and generating a response. In the context of
+    FastAPI middleware, `call_next` is typically an asynchronous function that takes a `Request` object
+    as input and returns a `Response
+    :return: The middleware function returns a modified response object. If the path is "/", the
+    function injects litegraph.js and some additional JavaScript code into the HTML response body. It
+    then returns a new Response object with the modified response body, status code, headers, and media
+    type. If the path is not "/", the function simply returns the original response object.
+    """
     ## Middleware to inject litegraph.js into the index.html because gradio does not support custom js lol
     # god bless the original author of this code, i cannot remember who it was but i love you
     response = await call_next(request)
@@ -78,6 +94,15 @@ async def some_fastapi_middleware(request: Request, call_next):
     return response
 
 def load_ui(app: gr.Blocks):
+    """
+    The function `load_ui` loads the user interface for a given application, including the builtin node
+    manager, extensions, extension manager, and settings manager.
+    
+    :param app: The "app" parameter is an instance of the gr.Blocks class. It represents the application
+    or workspace where the UIs will be loaded
+    :type app: gr.Blocks
+    :return: The function does not return anything.
+    """
     # load the builtin node manager
     builtin_nodemgr_eload.load_workspace(app) # load the node manager
     ## iterate through all extensions and load their UIs through their eload modules
