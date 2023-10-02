@@ -13,3 +13,7 @@
 > **Note**\
 > No alpha available, see obsidian vault for notes.
 
+
+---
+> **Note**\
+> Docs now available on [Mintlify](https://magisim.mintlify.app/introduction)
