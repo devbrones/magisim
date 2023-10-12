@@ -56,6 +56,7 @@ async def some_fastapi_middleware(request: Request, call_next):
     type. If the path is not "/", the function simply returns the original response object.
     """
     ## Middleware to inject litegraph.js into the index.html because gradio does not support custom js lol
+    # god bless the original author of this code, i cannot remember who it was but i love you
     response = await call_next(request)
     path = request.scope["path"]
     if path == "/":
@@ -71,26 +72,31 @@ async def some_fastapi_middleware(request: Request, call_next):
 
         some2_javascript = f"""
         <script>
+            var graph;
+            var canvas;
             function startNodeGraph() {{
-                var graph = new LGraph();
+                var div = document.getElementById('nodeGraphContainer');
+                var canvas = document.getElementById('nodecanvas');
+                var divWidth = div.offsetWidth;
+                var divHeight = div.offsetHeight;
+                canvas.width = divWidth;
+                canvas.height = divHeight;
+                
+                /*canvas.addEventListener('resize', () => {{
+                    canvas.width = document.getElementById('nodeGraphContainer').offsetWidth;
+                    canvas.height = document.getElementById('nodeGraphContainer').offsetHeight;
+                }});*/
+                
+                graph = new LGraph();
 
-                var canvas = new LGraphCanvas("#nodecanvas", graph);
-
-                var node_const = LiteGraph.createNode("basic/const");
-                node_const.pos = [200,200];
-                graph.add(node_const);
-                node_const.setValue(4.5);
-
-                var node_watch = LiteGraph.createNode("basic/watch");
-                node_watch.pos = [700,200];
-                graph.add(node_watch);
-
-                node_const.connect(0, node_watch, 0 );
+                canvas = new LGraphCanvas("#nodecanvas", graph);
 
                 graph.start()
             }}
         </script>
-        """ # this will literally never load in properly
+        """ # this will literally never load in properly lol 
+            # 230927 EDIT: it does now, but does not scale properly
+            
 
 
         response_body = response_body.replace("</head>", some_javascript + some2_javascript + "</head>")

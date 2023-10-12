@@ -15,10 +15,9 @@ class NodeManager:
                     { litegraph_css }
                 </style>
             </head>
-            <body>  
-                <div min-height='600px'>
-                    <canvas id='nodecanvas' width='100%' height='100%'></canvas>
-                    
+            <body>
+                <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color: red;" id='nodeGraphContainer'>
+                    <canvas id='nodecanvas' width='100px' height='100px'></canvas>
                     <img src onerror='startNodeGraph()'>
                 </div>
             </body>
