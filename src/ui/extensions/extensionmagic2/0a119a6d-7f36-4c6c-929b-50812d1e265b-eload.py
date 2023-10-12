@@ -3,7 +3,7 @@ import gradio as gr
 from shared.builtin import Extension
 
 # extension specific imports
-import extensions.extensionmagic.extensionmagic as extensionmagic
+import extensions.extensionmagic2.extensionmagic as extensionmagic
 # no imports #
 
 
@@ -20,7 +20,7 @@ class ExtensionMeta:
 		layoutCompat: bool = False
 		hasNodes: list = []
   
-def load_workspace():
+def load_workspace(app: gr.Blocks):
     with gr.Tab(ExtensionMeta.name):
         gr.Markdown(ExtensionMeta.description)
         with gr.Row():

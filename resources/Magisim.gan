@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-08-01" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.2.3230" locale="en_GB">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2023-08-01" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.2.3240" locale="en_US">
     <description/>
     <view zooming-state="default:9" id="gantt-chart">
         <field id="tpd3" name="Name" width="200" order="0"/>
@@ -35,8 +35,8 @@
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
         <task id="0" name="UI" color="#8cb6ce" meeting="false" start="2023-09-20" duration="23" complete="0" thirdDate="2023-09-20" thirdDate-constraint="0" expand="true"/>
-        <task id="12" name="Model loading" color="#8cb6ce" meeting="false" start="2023-10-23" duration="14" complete="0" thirdDate="2023-09-25" thirdDate-constraint="0" expand="true"/>
-        <task id="1" name="Extension manager" color="#8cb6ce" meeting="false" start="2023-10-30" duration="14" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
+        <task id="12" name="Model loading" color="#8cb6ce" meeting="false" start="2023-10-17" duration="18" complete="0" thirdDate="2023-09-25" thirdDate-constraint="0" expand="true"/>
+        <task id="1" name="Extension manager" color="#8cb6ce" meeting="false" start="2023-10-02" duration="15" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
         <task id="3" name="Extension SDK base" color="#8cb6ce" meeting="false" start="2023-09-20" duration="37" complete="0" thirdDate="2023-10-13" thirdDate-constraint="0" expand="true"/>
         <task id="4" name="First extension" color="#8cb6ce" meeting="false" start="2023-11-10" duration="15" complete="0" thirdDate="2023-10-23" thirdDate-constraint="0" expand="true"/>
         <task id="2" name="Demo 1" color="#8cb6ce" meeting="true" start="2023-12-01" duration="0" complete="0" thirdDate="2023-10-13" thirdDate-constraint="0" expand="true"/>

@@ -13,7 +13,7 @@ jc = int(je / 2)
 nsteps = 60
 t0 = 20
 spread = 6
-dt = 0.1
+dt = 10
 
 # CUDA setup
 threadsperblock = (16, 16)

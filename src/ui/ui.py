@@ -2,6 +2,8 @@ import gradio as gr
 from shared.config import Config
 from fastapi import FastAPI, Request
 from starlette.responses import Response
+import torch
+import os
 
 
 # builtin extension imports
@@ -11,6 +13,23 @@ import settingsmgr.builtin_settingsmg_eload as builtin_settingsmgr_eload
 import settingsmgr.settingsmgr as smgr
 import nodemgr.builtin_nodemgr_eload as builtin_nodemgr_eload
 import nodemgr.nodemgr as nmgr
+import shapeloader.builtin_shapeloader_eload as builtin_shapeloader_eload
+import shapeloader.shapeloader as sloadr
+
+# Pre-Startup checks
+
+# Check if a CUDA compatible GPU is available
+# If not, print a warning and continue but set config flag to False
+
+Config.Compute.CUDA.isAvailable = torch.cuda.is_available()
+if Config.Compute.CUDA.isAvailable:
+    Config.Compute.CUDA.device = torch.cuda.current_device()
+    Config.Compute.CUDA.name = torch.cuda.get_device_name(Config.Compute.CUDA.device)
+    Config.Compute.CUDA.memory = torch.cuda.get_device_properties(0).total_memory
+else:
+    Config.Compute.CPU.cores = os.cpu_count()
+    Config.Compute.CPU.memory = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  # mem in kb
+
 
 
 fapp = FastAPI()
@@ -107,7 +126,7 @@ def load_ui(app: gr.Blocks):
         loaded_extension = emgr.get_extension_eload(extension)
         if loaded_extension is not None or str:
             try:
-                loaded_extension.load_workspace()
+                loaded_extension.load_workspace(app)
             except Exception as e:
                 print(e)
                 return None
@@ -118,6 +137,7 @@ def load_ui(app: gr.Blocks):
     builtin_extensionmgr_eload.load_workspace(app) # load the extension manager
     # load the builtin settings manager
     builtin_settingsmgr_eload.load_workspace(app) # load the settings manager
+    builtin_shapeloader_eload.load_workspace(app) # load the shapeloader
 
 # Define the Gradio interface
 with gr.Blocks(theme=Config.UI.theme) as app:

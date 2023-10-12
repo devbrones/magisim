@@ -20,3 +20,23 @@ class Config:
     class UI:
         port: int = 8080
         theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")
+
+    class Compute:
+        class CUDA:
+            isAvailable: bool = False
+            version: str = ""
+            device: int = 0
+            name: str = ""
+            compute_capability: tuple = ()
+            cores: int = 0
+            memory: int = 0
+
+        class CPU:
+            name: str = ""
+            cores: int = 0
+            memory: int = 0
+
+        useNativeCompute: bool = True
+        fallbackCPUCompute: bool = True
+
+

@@ -189,3 +189,9 @@ docs/obsidian/MAGISIM-NOTES/null*
 .trash/
 .DS_Store
 
+
+# ignore all repos for compiling binaries, as well as binaries
+
+src/ui/shapeloader/bin/*
+
+

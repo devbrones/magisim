@@ -11,3 +11,6 @@ using Python and CUDA"
 https://www.tfd.chalmers.se/~lada/tracks-course-2023-GPU_accelerated_Computational_Methods-cfd-group-1.pdf
 
 
+
+https://www.mindspore.cn/mindelec/docs/en/master/point_cloud.html
+
