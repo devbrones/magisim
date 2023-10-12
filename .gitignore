@@ -194,4 +194,10 @@ docs/obsidian/MAGISIM-NOTES/null*
 
 src/ui/shapeloader/bin/*
 
+# ide 
+.vscode/
+
+# gifs and stuff in the root of the repo
+
+*.gif
 
