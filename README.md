@@ -29,6 +29,9 @@ For comprehensive documentation, please visit the [Magisim Documentation](https:
 - Affordable tool for educational environments.
 - Easy-to-use node interface for algorithm composition.
 - Visualize simulations, post-process data, and perform analysis.
+- SOON: export simulation data to VTK format for visualization in ParaView.
+- SOON: openEMS node for FDTD simulations.
+- SOON: Epsilon0 node for FDTD simulations.
 
 ## Roadmap
 
