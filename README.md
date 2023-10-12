@@ -2,10 +2,12 @@
 ![GitHub](https://img.shields.io/github/license/devbrones/magisim)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/devbrones/magisim)
 
-![Magisim project banner](resources/banner1.png)
 
 <p><img align="right" src="./resources/magisim_logo256.png" width=60></p>
 <h1>magisim</h1>
+
+![Magisim project banner](resources/banner1.png)
+
 <h2 align="left">Magisim is a simulation suite written in python</h2>
 
 
