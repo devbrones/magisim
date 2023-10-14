@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import trimesh
 
 
+
 class ShapeLoader:
 
     @staticmethod
