@@ -1,5 +1,4 @@
-theme: jekyll-theme-cayman
-
+remote_theme: lewismiddleton/cayman-dark
 plugins:
   - jekyll-sitemap
   - jekyll-remote-theme
