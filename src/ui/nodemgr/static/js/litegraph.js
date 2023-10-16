@@ -785,7 +785,7 @@
     global.LGraph = LiteGraph.LGraph = LGraph;
 
     //default supported types
-    LGraph.supported_types = ["number", "string", "boolean"];
+    LGraph.supported_types = ["number", "string", "boolean", "np-linspace", "np-3d", "np-2d", "np-1d", "matplot", "shape-3d", "shape-2d"];
 
     //used to know which types of connections support this graph (some graphs do not allow certain types)
     LGraph.prototype.getSupportedTypes = function() {
@@ -2161,6 +2161,20 @@
         return data;
     };
 
+    /** 
+     * Serialize graph and push to custom FastAPI endpoint
+     * @method pushgraph
+     * @return {Boolean} returns
+    */
+   LGraph.prototype.pushgraph = function() {
+        var data = this.serialize()
+        // create a xhr request to the api endpoint and push the serialized data
+        var req = new XMLHttpRequest()
+        req.
+   }
+
+
+
     /**
      * Configure a graph from a JSON string
      * @method configure
@@ -2673,7 +2687,7 @@
         return JSON.stringify(this.serialize());
     };
     //LGraphNode.prototype.deserialize = function(info) {} //this cannot be done from within, must be done in LiteGraph
-
+    
     /**
      * get the title string
      * @method getTitle
@@ -14816,7 +14830,8 @@ if (typeof exports != "undefined") {
     GraphInput.title = "Input";
     GraphInput.desc = "Input of the graph";
 
-	GraphInput.prototype.onConfigure = function()
+	GraphInput.prototype.onConfigure = function()
+
 	{
 		this.updateType();
 	}
