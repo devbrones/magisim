@@ -2,3 +2,12 @@ theme: jekyll-theme-cayman
 
 plugins:
   - jekyll-sitemap
+  - jekyll-remote-theme
+
+title: Magisim
+description: Interactive Simulations
+show_downloads: true
+github:
+  zip_url: https://cdn.magisim.com/eu-se1/core/latest.zip
+
+

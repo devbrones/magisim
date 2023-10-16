@@ -3,7 +3,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/devbrones/magisim)
 
 
-<p><img align="right" src="./resources/logo-normal-light.svg" width=60></p>
+<p><img align="right" src="./resources/magisim_logo256.png" width=60></p>
 <h1>magisim</h1>
 
 ![Magisim project banner](resources/banner1.png)
