@@ -1,60 +1,94 @@
-![GitHub last commit](https://img.shields.io/github/last-commit/devbrones/magisim)
-![GitHub](https://img.shields.io/github/license/devbrones/magisim)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/devbrones/magisim)
+<div align="center">
 
+  # Chirpy Jekyll Theme
 
-<p><img align="right" src="./resources/logo-normal-light.svg" width=60></p>
-<h1>magisim</h1>
+  A minimal, responsive and feature-rich Jekyll theme for technical writing.
 
-![Magisim project banner](resources/banner1.png)
+  [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy?color=brightgreen)][gem]&nbsp;
+  [![CI](https://github.com/cotes2020/jekyll-theme-chirpy/actions/workflows/ci.yml/badge.svg?branch=master&event=push)][ci]&nbsp;
+  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4e556876a3c54d5e8f2d2857c4f43894)][codacy]&nbsp;
+  [![GitHub license](https://img.shields.io/github/license/cotes2020/jekyll-theme-chirpy.svg)][license]&nbsp;
+  [![996.icu](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg)](https://996.icu)
 
-## Description
+  [**Live Demo →**][demo]
 
+  [![Devices Mockup](https://chirpy-img.netlify.app/commons/devices-mockup.png)][demo]
 
-Magisim is a versatile simulation hub that brings together individual computational algorithms through an interactive graphical user interface. It is designed to be hosted on a server, allowing multiple users to access it simultaneously. This makes Magisim an affordable and powerful tool for educational environments.
-
-The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing different aspects of simulations.
-
-## Documentation
-
-For comprehensive documentation, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.
-
-## Screenshot
-![Screenshot of Epsilon0 workspace version 0.0.0](resources/fdtd-scrs-v0.0.0.png)
+</div>
 
 ## Features
 
-- Connect and collect computational algorithms.
-- Hosted on a server for multi-user access.
-- Affordable tool for educational environments.
-- Easy-to-use node interface for algorithm composition.
-- Visualize simulations, post-process data, and perform analysis.
-- SOON: export simulation data to VTK format for visualization in ParaView.
-- SOON: openEMS node for FDTD simulations.
-- SOON: Epsilon0 node for FDTD simulations.
+<details>
+  <summary>Click to expand/close details</summary>
+  &nbsp;
 
-## Roadmap
+- Dark / Light Theme Mode
+- Localized UI language
+- Pinned Posts on Home Page
+- Hierarchical Categories
+- Trending Tags
+- Table of Contents
+- Last Modified Date
+- Syntax Highlighting
+- Mathematical Expressions
+- Mermaid Diagrams & Flowcharts
+- Dark / Light Mode Images
+- Embed Videos
+- Disqus / Giscus / Utterances Comments
+- Built-in Search
+- Atom Feeds
+- PWA
+- Google Analytics
+- SEO & Performance Optimization
 
-[Outline any planned features or improvements for the future.]
+</details>
+
+## Documentation
+
+To learn how to use, develop, and upgrade the project, please refer to the [Wiki][wiki].
 
 ## Contributing
 
-We welcome contributions to make Magisim even better. If you'd like to contribute, please review our [Contribution Guidelines](CONTRIBUTING.md).
+Contributions (_pull requests_, _issues_, and _discussions_) are what make the open-source community such an amazing place
+to learn, inspire, and create. Any contributions you make are greatly appreciated.
+For details, see the "[Contributing Guidelines][contribute-guide]".
 
-## Acknowledgments
+## Credits
 
-We would like to express our gratitude to the open-source community for their valuable contributions and inspiration.
+This project is mainly built with [Jekyll][jekyllrb] ecosystem,
+[Bootstrap][bootstrap], [Font Awesome][icons], and some other [wonderful tools][lib].
+The avatar and favicon design come from [Clipart Max][image].
 
-## Contact
+Many thanks to the [contributors][contributors] who participated in the development
+and to the folks who reported bugs or shared ideas.
 
-If you have any questions or need support, feel free to reach out to us via email at [magisim@protonmail.ch](mailto:magisim@protonmail.ch).
+Last but not least, thanks to [JetBrains][jetbrains] for providing the _Open Source License_.
 
+## Sponsoring
 
+If you like this project or have built something through it, please consider sponsoring it, and your support would be greatly appreciated.
 
+[![Ko-fi](https://img.shields.io/badge/Support_Me_on_Ko--fi-ff5e5b?logo=ko-fi&logoColor=white)][ko-fi]&nbsp;
+[![Wechat Pay](https://img.shields.io/badge/Support_Me_on_WeChat-brightgreen?logo=wechat&logoColor=white)][donation]&nbsp;
+[![Alipay](https://img.shields.io/badge/Support_Me_on_Alipay-blue?logo=alipay&logoColor=white)][donation]
 
----
-> **Note**\
-> No alpha available, see obsidian vault for notes.
+## License
 
+This project is published under [MIT License][license].
 
-
+[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
+[ci]: https://github.com/cotes2020/jekyll-theme-chirpy/actions/workflows/ci.yml?query=event%3Apush+branch%3Amaster
+[codacy]: https://app.codacy.com/gh/cotes2020/jekyll-theme-chirpy/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
+[license]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE
+[jekyllrb]: https://jekyllrb.com/
+[bootstrap]: https://getbootstrap.com/
+[icons]: https://fontawesome.com/
+[image]: https://www.clipartmax.com/middle/m2i8b1m2K9Z5m2K9_ant-clipart-childrens-ant-cute/
+[demo]: https://cotes2020.github.io/chirpy-demo/
+[wiki]: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
+[contribute-guide]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/docs/CONTRIBUTING.md
+[contributors]: https://github.com/cotes2020/jekyll-theme-chirpy/graphs/contributors
+[lib]: https://github.com/cotes2020/chirpy-static-assets
+[jetbrains]: https://www.jetbrains.com/?from=jekyll-theme-chirpy
+[ko-fi]: https://ko-fi.com/coteschung/
+[donation]: https://sponsor.cotes.page/
