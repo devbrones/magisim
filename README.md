@@ -19,7 +19,10 @@ The primary goal of this project is to democratize access to high-cost simulatio
 
 For comprehensive documentation, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.
 
-## Screenshot
+## Screenshots
+### Node Manager
+![Screenshot of the built in NodeManager Workflow](resources/nmgr.png)
+### Epsilon0 Sim
 ![Screenshot of Epsilon0 workspace version 0.0.0](resources/fdtd-scrs-v0.0.0.png)
 
 ## Features
