@@ -87,6 +87,7 @@ def get_extension_eload(extension_name):
             # Import the module
             try:
                 eload_module = importlib.import_module(module_name)
+                loaded_extensions.append(eload_module)
                 return eload_module
             except Exception as e:
                 logger.logger.error(f"Failed to import the module: {module_name} | {str(e)}")
@@ -113,6 +114,7 @@ def get_loaded_extensions() -> list:
 def get_extensions() -> list:
     pass
 
+"""
 def load_extension_node(extension_name):
     exts = get_loaded_extensions()
     if extension_name in exts:
@@ -130,3 +132,4 @@ def load_extension_node(extension_name):
             logger.logger.error(f"Failed to load extension node: {extension_name} | {str(e)}")
     else:
         logger.logger.error(f"Failed to load extension node: {extension_name} | Extension not loaded")
+"""

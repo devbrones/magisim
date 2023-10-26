@@ -55,11 +55,13 @@ nodelog = Logger("NodeManager-Preload")
 async def nodeg_post(item: Item):
     # Print the contents of the request to the command line
     apilog.logger.info("Received nodegraph update")
+    print(item)
     return {"message": "update received"}
 
 litegraph_js = ""
 with open("nodemgr/static/js/litegraph.js", "r") as f:
     litegraph_js = f.read()
+
 
 @fapp.middleware("http")
 async def some_fastapi_middleware(request: Request, call_next):
@@ -88,45 +90,14 @@ async def some_fastapi_middleware(request: Request, call_next):
         async for chunk in response.body_iterator:
             response_body += chunk.decode()
 
-
-        nodes: str = ""
-        extensions = emgr.get_installed_extensions()
-        for extension in extensions:
-            # load the extension
-            loaded_extension = emgr.get_extension_eload(extension)
-            if loaded_extension is not None or str:
-                exts = emgr.get_loaded_extensions()
-                if extension in exts:
-                    try:
-                        eload_module = emgr.get_extension_eload(extension)
-                        if hasattr(eload_module, "get_node"):
-                            node_contents = eload_module.get_node()
-                            if Config.debug:
-                                nodelog.logger.info(f"Loaded extension node: {extension}")
-                        else:
-                            nodelog.logger.info(f"Skipping extension node-loading for: {extension} | No nodes")
-                            return None
-                        return node_contents
-                    except Exception as e:
-                        nodelog.logger.error(f"Failed to load extension node: {extension} | {str(e)}")
-                else:
-                    nodelog.logger.error(f"Failed to load extension node: {extension} | Extension not loaded")
-
-            else:
-                print("Error: Failed to load extension: " + extension)
-                return None
-            
-            nodes += str(emgr.load_extension_node(extension))
-
-        print("NODESSSSSS: ",str(nodes))
-
-
-
         some_javascript = f"""
         <script type="text/javascript" id="lgscr">
         { litegraph_js }
         </script>
         """
+
+        nodes: str = nmgr.NodeManager.generate_node_db()
+
 
         some2_javascript = f"""
         <script>
@@ -211,7 +182,6 @@ def load_ui(app: gr.Blocks):
 with gr.Blocks(theme=Config.UI.theme) as app:
     ## they did not say i could do this - but i did it anyway!
     load_ui(app)
-
 # Launch the Gradio application
 #app.launch(server_port=Config.UI.port)
 gr.mount_gradio_app(fapp, app, path="/")

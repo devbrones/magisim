@@ -18,7 +18,7 @@ class ExtensionMeta:
 	class ExtensionType:
 		types: list = [Extension.Simulator] # list of classes
 		layoutCompat: bool = False
-		hasNodes: list = []
+		hasNodes: [(Extension,(list,list))] = []
 		hasSettings: bool = True # can be set to be checked by a function later if needed
   
 def load_workspace(app: gr.Blocks):

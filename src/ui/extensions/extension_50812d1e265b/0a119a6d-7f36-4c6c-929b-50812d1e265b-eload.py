@@ -21,10 +21,19 @@ class ExtensionMeta:
     class ExtensionType:
         types: list = [Extension.Editor] # list of classes
         layoutCompat: bool = False
-        hasNodes: list = []
+        hasNodes: [(Extension,(list,list))] = [(Extension.Simulator,([("Space", "number"),
+                                                                      ("Sensitivity","number"),
+                                                                      ("Frequency","number"),
+                                                                      ("ypos","number"),
+                                                                      ("xpos","number"),
+                                                                      ("amplitude","number")],
+                                                                      [("graph","number"),
+                                                                       ("video","number"),
+                                                                       ("fft","number")
+                                                                       ])), (Extension.Editor,([("xpos","number"),
+                                                                                                ("ypos","number")],
+                                                                                                [("Space","number")]))]
 
-def get_node() -> str:
-    return ExtensionMeta.ExNode.nodeobj
 
 def load_workspace(app: gr.Blocks):
     with gr.Tab(ExtensionMeta.name):

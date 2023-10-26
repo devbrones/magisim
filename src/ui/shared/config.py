@@ -22,6 +22,8 @@ class Config:
         theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")
 
     class Compute:
+        presicion: float = 0.001
+
         class CUDA:
             isAvailable: bool = False
             version: str = ""
