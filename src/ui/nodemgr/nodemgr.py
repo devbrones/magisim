@@ -56,11 +56,9 @@ class NodeManager:
         # iterate through the extensions and get the list of nodes
         for ext in loaded_extensions:
             if ext.ExtensionMeta.ExtensionType.hasNodes == []:
-                if Config.debug:
-                    nmgrlog.logger.debug(f"Skipping extension {ext.ExtensionMeta.name} because it has no nodes")
+                nmgrlog.logger.info(f"Skipping node generation for extension {ext.ExtensionMeta.name} because it has no nodes")
                 continue
             nodes: [(Extension,(list,list))] = ext.ExtensionMeta.ExtensionType.hasNodes # [(Extension.Simulator,([<INPUTS>(name,type)],[<OUTPUTS>(name,type)])), (Extension.Editor([inputs],[outputs]))]
-            print(f"ext: {ext.ExtensionMeta.name}: ",str(nodes))
             # generate a node for each node in the extension
             for node in nodes:
                 nodeindex = nodes.index(node)
@@ -72,14 +70,14 @@ class NodeManager:
                 ipts: str = ""
                 for ipt in node[1][0]: 
                     ipts += f"this.addInput('{ipt[0]}','{ipt[1]}');"
-                if Config.debug:
-                    nmgrlog.logger.debug(f"ipts: {ipts}")
+                #if Config.debug:
+                #    nmgrlog.logger.debug(f"ipts: {ipts}")
 
                 opts: str = ""
                 for opt in node[1][1]: 
                     opts += f"this.addOutput('{opt[0]}','{opt[1]}');"
-                if Config.debug:
-                    nmgrlog.logger.debug(f"opts: {opts}")
+                #if Config.debug:
+                #    nmgrlog.logger.debug(f"opts: {opts}")
 
                 node_class = f"""
                 //node constructor class
@@ -102,8 +100,8 @@ class NodeManager:
                 //register in the system
                 LiteGraph.registerNodeType("basic/{str(node[0]).split(".")[-1][:-3]}", {nodeuuid} );
                 """
-                if Config.debug:
-                    nmgrlog.logger.debug(f"node_class: {node_class}")
+                #if Config.debug:
+                #    nmgrlog.logger.debug(f"node_class: {node_class}")
 
                 nodedb += node_class
         return nodedb

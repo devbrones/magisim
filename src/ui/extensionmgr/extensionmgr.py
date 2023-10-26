@@ -112,7 +112,17 @@ def get_loaded_extensions() -> list:
     return loaded_extensions
 
 def get_extensions() -> list:
-    pass
+    #list of rows
+    data: list = []
+    # get installed extensions
+    extensions = get_installed_extensions()
+    for extension in extensions:
+        # get the eload module
+        eload_module = get_extension_eload(extension)
+        if eload_module is not None:
+            # format into cols  [name, version, author, description, active]
+            data.append([eload_module.ExtensionMeta.name, eload_module.ExtensionMeta.version, ', '.join(eload_module.ExtensionMeta.authors), eload_module.ExtensionMeta.description, True])
+    return data
 
 """
 def load_extension_node(extension_name):
