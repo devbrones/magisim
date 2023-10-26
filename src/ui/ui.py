@@ -1,9 +1,11 @@
 import gradio as gr
 from shared.config import Config
 from fastapi import FastAPI, Request
+from pydantic import BaseModel
 from starlette.responses import Response
 import torch
 import os
+from shared.logger import Logger
 
 
 # builtin extension imports
@@ -13,8 +15,8 @@ import settingsmgr.builtin_settingsmg_eload as builtin_settingsmgr_eload
 import settingsmgr.settingsmgr as smgr
 import nodemgr.builtin_nodemgr_eload as builtin_nodemgr_eload
 import nodemgr.nodemgr as nmgr
-import shapeloader.builtin_shapeloader_eload as builtin_shapeloader_eload
-import shapeloader.shapeloader as sloadr
+#import shapeloader.builtin_shapeloader_eload as builtin_shapeloader_eload
+#import shapeloader.shapeloader as sloadr
 
 # Pre-Startup checks
 
@@ -33,6 +35,28 @@ else:
 
 
 fapp = FastAPI()
+
+# set up the custom endpoints for nodegraph as well as shape loading
+
+class Item(BaseModel):
+    last_node_id: str
+    last_link_id: str
+    nodes: list
+    links: list
+    groups: list
+    config: dict
+    extra: dict
+    version: str
+
+apilog = Logger("FastAPI")
+nodelog = Logger("NodeManager-Preload")
+
+@fapp.post("/api/nodeg-update")
+async def nodeg_post(item: Item):
+    # Print the contents of the request to the command line
+    apilog.logger.info("Received nodegraph update")
+    return {"message": "update received"}
+
 litegraph_js = ""
 with open("nodemgr/static/js/litegraph.js", "r") as f:
     litegraph_js = f.read()
@@ -64,6 +88,40 @@ async def some_fastapi_middleware(request: Request, call_next):
         async for chunk in response.body_iterator:
             response_body += chunk.decode()
 
+
+        nodes: str = ""
+        extensions = emgr.get_installed_extensions()
+        for extension in extensions:
+            # load the extension
+            loaded_extension = emgr.get_extension_eload(extension)
+            if loaded_extension is not None or str:
+                exts = emgr.get_loaded_extensions()
+                if extension in exts:
+                    try:
+                        eload_module = emgr.get_extension_eload(extension)
+                        if hasattr(eload_module, "get_node"):
+                            node_contents = eload_module.get_node()
+                            if Config.debug:
+                                nodelog.logger.info(f"Loaded extension node: {extension}")
+                        else:
+                            nodelog.logger.info(f"Skipping extension node-loading for: {extension} | No nodes")
+                            return None
+                        return node_contents
+                    except Exception as e:
+                        nodelog.logger.error(f"Failed to load extension node: {extension} | {str(e)}")
+                else:
+                    nodelog.logger.error(f"Failed to load extension node: {extension} | Extension not loaded")
+
+            else:
+                print("Error: Failed to load extension: " + extension)
+                return None
+            
+            nodes += str(emgr.load_extension_node(extension))
+
+        print("NODESSSSSS: ",str(nodes))
+
+
+
         some_javascript = f"""
         <script type="text/javascript" id="lgscr">
         { litegraph_js }
@@ -85,13 +143,17 @@ async def some_fastapi_middleware(request: Request, call_next):
                 /*canvas.addEventListener('resize', () => {{
                     canvas.width = document.getElementById('nodeGraphContainer').offsetWidth;
                     canvas.height = document.getElementById('nodeGraphContainer').offsetHeight;
-                }});*/
+                }});*/ // replace with a resize viewport event listener, canvas should be fullpage
                 
                 graph = new LGraph();
 
                 canvas = new LGraphCanvas("#nodecanvas", graph);
 
                 graph.start()
+                LiteGraph.clearRegisteredTypes() // remove default graph types
+                // register extension graph nodes
+                { nodes }
+
             }}
         </script>
         """ # this will literally never load in properly lol 
@@ -99,7 +161,7 @@ async def some_fastapi_middleware(request: Request, call_next):
             
 
 
-        response_body = response_body.replace("</head>", some_javascript + some2_javascript + "</head>")
+        response_body = response_body.replace('<script>window.gradio_config', some_javascript + some2_javascript + '<script>window.gradio_config')
 
         del response.headers["content-length"]
 
@@ -143,7 +205,7 @@ def load_ui(app: gr.Blocks):
     builtin_extensionmgr_eload.load_workspace(app) # load the extension manager
     # load the builtin settings manager
     builtin_settingsmgr_eload.load_workspace(app) # load the settings manager
-    builtin_shapeloader_eload.load_workspace(app) # load the shapeloader
+    #builtin_shapeloader_eload.load_workspace(app) # load the shapeloader
 
 # Define the Gradio interface
 with gr.Blocks(theme=Config.UI.theme) as app:

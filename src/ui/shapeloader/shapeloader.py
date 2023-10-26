@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import trimesh
 
 class ShapeLoader:
-
+    """
     @staticmethod
     def load_input(upload, modeselector , res, cutpoint, xpos, ypos):
         # the upload will be a dxf, we need to convert it to a numpy array, so that we can visualize it using matplotlib
-
+    """
 
 
 

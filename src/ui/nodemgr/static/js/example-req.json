@@ -1,0 +1,77 @@
+{
+    "last_node_id": 2,
+    "last_link_id": 1,
+    "nodes": [
+        {
+            "id": 2,
+            "type": "basic/watch",
+            "pos": [
+                461,
+                136
+            ],
+            "size": {
+                "0": 140,
+                "1": 26
+            },
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+                {
+                    "name": "value",
+                    "type": 0,
+                    "link": 1,
+                    "label": "0.500"
+                }
+            ],
+            "properties": {}
+        },
+        {
+            "id": 1,
+            "type": "widget/knob",
+            "pos": [
+                244,
+                144
+            ],
+            "size": [
+                64,
+                84
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "number",
+                    "links": [
+                        1
+                    ],
+                    "slot_index": 0
+                }
+            ],
+            "properties": {
+                "min": 0,
+                "max": 1,
+                "value": 0.5,
+                "color": "#7AF",
+                "precision": 2
+            },
+            "boxcolor": "rgba(128,128,128,1.0)"
+        }
+    ],
+    "links": [
+        [
+            1,
+            1,
+            0,
+            2,
+            0,
+            "number"
+        ]
+    ],
+    "groups": [],
+    "config": {},
+    "extra": {},
+    "version": 0.4
+}

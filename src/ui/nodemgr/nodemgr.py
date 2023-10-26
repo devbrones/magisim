@@ -1,4 +1,6 @@
 import gradio as gr
+from shared.config import Config
+import json
 
 litegraph_css = ""
 with open("nodemgr/static/css/litegraph.css", "r") as f:
@@ -6,6 +8,7 @@ with open("nodemgr/static/css/litegraph.css", "r") as f:
 
 
 class NodeManager:
+
     def fetch_node_editor():
         nmgr_html = f"""
         <html>
@@ -26,3 +29,25 @@ class NodeManager:
 
         
         gr.HTML(nmgr_html)
+
+
+    def fetch_node_save_button():
+        nbtn_html = f"""
+        <html>
+            <head>    
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+            </head>
+            <body>
+                <button style="width: 100%;" class="lg primary svelte-1ipelgc" onclick="graph.pushgraph()">{ Config.Icon.save_style_symbol }Save Nodes</button>
+            </body>
+        </html>
+        """
+        gr.HTML(nbtn_html)
+
+    def update_local_node_cache(input: str):
+        # convert the input json to a dict
+        nodes = json.loads(input)
+        # process the data
+        
+        
+

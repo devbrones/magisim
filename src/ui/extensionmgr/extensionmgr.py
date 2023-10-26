@@ -112,3 +112,21 @@ def get_loaded_extensions() -> list:
 
 def get_extensions() -> list:
     pass
+
+def load_extension_node(extension_name):
+    exts = get_loaded_extensions()
+    if extension_name in exts:
+        try:
+            eload_module = get_extension_eload(extension_name)
+            if hasattr(eload_module, "get_node"):
+                node_contents = eload_module.get_node()
+                if Config.debug:
+                    logger.logger.info(f"Loaded extension node: {extension_name}")
+            else:
+                logger.logger.info(f"Skipping extension node-loading for: {extension_name} | No nodes")
+                return None
+            return node_contents
+        except Exception as e:
+            logger.logger.error(f"Failed to load extension node: {extension_name} | {str(e)}")
+    else:
+        logger.logger.error(f"Failed to load extension node: {extension_name} | Extension not loaded")

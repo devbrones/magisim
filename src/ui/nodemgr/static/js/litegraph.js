@@ -2169,8 +2169,16 @@
    LGraph.prototype.pushgraph = function() {
         var data = this.serialize()
         // create a xhr request to the api endpoint and push the serialized data
-        var req = new XMLHttpRequest()
-        req.
+        const req = new XMLHttpRequest()
+        req.open("POST", "/api/nodeg-update", true)
+        req.setRequestHeader("Content-Type", "application/json")
+        req.onreadystatechange = () => {
+            // Call a function when the state changes.
+            if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+              // Request finished. Do processing here.
+            }
+        };
+        req.send(JSON.stringify(data))
    }
 
 

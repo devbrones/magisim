@@ -3,13 +3,13 @@ import gradio as gr
 from shared.builtin import Extension
 
 # extension specific imports
-import extensions.epsilonzero.epsilon as epsilon 
+import extensions.extension_880843c55c42.epsilon as epsilon 
 # no imports #
 
 
 class ExtensionMeta:
 	name: str = "Epsilon0"
-	uuid: str = "0a119a6d-7f36-4c6c-929b-50812d1e265b"
+	uuid: str = "d8b29835-ad56-4d0c-90b6-880843c55c42"
 	authors: list = ["devbrones","thegregster1111"]
 	version: str = "0.0.0"
 	license: str = "LGPL3"
