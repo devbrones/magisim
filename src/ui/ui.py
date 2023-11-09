@@ -15,6 +15,9 @@ import settingsmgr.builtin_settingsmg_eload as builtin_settingsmgr_eload
 import settingsmgr.settingsmgr as smgr
 import nodemgr.builtin_nodemgr_eload as builtin_nodemgr_eload
 import nodemgr.nodemgr as nmgr
+import greeter.builtin_greeter_eload as builtin_greeter_eload
+import greeter.greeter as greeter
+
 #import shapeloader.builtin_shapeloader_eload as builtin_shapeloader_eload
 #import shapeloader.shapeloader as sloadr
 
@@ -123,16 +126,89 @@ async def some_fastapi_middleware(request: Request, call_next):
                 graph.start()
                 LiteGraph.clearRegisteredTypes() // remove default graph types
                 // register extension graph nodes
+                
                 { nodes }
 
             }}
+
+        /**
+     *
+     * Wait for an HTML element to be loaded like `div`, `span`, `img`, etc.
+     * ex: `onElementLoaded("div.some_class").then(()=>{{}}).catch(()=>{{}})`
+     * @param {{*}} elementToObserve wait for this element to load
+     * @param {{*}} parentStaticElement (optional) if parent element is not passed then `document` is used
+     * @return {{*}} Promise - return promise when `elementToObserve` is loaded
+     */
+    function onElementLoaded(elementToObserve, parentStaticElement) {{
+      const promise = new Promise((resolve, reject) => {{
+        try {{
+          if (document.querySelector(elementToObserve)) {{
+            console.log(`element already present: ${{elementToObserve}}`);
+            resolve(true);
+            return;
+          }}
+          const parentElement = parentStaticElement
+            ? document.querySelector(parentStaticElement)
+            : document;
+
+          const observer = new MutationObserver((mutationList, obsrvr) => {{
+            const divToCheck = document.querySelector(elementToObserve);
+
+            if (divToCheck) {{
+              console.log(`element loaded: ${{elementToObserve}}`);
+              obsrvr.disconnect(); // stop observing
+              resolve(true);
+            }}
+          }});
+
+          // start observing for dynamic div
+          observer.observe(parentElement, {{
+            childList: true,
+            subtree: true,
+          }});
+        }} catch (e) {{
+          console.log(e);
+          reject(Error("some issue... promise rejected"));
+        }}
+      }});
+      return promise;
+    }}
+
+
+            
         </script>
         """ # this will literally never load in properly lol 
             # 230927 EDIT: it does now, but does not scale properly
-            
 
+        some3_javascript = """
+        var has_loaded = false;
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutationRecord) {
+                if (has_loaded) {
+                    has_loaded = true;
+                } else {
+                    startNodeGraph();
+                    has_loaded = true;
+                }
+            });    
+        });
+
+        var target = document.getElementById('nmgrtab');
+        observer.observe(target, { attributes : true, attributeFilter : ['visibility'] });
+        """
+
+        reps = """
+			const ce = document.getElementsByTagName("gradio-app");
+			if (ce[0]) {
+				ce[0].addEventListener("domchange", () => {
+					document.body.style.padding = "0";
+				});
+				document.body.style.padding = "0";
+			}
+		"""
 
         response_body = response_body.replace('<script>window.gradio_config', some_javascript + some2_javascript + '<script>window.gradio_config')
+        response_body = response_body.replace(reps, some3_javascript + reps)
 
         del response.headers["content-length"]
 
@@ -155,8 +231,12 @@ def load_ui(app: gr.Blocks):
     :type app: gr.Blocks
     :return: The function does not return anything.
     """
+    # load the greeter
+    #
     # load the builtin node manager
+    builtin_greeter_eload.load_workspace(app) # load the greeter
     builtin_nodemgr_eload.load_workspace(app) # load the node manager
+
     ## iterate through all extensions and load their UIs through their eload modules
     # get a list of all installed extensions and their paths
     extensions = emgr.get_installed_extensions()
@@ -177,9 +257,11 @@ def load_ui(app: gr.Blocks):
     # load the builtin settings manager
     builtin_settingsmgr_eload.load_workspace(app) # load the settings manager
     #builtin_shapeloader_eload.load_workspace(app) # load the shapeloader
-
+css = ""
+with open("shared/globalcss.css", "r") as cssf:
+    css=cssf.read()
 # Define the Gradio interface
-with gr.Blocks(theme=Config.UI.theme) as app:
+with gr.Blocks(theme=Config.UI.theme, css=css) as app:
     ## they did not say i could do this - but i did it anyway!
     load_ui(app)
 # Launch the Gradio application

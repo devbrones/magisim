@@ -16,24 +16,18 @@ class NodeManager:
 
     def fetch_node_editor():
         nmgr_html = f"""
-        <html>
-            <head>    
-                <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        
                 <style>
                     { litegraph_css }
                 </style>
-            </head>
-            <body>
-                <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color: red;" id='nodeGraphContainer'>
+                <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color: darkgray;" id='nodeGraphContainer'>
                     <canvas id='nodecanvas' width='100px' height='100px'></canvas>
-                    <img src onerror='startNodeGraph()'>
+                    <img src onerror="startNodeGraph()">
                 </div>
-            </body>
-        </html>
         """
 
         
-        gr.HTML(nmgr_html)
+        gr.HTML(nmgr_html, elem_id="nmgrcont")
 
 
     def fetch_node_save_button():
@@ -89,7 +83,7 @@ class NodeManager:
                 }}
                 
                 //name to show
-                {nodeuuid}.title = "{ext.ExtensionMeta.name}";
+                {nodeuuid}.title = "{ext.ExtensionMeta.name + node[0].__name__}";
                 
                 //function to call when the node is executed
                 {nodeuuid}.prototype.onExecute = function()
@@ -98,7 +92,7 @@ class NodeManager:
                 }}
                 
                 //register in the system
-                LiteGraph.registerNodeType("basic/{str(node[0]).split(".")[-1][:-3]}", {nodeuuid} );
+                LiteGraph.registerNodeType("{node[0].__name__}/{str(node[0]).split(".")[-1][:-3] + nodeuuid}", {nodeuuid} );
                 """
                 #if Config.debug:
                 #    nmgrlog.logger.debug(f"node_class: {node_class}")
