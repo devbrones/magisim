@@ -1,0 +1,17 @@
+---
+# Send this when nodes are updated
+mode: update
+nodes:
+- uuid: UUID1 # Node 1
+  inputs:
+  - manager # replace a UUID with "manager" to connect it node manager
+  
+  outputs:
+  - UUID2 # UUID of node connected to output[n] of this node
+
+- uuid: UUID2 # Node 2
+  inputs:
+  - UUID1 # UUID of node connected to input[n] of this node
+  
+  outputs:
+  - manager # replace a UUID with "manager" to connect it node manager

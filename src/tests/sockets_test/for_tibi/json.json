@@ -1,0 +1,23 @@
+{
+    "mode": "update",
+    "nodes": [
+        {
+            "uuid": "UUID1",
+            "inputs": [
+                "manager"
+            ],
+            "outputs": [
+                "UUID2"
+            ]
+        },
+        {
+            "uuid": "UUID2",
+            "inputs": [
+                "UUID1"
+            ],
+            "outputs": [
+                "manager"
+            ]
+        }
+    ]
+}

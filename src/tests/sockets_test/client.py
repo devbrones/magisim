@@ -1,14 +1,10 @@
 import sys
+import json
 import socket
-from socketClass import socketC
+from socketClass import socketNode
 
-sock = socketC(int(sys.argv[1]), True)
+sock = socketNode(int(sys.argv[1]))
 
 while True:
-	try:
-		msg = sock.main.recv(1024)
-	except BlockingIOError:
-		pass # No new data. Reuse old data
-	else:
-		if (msg == "3")
+	sock.sockListen()
 	#print("test")

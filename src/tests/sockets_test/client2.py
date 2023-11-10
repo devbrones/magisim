@@ -1,8 +1,8 @@
 import sys
 import socket
-from socketClass import socketC
+from socketClass import socketNode
 
-sock = socketC(int(sys.argv[1]), True)
+sock = socketNode(int(sys.argv[1]), True)
 
 while True:
 	try:
