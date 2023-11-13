@@ -117,5 +117,5 @@ class NodeManager:
         nodes = json.loads(input)
         # process the data
         
-        
+    
 
