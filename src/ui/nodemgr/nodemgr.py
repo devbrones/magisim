@@ -20,14 +20,26 @@ class NodeManager:
                 <style>
                     { litegraph_css }
                 </style>
-                <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color: darkgray;" id='nodeGraphContainer'>
+                <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color: darkgray;" id='nodeGraphContainer' on>
                     <canvas id='nodecanvas' width='100px' height='100px'></canvas>
-                    <img src onerror="startNodeGraph()">
                 </div>
+                <script>
+                function onVisible(element, callback) {{
+                  new IntersectionObserver((entries, observer) => {{
+                    entries.forEach(entry => {{
+                      if(entry.intersectionRatio > 0) {{
+                        callback(element);
+                        observer.disconnect();
+                      }}
+                    }});
+                  }}).observe(element);
+                  if(!callback) return new Promise(r => callback=r);
+                }}
+                </script>
         """
 
         
-        gr.HTML(nmgr_html, elem_id="nmgrcont")
+        return gr.HTML(nmgr_html, elem_id="nmgrcont")
 
 
     def fetch_node_save_button():

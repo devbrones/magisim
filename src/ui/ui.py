@@ -99,7 +99,7 @@ async def some_fastapi_middleware(request: Request, call_next):
         </script>
         """
 
-        nodes: str = nmgr.NodeManager.generate_node_db()
+        nodes: str = nmgr.NodeManager.generate_node_db() ## outputs a string that contains all the node definitions
 
 
         some2_javascript = f"""

@@ -23,13 +23,13 @@ def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name,elem_id="nmgrtab"):
 		gr.Markdown(ExtensionMeta.description)
 		#load the node manager
-		with gr.Row(min_height=600):
-			NodeManager.fetch_node_editor()
-			with gr.Column(min_width=200):
+		with gr.Row():
+			nmgr: gr.HTML = NodeManager.fetch_node_editor()
+			with gr.Column():
 				NodeManager.fetch_node_save_button() # this is the greatest achievement so far in this project.
 				interface_nmgr_reload = gr.Button(Config.Icon.refresh_symbol+"Reload Nodes", interactive=False)				
-				gr.Checkbox(label=str(Config.Icon.warning_symbol+"Advanced Mode"), inline=True)
-				gr.CheckboxGroup(["Debug Mode","Use Math Nodes","Show Builtin Nodes","Show Node UUIDs","Custom API"], label="Advanced Properties", inline=True, interactive=False)
+				gr.Checkbox(label=str(Config.Icon.warning_symbol+"Advanced Mode"))
+				gr.CheckboxGroup(["Debug Mode","Use Math Nodes","Show Builtin Nodes","Show Node UUIDs","Custom API"], label="Advanced Properties", interactive=False)
 
 				with gr.Accordion(label="Custom API", open=False, elem_id="interface_nmgr_advanced_property_custom_api_accordion"):
 					interface_nmgr_advanced_property_custom_api_url = gr.Textbox(label="URL")
