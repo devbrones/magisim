@@ -37,7 +37,7 @@ class Router:
         return routemap
 
 
-    def create_route(queue: Queue):
+    def create_route(queue: Queue): pass
         
     def remove_route(queue: Queue): pass
     def get_mapped_route(me: Extension): pass
