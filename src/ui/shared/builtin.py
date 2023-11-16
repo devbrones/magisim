@@ -6,6 +6,8 @@ class Extension:
         pass
     class Renderer:
         pass
+    class Transform:
+        pass
     class Workspace:
         pass
     class Editor:

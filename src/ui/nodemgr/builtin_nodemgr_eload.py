@@ -20,7 +20,7 @@ class ExtensionMeta:
 		hasNodes: list = []
             
 def load_workspace(app: gr.Blocks):
-	with gr.Tab(ExtensionMeta.name,elem_id="nmgrtab"):
+	with gr.Tab(ExtensionMeta.name,elem_id="nmgrtab", id="nmgrtab"):
 		gr.Markdown(ExtensionMeta.description)
 		#load the node manager
 		with gr.Row():

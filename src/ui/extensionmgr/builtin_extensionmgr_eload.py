@@ -25,7 +25,7 @@ class ExtensionMeta:
 
 
 def load_workspace(app: gr.Blocks):
-    with gr.Tab(ExtensionMeta.name):
+    with gr.Tab(ExtensionMeta.name, id="extensionmgrtab"):
         gr.Markdown(ExtensionMeta.description)
         zip_file = gr.File(label="Upload a ZIP file")
         run_button = gr.Button("Install")

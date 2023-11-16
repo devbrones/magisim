@@ -231,6 +231,34 @@ def load_ui(app: gr.Blocks):
     :type app: gr.Blocks
     :return: The function does not return anything.
     """
+
+    # import gradio as gr
+    #def change_tab():
+    #    return gr.Tabs(selected=1)
+    #
+    #with gr.Blocks() as demo:
+    #    with gr.Tabs() as tabs:
+    #        with gr.TabItem("Train", id=0):
+    #            t = gr.Textbox()
+    #        with gr.TabItem("Inference", id=1):
+    #            i = gr.Image()
+    #    
+    #    btn = gr.Button()
+    #    btn.click(change_tab, None, tabs)
+    #            
+    #demo.launch()
+
+
+
+
+    # load save button!
+    with gr.Row():
+        gr.Markdown("<img src='http://magisim.com/resources/magisim_logo256.png' width='60px'>")
+        gr.Markdown("# ")
+        gr.Markdown("# ")
+        gr.Markdown("# ")
+        gr.Button(f"{Config.Icon.save_style_symbol} Save", variant="primary")
+
     # load the greeter
     #
     # load the builtin node manager

@@ -15,6 +15,42 @@ Magisim is a versatile simulation hub that brings together individual computatio
 
 The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing different aspects of simulations.
 
+## Setup
+
+### Conda
+
+Create the conda environment from the `devenv.yml` file:
+
+```bash
+conda env create -f devenv.yml
+```
+
+Activate the environment:
+
+```bash
+conda activate msimdev
+```
+
+Install dependencies:
+
+```bash
+pip install fdtd
+```
+
+
+### Docker
+TODO: add docker instructions
+
+## Usage
+
+### Running the server
+Move to the ```src/ui``` directory and run the following command:
+```bash
+sh start.sh
+```
+This will start the server on port 8000. You can access the server by navigating to ```localhost:8000``` in your browser. By default the server does not listen from external connections. To allow external connections, edit the config file ```src/ui/shared/config.py``` and change ```Config.UI.listen``` to ```"0.0.0.0"```.
+
+
 ## Documentation
 
 For comprehensive documentation, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.

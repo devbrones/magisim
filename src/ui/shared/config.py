@@ -18,8 +18,9 @@ class Config:
         question_symbol = '\U00002753' # ❓
         
     class UI:
-        port: int = 8080
+        port: int = 8000
         theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")
+        listen: str = ""
 
     class Compute:
         presicion: float = 0.001

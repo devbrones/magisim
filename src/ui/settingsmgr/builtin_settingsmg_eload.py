@@ -20,5 +20,14 @@ class ExtensionMeta:
 		hasNodes: list = []
             
 def load_workspace(app: gr.Blocks):
-    with gr.Tab(ExtensionMeta.name):
-        gr.Markdown(ExtensionMeta.description)
+	with gr.Tab(ExtensionMeta.name, id="settingsmgrtab"):
+		gr.Markdown(ExtensionMeta.description)
+		with gr.Accordion("NodeManager"):
+			gr.Markdown("# NodeManager specific settings")
+			do_autoload = gr.Checkbox("Autoload NodeManager", value=True)
+			show_advanced_settings = gr.Checkbox("Show advanced settings", value=False)
+		
+		with gr.Accordion("ExtensionManager"):
+			gr.Markdown("# ExtensionManager specific settings")
+			do_refresh_on_reload = gr.Checkbox("Auto Refresh ExtensionManager on reload", value=False)
+			show_advanced_settings = gr.Checkbox("Show advanced settings", value=False)

@@ -22,10 +22,14 @@ class ExtensionMeta:
 		hasNodes: list = []
             
 def load_workspace(app: gr.Blocks):
-	with gr.Tab(ExtensionMeta.name):
+	with gr.Tab(ExtensionMeta.name, id="greetertab"):
 		with gr.Tab("Projects"):
 			#Greeter.load_workspace(app)
 			gr.Markdown("Welcome to Magisim")
+			gr.Markdown("# Open Project")
+			gr.FileExplorer("Open Project", "file", "open_project")
+			gr.Markdown("## Create New Project by making changes and saving them")
+
 		with gr.Tab("Hub"):
 			hub.load_workspace(app)
 		with gr.Tab("Documentation"):
