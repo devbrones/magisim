@@ -41,9 +41,6 @@ def load_workspace(app: gr.Blocks):
         with gr.Row():
             gr.Markdown("Hello from ExtensionMagic!")
             extension_name = gr.Textbox()
-        with gr.Row():
-            gr.Markdown("Hello from ExtensionMagic again!")
-            extension_name2 = gr.Textbox()
-        run_extension_fn = gr.Button("Run Extension")
-        run_extension_fn.click(extensionmagic.run_extension, outputs=[extension_name, extension_name2])
-            
+        run_extension_fn = gr.Button("get message")
+        run_extension_fn.click(extensionmagic.run_extension, outputs=[extension_name])
+

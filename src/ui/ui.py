@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from starlette.responses import Response
 import torch
+from shared.router import Router
 import os
 from shared.logger import Logger
 from shared.item import Item
@@ -50,6 +51,9 @@ async def nodeg_post(item: Item):
     # Print the contents of the request to the command line
     apilog.logger.info("Received nodegraph update")
     print(item)
+    uuid_1 = "caed19de0a8b"
+    uuid_2 = "50812d1e265b"
+    Router.establish_tunnel(uuid_1, uuid_2)
     return {"message": "update received"}
 
 litegraph_js = ""

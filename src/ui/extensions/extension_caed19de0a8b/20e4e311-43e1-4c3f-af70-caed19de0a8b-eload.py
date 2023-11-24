@@ -4,6 +4,7 @@ from shared.builtin import Extension
 
 # extension specific imports
 import extensions.extension_caed19de0a8b.openmsems as ems 
+
 # no imports #
 
 
@@ -50,6 +51,8 @@ def load_workspace(app: gr.Blocks):
 			with gr.Row():
 				space = gr.Plot(label="Space")
 				update_btn = gr.Button(value="Update", variant="primary")
+		
+		update_btn.click(ems.sendtest)
         
 
 

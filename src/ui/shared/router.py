@@ -1,45 +1,38 @@
-# imports
-from shared.builtin import Extension
-from shared.config import Config
-from shared.settings.runtime import RuntimeSettings
-from shared.item import Item
-import pika
-
-# takes an input from an extension and another extension and transports that data,
-class Queue:
-    pass
-
-class RouteMap:
-    nodes:[] = []
-    links:[] = []
-
-
+import json
+import redis
 
 class Router:
-    def map_routes(data: Item, routemap: RouteMap = RouteMap()):
-        
-        for node in data.nodes:
-            inputs: list = []
-            outputs: list = []
-            node_id = node["type"][-12:]
+    redis_client = None
 
-            for input_link in node["inputs"]:
-                input_name = input_link["name"]
-                input_link_id = input_link["link"]
-                inputs.append({input_name: input_link_id})
-            for output_link in node["outputs"]:
-                output_name = output_link["name"]
-                output_link_id = output_link["link"]
-                outputs.append({output_name: output_link_id})
-            
-            routemap.nodes.append({node_id: {"inputs": inputs, "outputs": outputs}})
+    @staticmethod
+    def establish_tunnel(extension_id_1, extension_id_2):
+        if not Router.redis_client:
+            Router.redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-        return routemap
+        Router.redis_client.set(f'connection:{extension_id_1}:{extension_id_2}', 'connected')
+        Router.redis_client.set(f'connection:{extension_id_2}:{extension_id_1}', 'connected')
 
+    @staticmethod
+    def send_data(extension_id, data):
+        if not Router.redis_client:
+            raise Exception("Tunnel not established.")
 
-    def create_route(queue: Queue): pass
-        
-    def remove_route(queue: Queue): pass
-    def get_mapped_route(me: Extension): pass
-    def send(me: Extension) -> Queue: pass
-    def get(me: Extension) -> Queue: pass
+        connected_extensions = Router.redis_client.keys(f'connection:{extension_id}:*')
+        if not connected_extensions:
+            raise ValueError(f"No connected extensions found for {extension_id}")
+
+        for connected_ext in connected_extensions:
+            ext_id = connected_ext.split(b':')[-1]
+            Router.redis_client.rpush(f'queue:{ext_id.decode()}', json.dumps(data))
+            print(f"Sent message to extension {ext_id.decode()}: {data}")
+
+    @staticmethod
+    def receive_data(extension_id, callback):
+        if not Router.redis_client:
+            raise Exception("Tunnel not established.")
+
+        message = Router.redis_client.brpop(f'queue:{extension_id}', timeout=1)
+        if message:
+            _, received_message = message
+            print(f"Received message by extension {extension_id}: {received_message}")
+            return callback(json.loads(received_message))
