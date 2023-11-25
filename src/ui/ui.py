@@ -50,11 +50,11 @@ nodelog = Logger("NodeManager-Preload")
 async def nodeg_post(item: Item):
     # Print the contents of the request to the command line
     apilog.logger.info("Received nodegraph update")
-    print(item)
     uuid_1 = "caed19de0a8b"
     uuid_2 = "50812d1e265b"
     Router.establish_tunnel(uuid_1, uuid_2)
-    return {"message": "update received"}
+    status = Router.update_nodes(item)
+    return status[0][0]
 
 litegraph_js = ""
 with open("nodemgr/static/js/litegraph.js", "r") as f:

@@ -1,0 +1,33 @@
+{'caed19de0a8b': {'inputs': [
+            {'Source Position X': 1
+            },
+            {'Source Position Y': None
+            },
+            {'Wavelength': None
+            },
+            {'Frequency': None
+            },
+            {'Phase': None
+            },
+            {'Amplitude (dB)': None
+            },
+            {'Domain': None
+            },
+            {'Object': None
+            },
+            {'Simple Object': None
+            },
+            {'PML': None
+            }
+        ], 'outputs': [
+            {'Frequency Domain': None
+            },
+            {'Time Domain': None
+            },
+            {'E': None
+            },
+            {'H': None
+            }
+        ]
+    }
+}
