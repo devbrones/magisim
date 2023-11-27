@@ -83,42 +83,41 @@ class Router:
                 outputs.append({output_name: output_link_id})
             routemap.append({node_id: {"inputs": inputs, "outputs": outputs}})
 
-        # create actual nodemap, but exclude all the null connections
-        # Initialize lists to store node IDs and connections
-        node_ids = []
+        print(f"DEV_DEBUGS: ROUTEMAP: {routemap}")
+
         connections = []
-        print(f"DEV_DEBUGS: rmap ::::: {routemap}")
-        # Iterate over the routemap
-        for node_data in routemap:
-            node_id = next(iter(node_data))  # Extract the 12-character node ID
-            print(f"DEV_DEBUGS: working nodeid: {node_id}")
-            node_ids.append(node_id)
 
-            non_none_inputs = [
-                (k, next(iter(input_dict.values()))) for input_dict in node_data[node_id]['inputs'] 
-                for k, v in input_dict.items() 
-                if v is not None and isinstance(next(iter(input_dict.values())), int)
-            ]
-            non_none_outputs = [
-                (k, next(iter(output_dict.values()))) for output_dict in node_data[node_id]['outputs']
-                for k, v in output_dict.items() 
-                if v is not None and (isinstance(next(iter(output_dict.values())), int) or isinstance(next(iter(output_dict.values())), list))
-            ]
+        # Create a dictionary to store non-None input values
+        input_values = {}
 
-            input_ids = [input_id for input_id, value in non_none_inputs if len(input_id) == 12]
-            output_ids = [output_id for output_id, value in non_none_outputs if len(output_id) == 12]
-            
-            print(f"DEV_DEBUGS: ioids: {input_ids} :: {output_ids}")
+        # Iterate through the data to collect non-None input values
+        for item in routemap:
+            for node_id, node_data in item.items():
+                outputs = node_data.get('outputs', [])
+                for output in outputs:
+                    output_key = list(output.keys())[0]
+                    output_value = output[output_key]
+                    if output_value is not None:
+                        input_values[output_key] = node_id
 
-            for input_id in input_ids:
-                for output_id in output_ids:
-                    connections.append((input_id, output_id))     
+        # Iterate through the data again to find connections
+        for item in routemap:
+            for node_id, node_data in item.items():
+                inputs = node_data.get('inputs', [])
+                for inp in inputs:
+                    inp_key = list(inp.keys())[0]
+                    inp_value = inp[inp_key]
+                    if inp_value is not None:
+                        connected_node = input_values.get(inp_key)
+                        if connected_node:
+                            connection = f"{node_id}-{inp_key} --> {connected_node}-{inp_key}"
+                            connections.append(connection)
 
-        print(f"DEV_DEBUGS: GOT PAST IT ALL FUCK YEA")
-        for input_id, output_id in connections:
-            print(f"DEV_DEBUGS: CONNECTION {input_id}, {output_id}")
+        print(f"DEV_DEBG: invals: {input_values}")
+        # Print the connections found
+        for connection in connections:
+            print(connection)
 
-        print(f"DEV_DEBUGS: WHAT IN GODS NAME {connections}")
 
 
         return ((202, "Data Accepted"), routemap)

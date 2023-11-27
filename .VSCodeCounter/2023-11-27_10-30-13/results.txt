@@ -1,0 +1,259 @@
+Date : 2023-11-27 10:30:13
+Directory : /home/tb/repos/magisim
+Total : 158 files,  700841 codes, 6171 comments, 8655 blanks, all 715667 lines
+
+Languages
++--------------+------------+------------+------------+------------+------------+
+| language     | files      | code       | comment    | blank      | total      |
++--------------+------------+------------+------------+------------+------------+
+| XML          |         28 |    648,089 |         30 |         55 |    648,174 |
+| JavaScript   |          4 |     45,586 |      5,059 |      7,199 |     57,844 |
+| Python       |         84 |      3,661 |      1,045 |        957 |      5,663 |
+| JSON         |         13 |      1,596 |          0 |          4 |      1,600 |
+| CSS          |          3 |      1,150 |         24 |        192 |      1,366 |
+| YAML         |          6 |        325 |          1 |         13 |        339 |
+| Markdown     |         14 |        268 |          0 |        158 |        426 |
+| LaTeX        |          2 |        129 |          6 |         63 |        198 |
+| HTML         |          2 |         22 |          0 |          6 |         28 |
+| Shell Script |          2 |         15 |          6 |          8 |         29 |
++--------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                              | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                 |        158 |    700,841 |      6,171 |      8,655 |    715,667 |
+| . (Files)                                                                                                                         |          5 |        339 |          3 |         40 |        382 |
+| docbak                                                                                                                            |          9 |    193,539 |          8 |         44 |    193,591 |
+| docbak (Files)                                                                                                                    |          1 |         33 |          0 |         28 |         61 |
+| docbak/resources                                                                                                                  |          8 |    193,506 |          8 |         16 |    193,530 |
+| docs                                                                                                                              |         10 |    193,552 |          8 |         47 |    193,607 |
+| docs (Files)                                                                                                                      |          2 |         46 |          0 |         31 |         77 |
+| docs/resources                                                                                                                    |          8 |    193,506 |          8 |         16 |    193,530 |
+| magisim-esdk                                                                                                                      |          5 |        190 |          1 |         31 |        222 |
+| magisim-esdk/docs                                                                                                                 |          3 |         72 |          0 |         26 |         98 |
+| magisim-esdk/resources                                                                                                            |          1 |        111 |          1 |          2 |        114 |
+| magisim-esdk/src                                                                                                                  |          1 |          7 |          0 |          3 |         10 |
+| notebooks                                                                                                                         |         20 |        641 |         36 |        141 |        818 |
+| notebooks/obsidian                                                                                                                |         14 |        381 |          0 |         48 |        429 |
+| notebooks/obsidian/MAGISIM-NOTES                                                                                                  |         14 |        381 |          0 |         48 |        429 |
+| notebooks/obsidian/MAGISIM-NOTES (Files)                                                                                          |          1 |          2 |          0 |          5 |          7 |
+| notebooks/obsidian/MAGISIM-NOTES/.obsidian                                                                                        |          6 |        290 |          0 |          0 |        290 |
+| notebooks/obsidian/MAGISIM-NOTES/Extension SDK                                                                                    |          1 |         32 |          0 |         13 |         45 |
+| notebooks/obsidian/MAGISIM-NOTES/GitHub Inspiration                                                                               |          1 |          1 |          0 |          0 |          1 |
+| notebooks/obsidian/MAGISIM-NOTES/Marketing and Pitching                                                                           |          2 |         19 |          0 |          6 |         25 |
+| notebooks/obsidian/MAGISIM-NOTES/Research And Development                                                                         |          2 |          8 |          0 |         10 |         18 |
+| notebooks/obsidian/MAGISIM-NOTES/worknotes                                                                                        |          1 |         29 |          0 |         14 |         43 |
+| notebooks/pages                                                                                                                   |          1 |          0 |          0 |          1 |          1 |
+| notebooks/resources                                                                                                               |          2 |         49 |         27 |         28 |        104 |
+| notebooks/tex                                                                                                                     |          3 |        211 |          9 |         64 |        284 |
+| resources                                                                                                                         |         11 |    260,895 |         10 |         21 |    260,926 |
+| src                                                                                                                               |         98 |     51,685 |      6,105 |      8,331 |     66,121 |
+| src/resources                                                                                                                     |          1 |          0 |          0 |          1 |          1 |
+| src/tests                                                                                                                         |         58 |     27,319 |      3,159 |      4,417 |     34,895 |
+| src/tests (Files)                                                                                                                 |         16 |      2,247 |        227 |        271 |      2,745 |
+| src/tests/cuda-processing                                                                                                         |         11 |        891 |        219 |        248 |      1,358 |
+| src/tests/cuda-processing/simulation                                                                                              |         11 |        891 |        219 |        248 |      1,358 |
+| src/tests/cuda-processing/simulation/old                                                                                          |         11 |        891 |        219 |        248 |      1,358 |
+| src/tests/extension_880843c55c42                                                                                                  |          5 |        260 |         35 |         37 |        332 |
+| src/tests/gradio-extension-loading                                                                                                |         13 |        288 |         92 |        104 |        484 |
+| src/tests/gradio-extension-loading (Files)                                                                                        |          8 |        220 |         81 |         81 |        382 |
+| src/tests/gradio-extension-loading/example_extensions                                                                             |          1 |         24 |          3 |          9 |         36 |
+| src/tests/gradio-extension-loading/extensionmagic                                                                                 |          1 |         10 |          0 |          3 |         13 |
+| src/tests/gradio-extension-loading/extensions                                                                                     |          1 |         10 |          0 |          3 |         13 |
+| src/tests/gradio-extension-loading/extensions/extensionmagic                                                                      |          1 |         10 |          0 |          3 |         13 |
+| src/tests/gradio-extension-loading/loaded-exts                                                                                    |          2 |         24 |          8 |          8 |         40 |
+| src/tests/guitest                                                                                                                 |          3 |     23,373 |      2,533 |      3,697 |     29,603 |
+| src/tests/guitest/nodes                                                                                                           |          3 |     23,373 |      2,533 |      3,697 |     29,603 |
+| src/tests/nodemgr2                                                                                                                |          2 |         33 |         42 |         12 |         87 |
+| src/tests/qt                                                                                                                      |          1 |         22 |          1 |          7 |         30 |
+| src/tests/qt/magisim-core-qt-gui-test-1                                                                                           |          1 |         22 |          1 |          7 |         30 |
+| src/tests/sockets_test                                                                                                            |          7 |        205 |         10 |         41 |        256 |
+| src/tests/sockets_test (Files)                                                                                                    |          5 |        169 |          9 |         38 |        216 |
+| src/tests/sockets_test/for_tibi                                                                                                   |          2 |         36 |          1 |          3 |         40 |
+| src/ui                                                                                                                            |         39 |     24,366 |      2,946 |      3,913 |     31,225 |
+| src/ui (Files)                                                                                                                    |          2 |         90 |        153 |         30 |        273 |
+| src/ui/extensionmgr                                                                                                               |          2 |        106 |         58 |         18 |        182 |
+| src/ui/extensions                                                                                                                 |          6 |        128 |         38 |         36 |        202 |
+| src/ui/extensions/extension_50812d1e265b                                                                                          |          3 |         64 |         31 |         16 |        111 |
+| src/ui/extensions/extension_caed19de0a8b                                                                                          |          3 |         64 |          7 |         20 |         91 |
+| src/ui/greeter                                                                                                                    |          4 |         69 |         13 |         14 |         96 |
+| src/ui/greeter (Files)                                                                                                            |          2 |         27 |          5 |          6 |         38 |
+| src/ui/greeter/external                                                                                                           |          1 |         21 |          4 |          4 |         29 |
+| src/ui/greeter/hub                                                                                                                |          1 |         21 |          4 |          4 |         29 |
+| src/ui/nodemgr                                                                                                                    |          6 |     23,610 |      2,609 |      3,721 |     29,940 |
+| src/ui/nodemgr (Files)                                                                                                            |          3 |         69 |         68 |         26 |        163 |
+| src/ui/nodemgr/static                                                                                                             |          3 |     23,541 |      2,541 |      3,695 |     29,777 |
+| src/ui/nodemgr/static/css                                                                                                         |          1 |        573 |         12 |         96 |        681 |
+| src/ui/nodemgr/static/js                                                                                                          |          2 |     22,968 |      2,529 |      3,599 |     29,096 |
+| src/ui/settingsmgr                                                                                                                |          2 |         20 |          3 |          4 |         27 |
+| src/ui/shapeloader                                                                                                                |          6 |        151 |         36 |         46 |        233 |
+| src/ui/shared                                                                                                                     |         11 |        192 |         36 |         44 |        272 |
+| src/ui/shared (Files)                                                                                                             |          8 |        190 |         36 |         42 |        268 |
+| src/ui/shared/settings                                                                                                            |          3 |          2 |          0 |          2 |          4 |
++-----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| filename                                                                                                                          | language     | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| /home/tb/repos/magisim/CITATION.cff                                                                                               | YAML         |         54 |          0 |          4 |         58 |
+| /home/tb/repos/magisim/README.md                                                                                                  | Markdown     |         36 |          0 |         28 |         64 |
+| /home/tb/repos/magisim/activate-env.sh                                                                                            | Shell Script |         12 |          3 |          6 |         21 |
+| /home/tb/repos/magisim/devel-env.yml                                                                                              | YAML         |        221 |          0 |          1 |        222 |
+| /home/tb/repos/magisim/docbak/README.md                                                                                           | Markdown     |         33 |          0 |         28 |         61 |
+| /home/tb/repos/magisim/docbak/resources/banner1.svg                                                                               | XML          |    104,585 |          1 |          2 |    104,588 |
+| /home/tb/repos/magisim/docbak/resources/epsilon.svg                                                                               | XML          |     64,210 |          1 |          2 |     64,213 |
+| /home/tb/repos/magisim/docbak/resources/logo-docs-dark.svg                                                                        | XML          |     12,210 |          1 |          2 |     12,213 |
+| /home/tb/repos/magisim/docbak/resources/logo-docs-light.svg                                                                       | XML          |     12,210 |          1 |          2 |     12,213 |
+| /home/tb/repos/magisim/docbak/resources/logo-normal-dark-devteam.svg                                                              | XML          |         70 |          1 |          2 |         73 |
+| /home/tb/repos/magisim/docbak/resources/logo-normal-dark.svg                                                                      | XML          |         55 |          1 |          2 |         58 |
+| /home/tb/repos/magisim/docbak/resources/logo-normal-light.svg                                                                     | XML          |         55 |          1 |          2 |         58 |
+| /home/tb/repos/magisim/docbak/resources/magisim_logo256.svg                                                                       | XML          |        111 |          1 |          2 |        114 |
+| /home/tb/repos/magisim/docs/README.md                                                                                             | Markdown     |         36 |          0 |         28 |         64 |
+| /home/tb/repos/magisim/docs/_config.yml                                                                                           | YAML         |         10 |          0 |          3 |         13 |
+| /home/tb/repos/magisim/docs/resources/banner1.svg                                                                                 | XML          |    104,585 |          1 |          2 |    104,588 |
+| /home/tb/repos/magisim/docs/resources/epsilon.svg                                                                                 | XML          |     64,210 |          1 |          2 |     64,213 |
+| /home/tb/repos/magisim/docs/resources/logo-docs-dark.svg                                                                          | XML          |     12,210 |          1 |          2 |     12,213 |
+| /home/tb/repos/magisim/docs/resources/logo-docs-light.svg                                                                         | XML          |     12,210 |          1 |          2 |     12,213 |
+| /home/tb/repos/magisim/docs/resources/logo-normal-dark-devteam.svg                                                                | XML          |         70 |          1 |          2 |         73 |
+| /home/tb/repos/magisim/docs/resources/logo-normal-dark.svg                                                                        | XML          |         55 |          1 |          2 |         58 |
+| /home/tb/repos/magisim/docs/resources/logo-normal-light.svg                                                                       | XML          |         55 |          1 |          2 |         58 |
+| /home/tb/repos/magisim/docs/resources/magisim_logo256.svg                                                                         | XML          |        111 |          1 |          2 |        114 |
+| /home/tb/repos/magisim/environment.yml                                                                                            | YAML         |         16 |          0 |          1 |         17 |
+| /home/tb/repos/magisim/magisim-esdk/docs/CONTRIBUTING.md                                                                          | Markdown     |         69 |          0 |         23 |         92 |
+| /home/tb/repos/magisim/magisim-esdk/docs/INSTALL.md                                                                               | Markdown     |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/magisim-esdk/docs/README.md                                                                                | Markdown     |          3 |          0 |          2 |          5 |
+| /home/tb/repos/magisim/magisim-esdk/resources/magisim_logo256.svg                                                                 | XML          |        111 |          1 |          2 |        114 |
+| /home/tb/repos/magisim/magisim-esdk/src/tension.py                                                                                | Python       |          7 |          0 |          3 |         10 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/.obsidian/app.json                                                        | JSON         |          1 |          0 |          0 |          1 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/.obsidian/appearance.json                                                 | JSON         |          3 |          0 |          0 |          3 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/.obsidian/core-plugins-migration.json                                     | JSON         |         30 |          0 |          0 |         30 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/.obsidian/core-plugins.json                                               | JSON         |         21 |          0 |          0 |         21 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/.obsidian/hotkeys.json                                                    | JSON         |          1 |          0 |          0 |          1 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/.obsidian/workspace.json                                                  | JSON         |        234 |          0 |          0 |        234 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/Extension SDK/Extension SDK notes.md                                      | Markdown     |         32 |          0 |         13 |         45 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/GitHub Inspiration/links.md                                               | Markdown     |          1 |          0 |          0 |          1 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/Marketing and Pitching/Marketplace.md                                     | Markdown     |          1 |          0 |          1 |          2 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/Marketing and Pitching/Pitching.md                                        | Markdown     |         18 |          0 |          5 |         23 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/Research And Development/Videos and Courses.md                            | Markdown     |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/Research And Development/Whitepapers.md                                   | Markdown     |          8 |          0 |          9 |         17 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/ui dev notes.md                                                           | Markdown     |          2 |          0 |          5 |          7 |
+| /home/tb/repos/magisim/notebooks/obsidian/MAGISIM-NOTES/worknotes/notes.md                                                        | Markdown     |         29 |          0 |         14 |         43 |
+| /home/tb/repos/magisim/notebooks/pages/test.html                                                                                  | HTML         |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/notebooks/resources/visualisation-cpucube.py                                                               | Python       |         29 |         14 |         15 |         58 |
+| /home/tb/repos/magisim/notebooks/resources/visualisation-cudacube.py                                                              | Python       |         20 |         13 |         13 |         46 |
+| /home/tb/repos/magisim/notebooks/tex/open_source_magnetic_field_suite_magisim.run.xml                                             | XML          |         82 |          3 |          1 |         86 |
+| /home/tb/repos/magisim/notebooks/tex/open_source_magnetic_field_suite_magisim.tex                                                 | LaTeX        |        121 |          5 |         56 |        182 |
+| /home/tb/repos/magisim/notebooks/tex/template_Report.tex                                                                          | LaTeX        |          8 |          1 |          7 |         16 |
+| /home/tb/repos/magisim/resources/banner1.svg                                                                                      | XML          |    104,585 |          1 |          2 |    104,588 |
+| /home/tb/repos/magisim/resources/epsilon.svg                                                                                      | XML          |     64,210 |          1 |          2 |     64,213 |
+| /home/tb/repos/magisim/resources/loadscreen.svg                                                                                   | XML          |     48,973 |          1 |          2 |     48,976 |
+| /home/tb/repos/magisim/resources/loadscreenlite.svg                                                                               | XML          |     18,405 |          1 |          2 |     18,408 |
+| /home/tb/repos/magisim/resources/logo-docs-dark.svg                                                                               | XML          |     12,210 |          1 |          2 |     12,213 |
+| /home/tb/repos/magisim/resources/logo-docs-light.svg                                                                              | XML          |     12,210 |          1 |          2 |     12,213 |
+| /home/tb/repos/magisim/resources/logo-normal-dark-devteam.svg                                                                     | XML          |         70 |          1 |          2 |         73 |
+| /home/tb/repos/magisim/resources/logo-normal-dark.svg                                                                             | XML          |         55 |          1 |          2 |         58 |
+| /home/tb/repos/magisim/resources/logo-normal-light.svg                                                                            | XML          |         55 |          1 |          2 |         58 |
+| /home/tb/repos/magisim/resources/magisim_logo256.svg                                                                              | XML          |        111 |          1 |          2 |        114 |
+| /home/tb/repos/magisim/resources/old-env-nouse.yml                                                                                | YAML         |         11 |          0 |          1 |         12 |
+| /home/tb/repos/magisim/src/resources/cuda-mandelbrot.py                                                                           | Python       |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/src/tests/02-absorbing-object.ipynb                                                                        | JSON         |        165 |          0 |          1 |        166 |
+| /home/tb/repos/magisim/src/tests/05-lenses-and-analysing-lensing-actions.ipynb                                                    | JSON         |        368 |          0 |          1 |        369 |
+| /home/tb/repos/magisim/src/tests/06-GRIN-medium-and-analysing-refraction.ipynb                                                    | JSON         |        384 |          0 |          1 |        385 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fd1d-cuda-acc.py                                                  | Python       |         66 |         29 |         21 |        116 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fd2d.py                                                           | Python       |        142 |         26 |         41 |        209 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterial.py                                                     | Python       |         68 |         13 |         16 |         97 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv2.py                                                   | Python       |         50 |         16 |         19 |         85 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv3.py                                                   | Python       |         50 |         16 |         16 |         82 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv4.py                                                   | Python       |         51 |         17 |         18 |         86 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv5.py                                                   | Python       |         74 |         23 |         24 |        121 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv6.py                                                   | Python       |         91 |         18 |         21 |        130 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv7.py                                                   | Python       |         91 |         18 |         22 |        131 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv8.py                                                   | Python       |        117 |         22 |         28 |        167 |
+| /home/tb/repos/magisim/src/tests/cuda-processing/simulation/old/fdmaterialv9.py                                                   | Python       |         91 |         21 |         22 |        134 |
+| /home/tb/repos/magisim/src/tests/cuda-tests.py                                                                                    | Python       |         94 |         11 |         18 |        123 |
+| /home/tb/repos/magisim/src/tests/extension_880843c55c42/02-absorbing-object.ipynb                                                 | JSON         |        154 |          0 |          1 |        155 |
+| /home/tb/repos/magisim/src/tests/extension_880843c55c42/absorb.py                                                                 | Python       |         21 |          8 |         10 |         39 |
+| /home/tb/repos/magisim/src/tests/extension_880843c55c42/d8b29835-ad56-4d0c-90b6-880843c55c42-eload.py                             | Python       |         31 |          4 |         10 |         45 |
+| /home/tb/repos/magisim/src/tests/extension_880843c55c42/d8b29835-ad56-4d0c-90b6-880843c55c42-settings.py                          | Python       |          2 |          0 |          0 |          2 |
+| /home/tb/repos/magisim/src/tests/extension_880843c55c42/epsilon.py                                                                | Python       |         52 |         23 |         16 |         91 |
+| /home/tb/repos/magisim/src/tests/fd2d-test.py                                                                                     | Python       |         51 |         10 |         17 |         78 |
+| /home/tb/repos/magisim/src/tests/fd2d.py                                                                                          | Python       |         72 |         10 |         20 |        102 |
+| /home/tb/repos/magisim/src/tests/fd2d2.py                                                                                         | Python       |         71 |          9 |         20 |        100 |
+| /home/tb/repos/magisim/src/tests/fd3d-raw-noedit.py                                                                               | Python       |        374 |         88 |         49 |        511 |
+| /home/tb/repos/magisim/src/tests/fd3d-real-plot-raw-noedit.py                                                                     | Python       |        340 |         36 |         47 |        423 |
+| /home/tb/repos/magisim/src/tests/fdtd-tests-optimized.py                                                                          | Python       |         49 |          9 |         18 |         76 |
+| /home/tb/repos/magisim/src/tests/fdtd-tests-refactored.py                                                                         | Python       |         52 |         16 |         17 |         85 |
+| /home/tb/repos/magisim/src/tests/fdtd-tests.py                                                                                    | Python       |         62 |         19 |         24 |        105 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/demo.py                                                                 | Python       |         64 |         18 |         22 |        104 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/example_extensions/my_extension.py                                      | Python       |         24 |          3 |          9 |         36 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/extensionmagic/0a119a6d-7f36-4c6c-929b-50812d1e265b-eload.py            | Python       |         10 |          0 |          3 |         13 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/extensions/extensionmagic/0a119a6d-7f36-4c6c-929b-50812d1e265b-eload.py | Python       |         10 |          0 |          3 |         13 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/extent.py                                                               | Python       |         50 |         10 |         15 |         75 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/iface.py                                                                | Python       |         21 |         43 |          7 |         71 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/iface2.py                                                               | Python       |         12 |          0 |          3 |         15 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/loaded-exts/my-module.py                                                | Python       |         12 |          4 |          4 |         20 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/loaded-exts/my2-module.py                                               | Python       |         12 |          4 |          4 |         20 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/loader-test.py                                                          | Python       |         27 |          8 |         10 |         45 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/lt2.py                                                                  | Python       |         17 |          2 |          9 |         28 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/magisim_config.py                                                       | Python       |         11 |          0 |          5 |         16 |
+| /home/tb/repos/magisim/src/tests/gradio-extension-loading/testzip.py                                                              | Python       |         18 |          0 |         10 |         28 |
+| /home/tb/repos/magisim/src/tests/gradio-gui-components-test.py                                                                    | Python       |         48 |          9 |         14 |         71 |
+| /home/tb/repos/magisim/src/tests/gradio-tests.py                                                                                  | Python       |         82 |          3 |         15 |        100 |
+| /home/tb/repos/magisim/src/tests/gradio-theming.py                                                                                | Python       |          2 |          0 |          1 |          3 |
+| /home/tb/repos/magisim/src/tests/guitest/nodes/index.html                                                                         | HTML         |         22 |          0 |          5 |         27 |
+| /home/tb/repos/magisim/src/tests/guitest/nodes/litegraph.css                                                                      | CSS          |        573 |         12 |         96 |        681 |
+| /home/tb/repos/magisim/src/tests/guitest/nodes/litegraph.js                                                                       | JavaScript   |     22,778 |      2,521 |      3,596 |     28,895 |
+| /home/tb/repos/magisim/src/tests/nodemgr2/builtin_nodemgr_eload.py                                                                | Python       |         20 |          4 |          4 |         28 |
+| /home/tb/repos/magisim/src/tests/nodemgr2/nodemgr.py                                                                              | Python       |         13 |         38 |          8 |         59 |
+| /home/tb/repos/magisim/src/tests/qt/magisim-core-qt-gui-test-1/widget.py                                                          | Python       |         22 |          1 |          7 |         30 |
+| /home/tb/repos/magisim/src/tests/run.py                                                                                           | Python       |         33 |          7 |          8 |         48 |
+| /home/tb/repos/magisim/src/tests/sockets_test/client.py                                                                           | Python       |          7 |          1 |          2 |         10 |
+| /home/tb/repos/magisim/src/tests/sockets_test/client2.py                                                                          | Python       |         11 |          1 |          2 |         14 |
+| /home/tb/repos/magisim/src/tests/sockets_test/for_tibi/json.json                                                                  | JSON         |         23 |          0 |          0 |         23 |
+| /home/tb/repos/magisim/src/tests/sockets_test/for_tibi/json.yml                                                                   | YAML         |         13 |          1 |          3 |         17 |
+| /home/tb/repos/magisim/src/tests/sockets_test/interface.py                                                                        | Python       |         55 |          0 |         12 |         67 |
+| /home/tb/repos/magisim/src/tests/sockets_test/server.py                                                                           | Python       |         54 |          2 |         14 |         70 |
+| /home/tb/repos/magisim/src/tests/sockets_test/socketClass.py                                                                      | Python       |         42 |          5 |          8 |         55 |
+| /home/tb/repos/magisim/src/ui/extensionmgr/builtin_extensionmgr_eload.py                                                          | Python       |         27 |          5 |          5 |         37 |
+| /home/tb/repos/magisim/src/ui/extensionmgr/extensionmgr.py                                                                        | Python       |         79 |         53 |         13 |        145 |
+| /home/tb/repos/magisim/src/ui/extensions/extension_50812d1e265b/0a119a6d-7f36-4c6c-929b-50812d1e265b-eload.py                     | Python       |         35 |          4 |          8 |         47 |
+| /home/tb/repos/magisim/src/ui/extensions/extension_50812d1e265b/extensionmagic.py                                                 | Python       |         22 |          1 |          8 |         31 |
+| /home/tb/repos/magisim/src/ui/extensions/extension_50812d1e265b/extensionmagic_node.py                                            | Python       |          7 |         26 |          0 |         33 |
+| /home/tb/repos/magisim/src/ui/extensions/extension_caed19de0a8b/20e4e311-43e1-4c3f-af70-caed19de0a8b-eload.py                     | Python       |         44 |          5 |         10 |         59 |
+| /home/tb/repos/magisim/src/ui/extensions/extension_caed19de0a8b/20e4e311-43e1-4c3f-af70-caed19de0a8b-settings.py                  | Python       |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/src/ui/extensions/extension_caed19de0a8b/openmsems.py                                                      | Python       |         20 |          2 |          9 |         31 |
+| /home/tb/repos/magisim/src/ui/greeter/builtin_greeter_eload.py                                                                    | Python       |         25 |          4 |          4 |         33 |
+| /home/tb/repos/magisim/src/ui/greeter/external/docs.py                                                                            | Python       |         21 |          4 |          4 |         29 |
+| /home/tb/repos/magisim/src/ui/greeter/greeter.py                                                                                  | Python       |          2 |          1 |          2 |          5 |
+| /home/tb/repos/magisim/src/ui/greeter/hub/hub.py                                                                                  | Python       |         21 |          4 |          4 |         29 |
+| /home/tb/repos/magisim/src/ui/nodemgr/builtin_nodemgr_eload.py                                                                    | Python       |         28 |          5 |          7 |         40 |
+| /home/tb/repos/magisim/src/ui/nodemgr/nodemgr.py                                                                                  | Python       |         41 |         63 |         18 |        122 |
+| /home/tb/repos/magisim/src/ui/nodemgr/nodes.js                                                                                    | JavaScript   |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/src/ui/nodemgr/static/css/litegraph.css                                                                    | CSS          |        573 |         12 |         96 |        681 |
+| /home/tb/repos/magisim/src/ui/nodemgr/static/js/example-req.json                                                                  | JSON         |        179 |          0 |          0 |        179 |
+| /home/tb/repos/magisim/src/ui/nodemgr/static/js/litegraph.js                                                                      | JavaScript   |     22,789 |      2,529 |      3,599 |     28,917 |
+| /home/tb/repos/magisim/src/ui/settingsmgr/builtin_settingsmg_eload.py                                                             | Python       |         18 |          3 |          4 |         25 |
+| /home/tb/repos/magisim/src/ui/settingsmgr/settingsmgr.py                                                                          | Python       |          2 |          0 |          0 |          2 |
+| /home/tb/repos/magisim/src/ui/shapeloader/builtin_shapeloader_eload.py                                                            | Python       |         35 |          5 |          8 |         48 |
+| /home/tb/repos/magisim/src/ui/shapeloader/builtin_shapeloader_settings.py                                                         | Python       |          2 |          0 |          0 |          2 |
+| /home/tb/repos/magisim/src/ui/shapeloader/nodes.js                                                                                | JavaScript   |         19 |          9 |          3 |         31 |
+| /home/tb/repos/magisim/src/ui/shapeloader/shapeloader-none.py                                                                     | Python       |         11 |          5 |          9 |         25 |
+| /home/tb/repos/magisim/src/ui/shapeloader/shapeloader.py                                                                          | Python       |         55 |         14 |         20 |         89 |
+| /home/tb/repos/magisim/src/ui/shapeloader/test.py                                                                                 | Python       |         29 |          3 |          6 |         38 |
+| /home/tb/repos/magisim/src/ui/shared/builtin.py                                                                                   | Python       |         19 |          1 |          5 |         25 |
+| /home/tb/repos/magisim/src/ui/shared/config.py                                                                                    | Python       |         36 |          0 |          9 |         45 |
+| /home/tb/repos/magisim/src/ui/shared/crashhandler.py                                                                              | Python       |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/src/ui/shared/globalcss.css                                                                                | CSS          |          4 |          0 |          0 |          4 |
+| /home/tb/repos/magisim/src/ui/shared/item.py                                                                                      | Python       |         10 |          0 |          2 |         12 |
+| /home/tb/repos/magisim/src/ui/shared/logger.py                                                                                    | Python       |         13 |          5 |          5 |         23 |
+| /home/tb/repos/magisim/src/ui/shared/router.py                                                                                    | Python       |         75 |         30 |         20 |        125 |
+| /home/tb/repos/magisim/src/ui/shared/settings/builtins_extensionmgr_settings.py                                                   | Python       |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/src/ui/shared/settings/builtins_settingsmgr_settings.py                                                    | Python       |          0 |          0 |          1 |          1 |
+| /home/tb/repos/magisim/src/ui/shared/settings/runtime.py                                                                          | Python       |          2 |          0 |          0 |          2 |
+| /home/tb/repos/magisim/src/ui/shared/testreq.json                                                                                 | JSON         |         33 |          0 |          0 |         33 |
+| /home/tb/repos/magisim/src/ui/start.sh                                                                                            | Shell Script |          3 |          3 |          2 |          8 |
+| /home/tb/repos/magisim/src/ui/ui.py                                                                                               | Python       |         87 |        150 |         28 |        265 |
+| Total                                                                                                                             |              |    700,841 |      6,171 |      8,655 |    715,667 |
++-----------------------------------------------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
