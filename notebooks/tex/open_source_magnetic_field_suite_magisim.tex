@@ -157,6 +157,11 @@ To address these challenges, we turn to parallelization, a technique that enable
 %With parallelization, the effectiveness of a computational can be increased drastically, essentially allowing for $n-1$ dimensional computation as illustrated in the below visualizations.
 \newpage
 \section{Approach}
+
+%We initially set for creating our own framework for fdtd simulations, however we later realised that it was both impractical and uneccesary since there are many frameworks that are available for performing fdtd simulations in python. Initially, we chose flaport/fdtd - a simple to use library that exposes many settings to the user. However, we quite quickly found that this library was insufficient for our needs and also seemed to be unmaintained by the original author. We then explored other options such as OpenEMS as well as FDTDZ - a library that utilizes JAX, a google technology used to run numpy calculation on nvidia graphics cards. %
+
+%Both OpenEMS and FDTDZ seemed to be very capable as well as regularly maintained, choosing between the two was difficult, but we eventually settled on creating a OpenEMS integration since it is a very commonly used tool%
+
 \newpage
 \section{Result}
 \newpage

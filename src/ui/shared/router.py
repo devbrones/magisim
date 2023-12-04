@@ -85,39 +85,7 @@ class Router:
 
         print(f"DEV_DEBUGS: ROUTEMAP: {routemap}")
 
-        connections = []
-
-        # Create a dictionary to store non-None input values
-        input_values = {}
-
-        # Iterate through the data to collect non-None input values
-        for item in routemap:
-            for node_id, node_data in item.items():
-                outputs = node_data.get('outputs', [])
-                for output in outputs:
-                    output_key = list(output.keys())[0]
-                    output_value = output[output_key]
-                    if output_value is not None:
-                        input_values[output_key] = node_id
-
-        # Iterate through the data again to find connections
-        for item in routemap:
-            for node_id, node_data in item.items():
-                inputs = node_data.get('inputs', [])
-                for inp in inputs:
-                    inp_key = list(inp.keys())[0]
-                    inp_value = inp[inp_key]
-                    if inp_value is not None:
-                        connected_node = input_values.get(inp_key)
-                        if connected_node:
-                            connection = f"{node_id}-{inp_key} --> {connected_node}-{inp_key}"
-                            connections.append(connection)
-
-        print(f"DEV_DEBG: invals: {input_values}")
-        # Print the connections found
-        for connection in connections:
-            print(connection)
-
+        
 
 
         return ((202, "Data Accepted"), routemap)
