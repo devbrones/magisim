@@ -4,7 +4,7 @@ from shared.builtin import Extension
 from shared.config import Config
 
 # extension specific imports
-from greeter.greeter import Greeter
+import greeter.greeter as greeter
 import greeter.external.docs as docs
 import greeter.hub.hub as hub
 
@@ -24,8 +24,7 @@ class ExtensionMeta:
 def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name):
 		with gr.Tab("Projects"):
-			#Greeter.load_workspace(app)
-			gr.Markdown("Welcome to Magisim")
+			greeter.load_workspace(app)
 		with gr.Tab("Hub"):
 			hub.load_workspace(app)
 		with gr.Tab("Documentation"):

@@ -1,0 +1,18 @@
+requirements:
+  - magisim/fdtd 
+  - numpy
+
+supports:
+  - cuda
+  - cpu
+  - torch
+
+capabilities:
+  - nodes
+  - gpu
+  - cpu
+  - simulation
+  - visualization
+  - data
+
+

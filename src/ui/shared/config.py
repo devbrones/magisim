@@ -41,4 +41,5 @@ class Config:
         useNativeCompute: bool = True
         fallbackCPUCompute: bool = True
 
+    project_folder: str = "./projects"
 

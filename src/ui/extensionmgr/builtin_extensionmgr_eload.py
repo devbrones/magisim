@@ -30,7 +30,7 @@ def load_workspace(app: gr.Blocks):
         zip_file = gr.File(label="Upload a ZIP file")
         run_button = gr.Button("Install")
        	#reload_button = gr.Button(Config.Icon.refresh_symbol + " Reload", interactive=False)
-        output_text = gr.Textbox()
+        output_text = gr.Code()
         run_button.click(extract_and_run, inputs=[zip_file], outputs=[output_text])
 		# list of installed extensions
         installed_extensions_df = gr.Dataframe(headers=["Name", "Version", "Author", "Description", "Active"], interactive=False, value=get_extensions())

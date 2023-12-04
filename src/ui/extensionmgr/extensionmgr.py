@@ -57,7 +57,18 @@ def extract_and_run(zip_file):
                     metaobj["license"] = eload_module.ExtensionMeta.license
                     metaobj["description"] = eload_module.ExtensionMeta.description
                     metaobj["extension_type"] = eload_module.ExtensionMeta.ExtensionType.types
-                    return metaobj
+
+                    # create a pretty string for the extension
+                    exmeta_string = f"""
+                    Name: {metaobj["name"]}
+                    UUID: {metaobj["uuid"]}
+                    Authors: {metaobj["authors"]}
+                    Version: {metaobj["version"]}
+                    License: {metaobj["license"]}
+                    Description: {metaobj["description"]}
+                    Extension Type: {metaobj["extension_type"]}
+                    """
+                    return exmeta_string
                 else:
                     logger.logger.info(f"The module: {module_name} does not contain any metadata, it will load and work as expected, but wont display any information.")
                     return f"Info: The module: {module_name} does not contain any metadata, it will load and work as expected, but wont display any information."
