@@ -30,7 +30,7 @@ def sendtest():
     openmsems_ext.load_data()
 
 
-def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, wavelength=2, amplitude=50, cycles=100, liveupdate=False):
+def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, wavelength=2, amplitude=50, cycles=100, liveupdate=False, lposxa=30, lposxb=50, lposya=100, lposyb=99):
     import os
     import fdtd
     import numpy as np
@@ -53,28 +53,25 @@ def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, waveleng
     for j, col in enumerate(lens_mask.T):
         for i, val in enumerate(np.flip(col)):
             if val:
-                grid[30 + i : 50 - i, j - 100 : j - 99] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "," + str(j))
+                grid[lposxa + i : lposxb - i, j - lposya : j - lposyb] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "," + str(j))
                 break
-
-    x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
-    X, Y = np.meshgrid(x, y)
-    lens_mask = X ** 2 + Y ** 2 >= 40000
-    for j, col in enumerate(lens_mask.T):
-        for i, val in enumerate(np.flip(col)):
-            if val:
-                # Modify grid assignments for biconcave lenses accordingly
-                grid[130 + i : 150 - i, j - 100 : j - 99] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "a,a" + str(j))
-                break
-    
 
     grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+    
+    # make 3 sources next to each other with the total width of [15, 50:150, 0]
+    #grid[15, 50:80, 0] = fdtd.LineSource(period=wavelength/c, name="source1", amplitude=amplitude, cycle=cycles)
+    #grid[15, 85:115, 0] = fdtd.LineSource(period=wavelength/c, name="source2", amplitude=amplitude, cycle=cycles)
+    #grid[15, 120:150, 0] = fdtd.LineSource(period=wavelength/c, name="source3", amplitude=amplitude, cycle=cycles)
+
+
+
     #grid[80:200, 80:120, 0] = fdtd.BlockDetector(name="detector")
-    grid[224:225, 50:150, 0] = fdtd.BlockDetector(name="detector2")
+    grid[224:225, 25:175, 0] = fdtd.BlockDetector(name="detector2")
 
     descript_object = []
     descript_object.append(str(grid))
-    wavelength = 3e8/grid.source.frequency
-    wavelengthUnits = wavelength/grid.grid_spacing
+    #wavelength = 3e8/grid.source.frequency
+    #wavelengthUnits = wavelength/grid.grid_spacing
     GD = np.array([grid.x, grid.y, grid.z])
     gridRange = [np.arange(x/grid.grid_spacing) for x in GD]
     objectRange = np.array([[gridRange[0][x.x], gridRange[1][x.y], gridRange[2][x.z]] for x in grid.objects], dtype=object).T
@@ -82,9 +79,9 @@ def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, waveleng
     descript_object.append("\n\tGrid dimensions: ")
     descript_object.append(str(GD/wavelength))
     descript_object.append("\n\tSource dimensions: ")
-    descript_object.append(str(np.array([grid.source.x[-1] - grid.source.x[0] + 1, grid.source.y[-1] - grid.source.y[0] + 1, grid.source.z[-1] - grid.source.z[0] + 1])/wavelengthUnits))
+    #descript_object.append(str(np.array([grid.source.x[-1] - grid.source.x[0] + 1, grid.source.y[-1] - grid.source.y[0] + 1, grid.source.z[-1] - grid.source.z[0] + 1])/wavelengthUnits))
     descript_object.append("\n\tObject dimensions: ")
-    descript_object.append(str([(max(map(max, x)) - min(map(min, x)) + 1)/wavelengthUnits for x in objectRange]))
+    #descript_object.append(str([(max(map(max, x)) - min(map(min, x)) + 1)/wavelengthUnits for x in objectRange]))
 
 
 

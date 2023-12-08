@@ -229,6 +229,7 @@ def load_ui(app: gr.Blocks):
     # load the greeter
     #
     # load the builtin node manager
+
     builtin_greeter_eload.load_workspace(app) # load the greeter
     builtin_nodemgr_eload.load_workspace(app) # load the node manager
 
@@ -258,6 +259,13 @@ with open("shared/globalcss.css", "r") as cssf:
 # Define the Gradio interface
 with gr.Blocks(theme=Config.UI.theme, css=css) as app:
     ## they did not say i could do this - but i did it anyway!
+    # magisim logo on the left side and title on right side using row
+    with gr.Row():
+        gr.HTML("<img src='file/shared/magisim_logo256.png' style='width: 60px; height: 60px; margin: 0px 0px 0px 0px'>")
+        gr.HTML("")
+        gr.HTML("")
+        gr.HTML('<h1 style="text-align: right">Magisim</h1>')
+    
     load_ui(app)
 # Launch the Gradio application
 #app.launch(server_port=Config.UI.port)

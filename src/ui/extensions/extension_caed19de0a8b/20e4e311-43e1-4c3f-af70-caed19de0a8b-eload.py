@@ -60,6 +60,11 @@ def load_workspace(app: gr.Blocks):
 					timesteps = gr.Slider(minimum=0, maximum=800, value=400, label="Timesteps")
 					amplitude = gr.Slider(minimum=0, maximum=100, value=50, label="Amplitude")
 					cycles = gr.Slider(minimum=0, maximum=1000, value=100, label="Cycles")
+					lposxa = gr.Slider(minimum=0, maximum=300, value=30, label="Lens Position X A")
+					lposxb = gr.Slider(minimum=0, maximum=300, value=50, label="Lens Position X B")
+					lposya = gr.Slider(minimum=0, maximum=300, value=100, label="Lens Position Y A")
+					lposyb = gr.Slider(minimum=0, maximum=300, value=99, label="Lens Position Y B")
+
 					with gr.Accordion("Settings"):
 						gr.Markdown(f"""###### Some settings may not be available on your system. **If you are unsure, leave them as they are.**""")
 						gr.Markdown(f"""_Not using CUDA may put a lot of stress on your CPU, make sure you have a fire extinguisher nearby._""")
@@ -80,5 +85,5 @@ def load_workspace(app: gr.Blocks):
 
 		
 		update_btn.click(ems.sendtest)
-		runsim.click(ems.simulate, inputs=[simpleObjectEpsilon, simsettings_use_cuda, timesteps, wavelength, amplitude, cycles, simsettings_live_update], outputs=[sim, grid_text, space])
+		runsim.click(ems.simulate, inputs=[simpleObjectEpsilon, simsettings_use_cuda, timesteps, wavelength, amplitude, cycles, simsettings_live_update, lposxa, lposxb, lposya, lposyb], outputs=[sim, grid_text, space])
 

@@ -23,7 +23,7 @@ For comprehensive documentation, please visit the [Magisim Documentation](https:
 ### Node Manager
 ![Screenshot of the built in NodeManager Workflow](resources/nmgr.png)
 ### Epsilon0 Sim
-![Screenshot of Epsilon0 workspace version 0.0.0](resources/fdtd-scrs-v0.0.0.png)
+![Screenshot of MSEMS workspace version 0.9](resources/msems.png)
 
 ## Features
 
