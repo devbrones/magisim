@@ -21,21 +21,8 @@ class ExtensionMeta:
 		types: list = [Extension.Simulator, Extension.Workspace] # list of classes
 		layoutCompat: bool = False
 		# externalNodes: str = "nodes.js" ## TODO: implement this later so developers can define their own nodes in js!
-		hasNodes: [(Extension,(list,list))] = [(Extension.Simulator, ([("Source Position X","number"),
-																       ("Source Position Y","number"), 
-																	   ("Wavelength","number"),
-																	   ("Frequency","number"),
-																	   ("Phase","number"),
-																	   ("Amplitude (dB)","number"),
-																	   ("Domain","np2d"),
-																	   ("Object","np2d"),
-																	   ("Simple Object","np2d"),
-                                                                       ("PML","np2d")],
-																	  [("Frequency Domain","np2d"),
-					                                                   ("Time Domain","np2d"),
-																	   ("E","np2d"),
-																	   ("H","np2d")])),
-																	   (Extension.Editor, ([("Sim Space","np2d")],[("Domain","np2d"), ("Object","np2d"), ("PML","np2d")]))]
+		hasNodes: [(Extension,(list,list))] = [(Extension.Simulator, ([("Simple object","np2d")],
+																	  [("Realtime Plot","matplot"), ("Detector Plot","matplot"), ("Simulation Space", "space")]))]
 		hasSettings: bool = True # can be set to be checked by a function later if needed
 
 def load_workspace(app: gr.Blocks):

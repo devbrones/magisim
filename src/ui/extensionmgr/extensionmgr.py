@@ -9,6 +9,7 @@ import gradio as gr
 extraction_folder = "extensions"
 
 loaded_extensions = []
+extension_settings = []
 
 # set up logger
 logger = Logger("ExtensionMgr")
@@ -104,7 +105,22 @@ def get_extension_eload(extension_name):
                 logger.logger.error(f"Failed to import the module: {module_name} | {str(e)}")
                 return f"Error: Failed to import the module: {module_name} | {str(e)}"
     
-    
+def get_extension_settings(extension_name):
+    for filename in os.listdir(extension_name.replace(".", "/")):
+        if filename.endswith("-settings.py"):
+            module_path = os.path.join(extension_name.replace(".","/"), filename)
+            module_name = module_path.replace("/", ".").replace(".py", "")
+            if Config.debug:
+                logger.logger.debug(f"Loading module settings menu: {module_name} from {module_path}")
+            # Import the module
+            try:
+                eload_module = importlib.import_module(module_name)
+                extension_settings.append(eload_module)
+                return eload_module
+            except Exception as e:
+                logger.logger.error(f"Failed to get module settings: {module_name} | {str(e)}")
+                return f"Error: Failed to get module settings: {module_name} | {str(e)}"
+
 def get_installed_extensions() -> list:
     """
     The function `get_installed_extensions` returns a list of all installed extensions.

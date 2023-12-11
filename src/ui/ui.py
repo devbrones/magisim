@@ -177,19 +177,22 @@ async def some_fastapi_middleware(request: Request, call_next):
 
         some3_javascript = """
         var has_loaded = false;
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutationRecord) {
-                if (has_loaded) {
-                    has_loaded = true;
-                } else {
-                    startNodeGraph();
-                    has_loaded = true;
-                }
-            });    
-        });
+        
+        // this will run last
+        
+        // change display: none to display: block of div id nmgrtab after 100ms
+        setTimeout(() => {
+            console.log("Loading node manager...")
+            document.getElementById("nmgrtab").style.display = "block";
+            startNodeGraph();
+        }, 3500);
+        // change it back after 100ms
+        setTimeout(() => {
+            console.log("Finished loading node manager...")
+            document.getElementById("nmgrtab").style.display = "none";
+        }, 3800);
 
-        var target = document.getElementById('nmgrtab');
-        observer.observe(target, { attributes : true, attributeFilter : ['visibility'] });
+
         """
 
         reps = """
@@ -203,7 +206,7 @@ async def some_fastapi_middleware(request: Request, call_next):
 		"""
 
         response_body = response_body.replace('<script>window.gradio_config', some_javascript + some2_javascript + '<script>window.gradio_config')
-        response_body = response_body.replace(reps, some3_javascript + reps)
+        response_body = response_body.replace(reps, reps + some3_javascript)
 
         del response.headers["content-length"]
 
@@ -260,11 +263,9 @@ with open("shared/globalcss.css", "r") as cssf:
 with gr.Blocks(theme=Config.UI.theme, css=css) as app:
     ## they did not say i could do this - but i did it anyway!
     # magisim logo on the left side and title on right side using row
-    with gr.Row():
-        gr.HTML("<img src='file/shared/magisim_logo256.png' style='width: 60px; height: 60px; margin: 0px 0px 0px 0px'>")
-        gr.HTML("")
-        gr.HTML("")
-        gr.HTML('<h1 style="text-align: right">Magisim</h1>')
+    gr.Image("shared/magisim_logo256.png",
+                label=None, show_label=False, height=64, elem_id="logo",
+                show_download_button=False, container=False)
     
     load_ui(app)
 # Launch the Gradio application

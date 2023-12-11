@@ -24,17 +24,6 @@ class NodeManager:
                     <canvas id='nodecanvas' width='100px' height='100px'></canvas>
                 </div>
                 <script>
-                function onVisible(element, callback) {{
-                  new IntersectionObserver((entries, observer) => {{
-                    entries.forEach(entry => {{
-                      if(entry.intersectionRatio > 0) {{
-                        callback(element);
-                        observer.disconnect();
-                      }}
-                    }});
-                  }}).observe(element);
-                  if(!callback) return new Promise(r => callback=r);
-                }}
                 </script>
         """
 
@@ -43,17 +32,24 @@ class NodeManager:
 
 
     def fetch_node_save_button():
-        nbtn_html = f"""
-        <html>
-            <head>    
-                <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-            </head>
-            <body>
-                <button style="width: 100%;" class="lg primary svelte-1ipelgc" onclick="graph.pushgraph()">{ Config.Icon.save_style_symbol }Save Nodes</button>
-            </body>
-        </html>
-        """
-        gr.HTML(nbtn_html)
+        #nbtn_html = f"""
+        #<html>
+        #    <head>    
+        #        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        #    </head>
+        #    <body>
+        #        <button style="width: 100%;" class="lg primary" onclick="graph.pushgraph()">{ Config.Icon.save_style_symbol }Save Nodes</button>
+        #    </body>
+        #</html>
+        #"""
+        #gr.HTML(nbtn_html)
+
+        # new version using gradio 4
+
+        gr.Button(f"{Config.Icon.save_style_symbol}Save Nodes", variant="primary", interactive=True).click(js="graph.pushgraph();")
+
+
+
 
     def generate_node_db():
         nodedb: str = ""
@@ -95,7 +91,8 @@ class NodeManager:
                 }}
                 
                 //name to show
-                {nodeuuid}.title = "{ext.ExtensionMeta.name + node[0].__name__}";
+                //{nodeuuid}.title = "{ext.ExtensionMeta.name + " " + node[0].__name__}";
+                {nodeuuid}.title = "{ext.ExtensionMeta.name}";
                 
                 //function to call when the node is executed
                 {nodeuuid}.prototype.onExecute = function()

@@ -16,7 +16,10 @@ class Config:
         warning_symbol = '\U000026a0\ufe0f' # ⚠️
         error_symbol = '\U0000274c' # ❌
         question_symbol = '\U00002753' # ❓
-        
+        folder_symbol = '\U0001f4c1' # 📁
+        new_file_symbol = '\U0001f4c4' # 📄
+        open_file_symbol = '\U0001f4c2' # 📂
+
     class UI:
         port: int = 8080
         theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")

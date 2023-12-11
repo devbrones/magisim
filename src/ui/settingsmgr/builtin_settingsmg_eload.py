@@ -20,5 +20,6 @@ class ExtensionMeta:
 		hasNodes: list = []
             
 def load_workspace(app: gr.Blocks):
-    with gr.Tab(ExtensionMeta.name):
-        gr.Markdown(ExtensionMeta.description)
+	with gr.Tab(ExtensionMeta.name):
+		gr.Markdown(ExtensionMeta.description)
+		SettingsManager.get_settings_menu(app)
