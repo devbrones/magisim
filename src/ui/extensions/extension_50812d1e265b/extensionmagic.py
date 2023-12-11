@@ -29,3 +29,6 @@
 #
 #def run_extension():
 #    return exmag.receive_data()
+
+def run_extension():
+    return "Hello from ExtensionMagic!"
