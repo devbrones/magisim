@@ -25,7 +25,7 @@ For comprehensive documentation, please visit the [Magisim Documentation](https:
 ### Node Manager
 ![Screenshot of the built in NodeManager Workflow](resources/nmgr2.png)
 ### Epsilon0 Sim
-![Screencast of a example simulation](resources/output.gif)
+![Screencast of a example simulation](resources/msemsv1.gif)
 
 ## Features
 
