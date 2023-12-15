@@ -34,19 +34,39 @@ def load_workspace(app: gr.Blocks):
 	#file = gr.FileExplorer()
 	# load project button
 	with gr.Row():
-		lpbutton = gr.Button(f"{Config.Icon.open_file_symbol} Load Project", variant="primary")
-		npbutton = gr.Button(f"{Config.Icon.new_file_symbol}New Project", variant="secondary")
+		with gr.Row():
+			lpbutton = gr.Button(f"{Config.Icon.open_file_symbol} Load Project", variant="primary")
+			projname = gr.Textbox(show_label=False, placeholder="Project Name", visible=False, container=False, interactive=True)
+		with gr.Row():
+			npbutton = gr.Button(f"{Config.Icon.new_file_symbol}New Project", variant="secondary")
+			cfbutton = gr.Button(f"{Config.Icon.new_file_symbol}New Project", variant="primary", visible=False)
+			# when the user clicks the new project button, hide the new project button and show the confirm button, hide the load project button and show the project name textbox
+			npbutton.click(lambda :[gr.update(visible=False), gr.update(visible=True), gr.update(visible=True)], None, [npbutton, cfbutton])
+			npbutton.click(lambda :[gr.update(visible=False), gr.update(visible=True), gr.update(visible=True)], None, [lpbutton, projname])
+			# when the user clicks the confirm button, execute the new project function and hide the confirm button and project name textbox, show the load project button
+			cfbutton.click(lambda :[gr.update(visible=True), gr.update(visible=False), gr.update(visible=False)], None, [npbutton, cfbutton])
+			cfbutton.click(lambda :[gr.update(visible=True), gr.update(visible=False), gr.update(visible=False)], None, [lpbutton, projname])
+			cfbutton.click(projectmanager.new_project, inputs=[projname])
+
+
 	with gr.Row():
-		rpbutton = gr.Button("Download Remote Project", variant="secondary", icon="shared/github.png", interactive=False)
-		dpbutton = gr.Button(f"{Config.Icon.bin_symbol} Delete Project", variant="stop")
+		with gr.Row():
+			rpbutton = gr.Button("Download Remote Project", variant="secondary", icon="shared/github.png", interactive=False)
+		with gr.Row():
+			dpbutton = gr.Button(f"{Config.Icon.bin_symbol} Delete Project", variant="stop")
+			confirm_btn = gr.Button("Confirm delete", variant="stop", visible=False)
+			cancel_btn = gr.Button("Cancel", visible=False)
+			dpbutton.click(lambda :[gr.update(visible=False), gr.update(visible=True), gr.update(visible=True)], None, [dpbutton, confirm_btn, cancel_btn])
+			cancel_btn.click(lambda :[gr.update(visible=True), gr.update(visible=False), gr.update(visible=False)], None, [dpbutton, confirm_btn, cancel_btn])
     
+
 	# button functions
 
 	# load project
-	lpbutton.click(projectmanager.load_project(projects))
+	lpbutton.click(projectmanager.load_project, inputs=[projects])
 	# new project
-	npbutton.click(projectmanager.new_project())
+	#npbutton.click(projectmanager.new_project)
 	# delete project
-	dpbutton.click(projectmanager.delete_project(projects))
+	dpbutton.click(projectmanager.delete_project, inputs=[projects])
 	# download project
 	#rpbutton.click(projectmanager.download_project())

@@ -194,6 +194,10 @@ docs/obsidian/MAGISIM-NOTES/null*
 
 src/ui/shapeloader/bin/*
 
+# ignore fdtd_output folder
+
+src/ui/fdtd_output/*
+
 # ide 
 .vscode/
 

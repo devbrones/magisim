@@ -13,7 +13,7 @@ class ExtensionMeta:
 	name: str = "MSEMS"
 	uuid: str = "20e4e311-43e1-4c3f-af70-caed19de0a8b"
 	authors: list = ["devbrones"]
-	version: str = "0.0.0"
+	version: str = "1.1"
 	license: str = "LGPL3"
 	description: str = """ FDTD Simulator for Magisim """
 	# nhr meta
@@ -71,6 +71,6 @@ def load_workspace(app: gr.Blocks):
 				grid_text = gr.Code(label="Grid", lines=20)
 
 		
-		update_btn.click(ems.sendtest)
+		#update_btn.click(ems.sendtest)
 		runsim.click(ems.simulate, inputs=[simpleObjectEpsilon, simsettings_use_cuda, timesteps, wavelength, amplitude, cycles, simsettings_live_update, lposxa, lposxb, lposya, lposyb], outputs=[sim, grid_text, space])
 

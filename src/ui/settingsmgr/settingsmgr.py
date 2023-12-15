@@ -14,9 +14,9 @@ class SettingsManager:
                     extension_settings.load_workspace(app)
                 except Exception as e:
                     print(e)
-                    return None
+                    continue
             else:
                 print("Error: Failed to load extension settings: " + extension)
-                return None
+                continue
             
 

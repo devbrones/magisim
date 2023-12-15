@@ -24,8 +24,8 @@ class ExtensionMagic:
         self.send_data(data)
 
 # Instantiate your extension with the given UUID
-exmag = ExtensionMagic("50812d1e265b") ## uuids are stripped to last 12 anums for compability and readability
+#exmag = ExtensionMagic("50812d1e265b") ## uuids are stripped to last 12 anums for compability and readability
 
 
 def run_extension():
-    return exmag.receive_data()
+    return "aAAA"#exmag.receive_data()

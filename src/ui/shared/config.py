@@ -22,7 +22,14 @@ class Config:
 
     class UI:
         port: int = 8080
-        theme: gr.Theme = gr.themes.Default(primary_hue="purple", secondary_hue="blue")
+        """If you want to use a custom theme other than the ones we or gradio provides, the class must be imported"""
+        theme: gr.Theme = gr.themes.Default(
+                            primary_hue="fuchsia",
+                            secondary_hue="violet",
+                            neutral_hue="neutral",
+                            spacing_size="sm",
+                            radius_size="none",
+                        )
 
     class Compute:
         presicion: float = 0.001

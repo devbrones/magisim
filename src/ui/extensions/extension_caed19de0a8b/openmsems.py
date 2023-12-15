@@ -23,11 +23,11 @@ class OpenMSEMS:
         self.send_data(data)
 
 # Instantiate your extension with the given UUID
-openmsems_ext = OpenMSEMS("caed19de0a8b") ## uuids are stripped to last 12 anums for compability and readability
+#openmsems_ext = OpenMSEMS("caed19de0a8b") ## uuids are stripped to last 12 anums for compability and readability
 
 # Call the load_data function to send data
-def sendtest():
-    openmsems_ext.load_data()
+#def sendtest():
+#    openmsems_ext.load_data()
 
 
 def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, wavelength=2, amplitude=50, cycles=100, liveupdate=False, lposxa=30, lposxb=50, lposya=100, lposyb=99):

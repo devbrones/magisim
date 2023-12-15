@@ -13,7 +13,7 @@ class ExtensionMeta:
 	name: str = "MSEMS"
 	uuid: str = "20e4e311-43e1-4c3f-af70-caed19de0a8b"
 	authors: list = ["devbrones"]
-	version: str = "0.0.0"
+	version: str = "1.1"
 	license: str = "LGPL3"
 	description: str = """ FDTD Simulator for Magisim """
 

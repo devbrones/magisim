@@ -8,6 +8,7 @@ from shared.router import Router
 import os
 from shared.logger import Logger
 from shared.item import Item
+from shared.projectmanager import projectmanager
 
 
 # builtin extension imports
@@ -19,6 +20,7 @@ import nodemgr.builtin_nodemgr_eload as builtin_nodemgr_eload
 import nodemgr.nodemgr as nmgr
 import greeter.builtin_greeter_eload as builtin_greeter_eload
 import greeter.greeter as greeter
+
 
 #import shapeloader.builtin_shapeloader_eload as builtin_shapeloader_eload
 #import shapeloader.shapeloader as sloadr
@@ -232,30 +234,49 @@ def load_ui(app: gr.Blocks):
     # load the greeter
     #
     # load the builtin node manager
+    with gr.Row():
+        with gr.Column(scale=0):    
+            with gr.Accordion(label="File", open=False):
+                gr.Markdown("File")
+            with gr.Accordion(label="Edit", open=False):
+                gr.Markdown("Edit")
+            with gr.Accordion(label="View", open=False):
+                gr.Markdown("View")
+            with gr.Accordion(label="Help", open=False):
+                gr.Markdown("Help")
 
-    builtin_greeter_eload.load_workspace(app) # load the greeter
-    builtin_nodemgr_eload.load_workspace(app) # load the node manager
 
-    ## iterate through all extensions and load their UIs through their eload modules
-    # get a list of all installed extensions and their paths
-    extensions = emgr.get_installed_extensions()
-    # iterate through all extensions and load their UIs through their eload modules
-    for extension in extensions:
-        loaded_extension = emgr.get_extension_eload(extension)
-        if loaded_extension is not None or str:
-            try:
-                loaded_extension.load_workspace(app)
-            except Exception as e:
-                print(e)
-                return None
-        else:
-            print("Error: Failed to load extension: " + extension)
-            return None
-    # load the builtin extension manager
-    builtin_extensionmgr_eload.load_workspace(app) # load the extension manager
-    # load the builtin settings manager
-    builtin_settingsmgr_eload.load_workspace(app) # load the settings manager
-    #builtin_shapeloader_eload.load_workspace(app) # load the shapeloader
+
+        with gr.Column(scale=5):
+            builtin_greeter_eload.load_workspace(app) # load the greeter
+            builtin_nodemgr_eload.load_workspace(app) # load the node manager
+
+            ## iterate through all extensions and load their UIs through their eload modules
+            # get a list of all installed extensions and their paths
+            extensions = emgr.get_installed_extensions()
+            # iterate through all extensions and load their UIs through their eload modules
+            for extension in extensions:
+                loaded_extension = emgr.get_extension_eload(extension)
+                if loaded_extension is not None or str:
+                    try:
+                        loaded_extension.load_workspace(app)
+                    except Exception as e:
+                        print("GOT EXCEPTION")
+                        print(e)
+                        continue
+                else:
+                    print("Error: Failed to load extension: " + extension)
+                    continue
+
+            print("Loaded all extensions")
+            # load the builtin extension manager
+            builtin_extensionmgr_eload.load_workspace(app) # load the extension manager
+            # load the builtin settings manager
+            builtin_settingsmgr_eload.load_workspace(app) # load the settings manager
+            #builtin_shapeloader_eload.load_workspace(app) # load the shapeloader
+        
+    
+    
 css = ""
 with open("shared/globalcss.css", "r") as cssf:
     css=cssf.read()
@@ -264,10 +285,12 @@ with gr.Blocks(theme=Config.UI.theme, css=css) as app:
     ## they did not say i could do this - but i did it anyway!
     # magisim logo on the left side and title on right side using row
     gr.Image("shared/magisim_logo256.png",
-                label=None, show_label=False, height=64, elem_id="logo",
+                label=None, show_label=False, width=64,height=64, elem_id="logo",
                 show_download_button=False, container=False)
-    
     load_ui(app)
+
+    # add footer using svelte footer, only with name and small logo
+    
 # Launch the Gradio application
 #app.launch(server_port=Config.UI.port)
 gr.mount_gradio_app(fapp, app, path="/")
