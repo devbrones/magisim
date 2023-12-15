@@ -4,3 +4,5 @@
 #nodeGraphContainer { flex-grow: 1; }
 footer{display:none !important}
 .gradio-container {margin: 0 0 0 0 !important; max-width: 100% !important;}
+.smitem {background: var(--block-background-fill) !important; justify-content: left !important;}
+.sbitem {justify-content: left !important;}

@@ -231,20 +231,46 @@ def load_ui(app: gr.Blocks):
     :type app: gr.Blocks
     :return: The function does not return anything.
     """
-    # load the greeter
-    #
-    # load the builtin node manager
+    
     with gr.Row():
+        # sidebar menu
+        #
         with gr.Column(scale=0):    
             with gr.Accordion(label="File", open=False):
-                gr.Markdown("File")
+                with gr.Group():
+                    savebutton = gr.Button(f"Save", variant="primary", size="sm", elem_classes=["sbitem"])
+                    loadbutton = gr.Button(f"Load", variant="secondary", size="sm", elem_classes=["smitem"])
+
             with gr.Accordion(label="Edit", open=False):
                 gr.Markdown("Edit")
+
+
             with gr.Accordion(label="View", open=False):
                 gr.Markdown("View")
-            with gr.Accordion(label="Help", open=False):
-                gr.Markdown("Help")
 
+            with gr.Accordion(label="Help", open=False):
+                with gr.Group():
+                    helpbutton = gr.Button(f"Help", variant="secondary", size="sm", elem_classes=["smitem"])
+                    docsbutton = gr.Button(f"Docs", variant="secondary", size="sm", elem_classes=["smitem"])
+                    debugbutton = gr.Button(f"Debug", variant="secondary", size="sm", elem_classes=["smitem"])
+                    aboutbutton = gr.Button(f"About", variant="secondary", size="sm", elem_classes=["smitem"])
+
+            # active node view
+            with gr.Group():
+                gr.Markdown("Active Extensions")
+                exbox = gr.Textbox(placeholder="Active Extensions", elem_classes=["exbox"], interactive=False)
+                values = ""
+                for extension in emgr.get_installed_extensions():
+                    values += extension + "\n"  
+                exbox.value = values
+                    
+                
+
+            # debug command line
+            with gr.Group():
+                debugconsole = gr.Code(label="", show_label=False, language="python", elem_classes=["debugconsole"], lines=10, interactive=False, container=False)
+                debuginput = gr.Text(placeholder="Debug Command", elem_classes=["debuginput"], interactive=True)
+                debugbutton = gr.Button(f"Run", variant="secondary", size="sm", elem_classes=["debugbutton"])
 
 
         with gr.Column(scale=5):
