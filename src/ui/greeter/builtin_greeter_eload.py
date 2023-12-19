@@ -21,8 +21,8 @@ class ExtensionMeta:
 		hasNodes: list = []
             
 def load_workspace(app: gr.Blocks):
-	with gr.Tab(ExtensionMeta.name):
-		with gr.Tab("Projects"):
+	with gr.TabItem(ExtensionMeta.name):
+		with gr.TabItem("Projects", id="builtin_greetertab"):
 			greeter.load_workspace(app)
-		with gr.Tab("Documentation"):
+		with gr.TabItem("Documentation", id="builtin_doctab"):
 			docs.load_workspace(app)

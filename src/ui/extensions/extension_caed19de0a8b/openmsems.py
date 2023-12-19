@@ -30,7 +30,7 @@ class OpenMSEMS:
 #    openmsems_ext.load_data()
 
 
-def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, wavelength=2, amplitude=50, cycles=100, liveupdate=False, lposxa=30, lposxb=50, lposya=100, lposyb=99):
+def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, wavelength=2, amplitude=50, cycles=100, liveupdate=False, lposxa=30, lposxb=50, lposya=100, lposyb=99, reactive=False):
     import os
     import fdtd
     import numpy as np
@@ -94,8 +94,8 @@ def simulate(lens_permittivity=1.5 ** 2, use_cuda=False, timesteps=400, waveleng
             if liveupdate:
                 grid.save_data()  # saving detector readings
                 df = np.load(os.path.join(simfolder, "detector_readings.npz"))
-                yield gr.Plot(grid.visualize(z=0, ret_plot=True, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white")), str('\n'.join(descript_object)), fdtd.dB_map_2D(df["detector2 (E)"], ret_plot=True)
+                yield gr.Plot(grid.visualize(z=0, show=False, plotly=reactive, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False)), str('\n'.join(descript_object)), fdtd.dB_map_2D(df["detector2 (E)"], show=False, plotly=True)
             else:
-                yield gr.Plot(grid.visualize(z=0, ret_plot=True, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white")), str('\n'.join(descript_object)), None
+                yield gr.Plot(grid.visualize(z=0, show=False, plotly=reactive, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False)), str('\n'.join(descript_object)), None
             plt.title(f"{i:3.0f}")
 

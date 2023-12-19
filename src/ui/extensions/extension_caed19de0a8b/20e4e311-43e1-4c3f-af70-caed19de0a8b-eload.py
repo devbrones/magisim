@@ -32,7 +32,7 @@ def load_workspace(app: gr.Blocks):
 			with gr.Row():
 				with gr.Column():
 					sim = gr.Plot(label="Simulation")
-					space = gr.Plot(label="Space")
+					detplot = gr.Plot(label="Detector Readings")
 
 				with gr.Column():
 					simpleObjectEpsilon = gr.Slider(minimum=0, maximum=50, value=2, label="Simple Object Permittivity")
@@ -54,13 +54,11 @@ def load_workspace(app: gr.Blocks):
 
 					with gr.Accordion("Settings"):
 						gr.Markdown(f"""###### Some settings may not be available on your system. **If you are unsure, leave them as they are.**""")
-						gr.Markdown(f"""_Not using CUDA may put a lot of stress on your CPU, make sure you have a fire extinguisher nearby._""")
+						gr.Markdown(f"""_Not using CUDA may put a lot of stress on your CPU, make sure you have a fire extinguisher nearby._\\ _**note**: CUDA is only available on systems with NVIDIA GPUs_""")
 						simsettings_use_cuda = gr.Checkbox(label="Use CUDA", interactive=Config.Compute.CUDA.isAvailable, value=Config.Compute.CUDA.isAvailable)
-						gr.Markdown(f"""_Reactive Plots allow you to interact with a simulation while it is running. this is not reccomended as it will significantly affect simulation speeds_""")
-						simsettings_reactive_plot = gr.Checkbox(label="Reactive Plot", interactive=False)
-						gr.Markdown(f"""_Object specific settings. If you are unsure, it is reccomended to not change these._""")
-						options = gr.CheckboxGroup(["Simple Object"], label="Object")
-						gr.Markdown(f"""_Live update detector plot_ **this will significantly lower performance, but may give a better overview**""")
+						gr.Markdown(f"""_Reactive Plots allow you to interact with a simulation. This will ***significantly*** affect performance, but is useful for analysis._""")
+						simsettings_reactive_plot = gr.Checkbox(label="Reactive Plot")
+						gr.Markdown(f"""_Show detector plot_ **this will significantly lower performance, but is a powerful analysis tool**""")
 						simsettings_live_update = gr.Checkbox(label="Live Update Detector readings")
 		with gr.Column():
 			with gr.Row():
@@ -68,9 +66,12 @@ def load_workspace(app: gr.Blocks):
 				runsim = gr.Button(value="Run Simulation", variant="secondary")
 			
 			with gr.Accordion(open=False):
-				grid_text = gr.Code(label="Grid", lines=20)
+				grid_text = gr.Text(label="Grid", lines=20)
 
 		
 		#update_btn.click(ems.sendtest)
-		runsim.click(ems.simulate, inputs=[simpleObjectEpsilon, simsettings_use_cuda, timesteps, wavelength, amplitude, cycles, simsettings_live_update, lposxa, lposxb, lposya, lposyb], outputs=[sim, grid_text, space])
+		runsim.click(ems.simulate, inputs=[simpleObjectEpsilon, simsettings_use_cuda, timesteps, wavelength, amplitude, cycles, simsettings_live_update, lposxa, lposxb, lposya, lposyb, simsettings_reactive_plot], outputs=[sim, grid_text, detplot])
+
+def save_workspace(app: gr.Blocks):
+	pass
 
