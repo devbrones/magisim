@@ -13,14 +13,15 @@
 
 Magisim is a versatile simulation hub that brings together individual computational algorithms through an interactive graphical user interface. It is designed to be hosted on a server, allowing multiple users to access it simultaneously. This makes Magisim an affordable and powerful tool for educational environments.
 
-The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing different aspects of simulations.
+The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing and analyzing different aspects of simulations.
 
 ## Documentation
 
-For comprehensive documentation, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.
+For documentation and guides, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.
 
 ## Screenshots
 
+![Slideshow of Magisim](resources/demo.gif)
 
 ### Node Manager
 ![Screenshot of the built in NodeManager Workflow](resources/nmgr2.png)

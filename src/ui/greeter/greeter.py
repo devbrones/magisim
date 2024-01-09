@@ -27,7 +27,7 @@ class Greeter:
             
 def load_workspace(app: gr.Blocks):
 	gr.Markdown(ExtensionMeta.description)
-	landimg = gr.Image("shared/banner1.png",
+	landimg = gr.Image("shared/banner1-short.png",
                       label=None, show_label=False, elem_id="banner",
                       show_download_button=False, container=False)
 	projects = gr.FileExplorer(file_count="single", root=Greeter.get_project_folder(), glob="*.mse", label="Local Projects")
