@@ -1,0 +1,18 @@
+ID,Name,Begin date,End date,Duration,Completion,Cost,Coordinator,Predecessors,Outline number,Resources,Assignments,Task color,Web Link,Notes
+0,UI,9/20/23,10/20/23,23,0,0.0,Tibi,,1,Tibi,0:100.00,,,
+12,Model loading,10/17/23,11/9/23,18,0,0,,,2,,,,,
+1,Extension manager,10/2/23,10/20/23,15,0,0.0,Tibi,,3,Tibi,0:100.00,,,
+3,Extension SDK base,9/20/23,11/9/23,37,0,0.0,Susanne,,4,Susanne,1:100.00,,,
+4,First extension,11/10/23,11/30/23,15,0,0.0,Tibi,,5,Tibi;Susanne,0:100.00;1:100.00,,,
+2,Demo 1,12/1/23,12/1/23,0,0,0,,,6,,,,,
+6,Extension SDK UI & docs,12/1/23,1/16/24,33,0,0.0,Tibi,,7,Tibi;Susanne,0:100.00;1:100.00,,,
+7,Extension 2 advanced renderer,1/17/24,1/26/24,8,0,0.0,Tibi,,8,Tibi;Susanne,0:100.00;1:100.00,,,
+8,Demo 2,1/29/24,1/29/24,0,0,0,,,9,,,,,
+9,"Monetization, licenses, copyright",1/29/24,2/12/24,11,0,0.0,Tibi,,10,Tibi;Susanne,0:100.00;1:100.00,,,
+10,Finished,2/13/24,2/13/24,0,0,0,,,11,,,,,
+11,Writing,2/13/24,5/10/24,64,0,0.0,Tibi,,12,Tibi;Susanne,0:100.00;1:100.00,,,
+
+
+ID,Name,Default role,e-mail,Phone,Standard rate,Total cost,Total load
+0,Tibi,Default:0,,,0,0,169.0
+1,Susanne,Default:0,,,0,0,168.0
