@@ -201,7 +201,4 @@ src/ui/fdtd_output/*
 # ide 
 .vscode/
 
-# gifs and stuff in the root of the repo
-
-*.gif
 
