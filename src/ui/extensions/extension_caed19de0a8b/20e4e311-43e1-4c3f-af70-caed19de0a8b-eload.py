@@ -50,6 +50,7 @@ def load_workspace(app: gr.Blocks):
 									# the user can also enter the permittivity directly
 									# the user can also choose from a list of common materials (e.g. glass, acrylic, copper, iron, etc.)
 									# for now only a biconvex lens is supported
+									demolens = gr.Checkbox(label="Enable Lens")
 									lens_focal_length = gr.Number(value=0.1, label="Focal Length (mm)")
 									lens_radius = gr.Number(value=0.1, label="Radius of Curvature (mm)")
 									permittivity = gr.Number(value=1.5 ** 2, label="Permittivity")
@@ -72,7 +73,7 @@ def load_workspace(app: gr.Blocks):
 								gpupdate = gr.Button(value="Update", variant="primary")
 							with gr.Tab("Draw"):
 								gr.Markdown("Draw")
-								draw = gr.ImageEditor(label="Draw")
+								draw = gr.ImageEditor(label="Draw", type="numpy", width=300, height=300, image_mode="L", )
 								drawpreview = gr.Plot(label="Draw Preview")
 						with gr.Column():
 							with gr.Tabs():
@@ -112,6 +113,15 @@ def load_workspace(app: gr.Blocks):
 											wavelength = gr.Number(value=0.0000000635, label="Wavelength (Meters)")
 											amplitude = gr.Slider(minimum=0, maximum=100, value=50, label="Amplitude")
 											cycles = gr.Slider(minimum=0, maximum=1000, value=100, label="Cycles")
+								with gr.Tab("Detector"):
+									gr.Markdown("Detector")
+									with gr.Group("Detector Position"):
+										with gr.Row():
+											det_xmin = gr.Slider(minimum=0, maximum=1000, value=80, label="X Min")
+											det_xmax = gr.Slider(minimum=0, maximum=1000, value=200, label="X Max")
+										with gr.Row():
+											det_ymin = gr.Slider(minimum=0, maximum=1000, value=80, label="Y Min")
+											det_ymax = gr.Slider(minimum=0, maximum=1000, value=120, label="Y Max")
 		
 		gpupdate.click(ems.get_grid_preview, inputs=[permittivity, 
 											wavelength, 
@@ -131,7 +141,14 @@ def load_workspace(app: gr.Blocks):
 											source_x,
 											source_y,
 											source_width,
-											source_height], outputs=[gp])
+											source_height,
+											det_xmin,
+											det_xmax,
+											det_ymin,
+											det_ymax,
+											draw,
+											demolens
+											], outputs=[gp])
 
 		with gr.Tab("Simulate"):
 			with gr.Column():
@@ -184,7 +201,13 @@ def load_workspace(app: gr.Blocks):
 											source_x,
 											source_y,
 											source_width,
-											source_height
+											source_height,
+											det_xmin,
+											det_xmax,
+											det_ymin,
+											det_ymax,
+											draw,
+											demolens
 											], outputs=[sim, grid_text, detplot, prbox])
 
 def save_workspace(app: gr.Blocks):

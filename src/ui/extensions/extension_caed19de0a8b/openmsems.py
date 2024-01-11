@@ -49,6 +49,12 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
                         src_y=50,
                         src_width=100,
                         src_height=1,
+                        det_xmin=0,
+                        det_xmax=0,
+                        det_ymin=0,
+                        det_ymax=0,
+                        draw=None,
+                        demolens=False
                         ):
     import fdtd
     import numpy as np
@@ -63,16 +69,31 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
     grid[:, -pml_yhigh:, :] = fdtd.PML(name="pml_yhigh")
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
-
-    x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
-    X, Y = np.meshgrid(x, y)
-    lens_mask = X ** 2 + Y ** 2 <= 40000
-    for j, col in enumerate(lens_mask.T):
-        for i, val in enumerate(np.flip(col)):
-            if val:
-                grid[lposxa + i : lposxb - i, j - lposya : j - lposyb] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "," + str(j))
-                break
     
+    if demolens:
+        x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
+        X, Y = np.meshgrid(x, y)
+        lens_mask = X ** 2 + Y ** 2 <= 40000
+        for j, col in enumerate(lens_mask.T):
+            for i, val in enumerate(np.flip(col)):
+                if val:
+                    grid[lposxa + i : lposxb - i, j - lposya : j - lposyb] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "," + str(j))
+                    break
+    
+    # add the drawn object to the grid
+    if draw is not None:
+        #image should be a numpy array of shape (grid_xsize, grid_ysize, 3) with values between 0 and 255, 
+        #we need to convert it to a boolean array of shape (grid_xsize, grid_ysize), since we are using monochrome mode
+        #we can just take the first channel only
+        print(draw['composite'].shape)
+        draw = draw['composite'].astype(bool)
+        #iterate over the grid and create a object with the name as the coordinates
+        for i in range(grid_xsize):
+            for j in range(grid_ysize):
+                if draw[i,j]:
+                    grid[i,j] = fdtd.Object(permittivity=1.5**2, name=f"{i}---{j}")
+
+
     # calculate the appropriate source dimensions as a slice from the values
     #grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
     grid[src_x, src_y:src_y+src_width, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
@@ -84,7 +105,7 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
 
 
 
-    grid[80:200, 80:120, 0] = fdtd.BlockDetector(name="detector")
+    grid[det_xmin:det_xmax, det_ymin:det_ymax, 0] = fdtd.BlockDetector(name="detector")
     #grid[224:225, 25:175, 0] = fdtd.BlockDetector(name="detector2")
     # create a detector that spans the entire grid
     #grid[0:299, 0:299, 0] = fdtd.BlockDetector(name="detector2") # enormous yikes
@@ -132,6 +153,12 @@ def simulate(lens_permittivity=1.5 ** 2,
              src_y=50,
              src_width=100,
              src_height=1,
+             det_xmin=0,
+             det_xmax=0,
+             det_ymin=0,
+             det_ymax=0,
+             draw=None,
+             demolens=False,
              progress=gr.Progress()
 
              ):
@@ -153,14 +180,31 @@ def simulate(lens_permittivity=1.5 ** 2,
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
 
-    x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
-    X, Y = np.meshgrid(x, y)
-    lens_mask = X ** 2 + Y ** 2 <= 40000
-    for j, col in enumerate(lens_mask.T):
-        for i, val in enumerate(np.flip(col)):
-            if val:
-                grid[lposxa + i : lposxb - i, j - lposya : j - lposyb] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "," + str(j))
-                break
+    if demolens:
+        x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
+        X, Y = np.meshgrid(x, y)
+        lens_mask = X ** 2 + Y ** 2 <= 40000
+        for j, col in enumerate(lens_mask.T):
+            for i, val in enumerate(np.flip(col)):
+                if val:
+                    grid[lposxa + i : lposxb - i, j - lposya : j - lposyb] = fdtd.Object(permittivity=lens_permittivity, name=str(i) + "," + str(j))
+                    break
+
+    # add the drawn object to the grid
+    if draw is not None:
+        #image should be a numpy array of shape (grid_xsize, grid_ysize, 3) with values between 0 and 255, 
+        #we need to convert it to a boolean array of shape (grid_xsize, grid_ysize), since we are using monochrome mode
+        #we can just take the first channel only
+        print(draw['composite'].shape)
+        draw = draw['composite'].astype(bool)
+        #iterate over the grid and create a object with the name as the coordinates
+        for i in range(grid_xsize):
+            for j in range(grid_ysize):
+                if draw[i,j]:
+                    grid[i,j] = fdtd.Object(permittivity=1.5**2, name=f"{i}---{j}")
+
+
+
     
     # calculate the appropriate source dimensions as a slice from the values
     #grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
@@ -173,7 +217,7 @@ def simulate(lens_permittivity=1.5 ** 2,
 
 
 
-    grid[80:200, 80:120, 0] = fdtd.BlockDetector(name="detector")
+    grid[det_xmin:det_xmax, det_ymin:det_ymax, 0] = fdtd.BlockDetector(name="detector")
     #grid[224:225, 25:175, 0] = fdtd.BlockDetector(name="detector2")
     # create a detector that spans the entire grid
     #grid[0:299, 0:299, 0] = fdtd.BlockDetector(name="detector2") # enormous yikes
