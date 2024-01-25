@@ -21,7 +21,7 @@ class ExtensionMeta:
 		types: list = [Extension.Simulator, Extension.Workspace] # list of classes
 		layoutCompat: bool = False
 		# externalNodes: str = "nodes.js" ## TODO: implement this later so developers can define their own nodes in js!
-		hasNodes: [(Extension,(list,list))] = [(Extension.Simulator, ([("Simple object","np2d")],
+		hasNodes: [(Extension,(list,list))] = [(Extension.Simulator, ([("Simple object","array2d")],
 																	  [("Realtime Plot","matplot"), ("Detector Plot","matplot"), ("Simulation Space", "space")]))]
 		hasSettings: bool = True # can be set to be checked by a function later if needed
 
@@ -64,6 +64,15 @@ def load_workspace(app: gr.Blocks):
 
 							with gr.Tab("Upload Object"):
 								gr.Markdown("Upload Object")
+
+							with gr.Tab("Simple Object"):
+								gr.Markdown("Simple Object")
+								use_simple_object = gr.Checkbox(label="Enable Simple Object")
+								with gr.Group("Position"):
+									gr.Markdown("Position")
+									with gr.Row():
+										posx = gr.Slider(minimum=0, maximum=300, value=30, label="Position X")
+										posy = gr.Slider(minimum=0, maximum=300, value=50, label="Position Y")
 
 					with gr.Column():
 						with gr.Tabs():
@@ -147,7 +156,8 @@ def load_workspace(app: gr.Blocks):
 											det_ymin,
 											det_ymax,
 											draw,
-											demolens
+											demolens,
+											use_simple_object
 											], outputs=[gp])
 
 		with gr.Tab("Simulate"):

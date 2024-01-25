@@ -1,21 +1,48 @@
 \documentclass[11pt, a4paper, titlepage]{article}
 \usepackage[margin=3.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{graphicx}
 \usepackage[style=ieee, block=ragged]{biblatex}
 
 
-
 \begin{document}
+\begin{titlepage}
+	% Logo at the top within the margins
+	\noindent
+	\includegraphics[width=0.15\paperwidth]{logo-mg.png} % Adjust the size as needed
+	
+	% Title and subtitle with left offset
+	\vspace*{0.5\paperwidth} % Adjust the vertical space as needed
+	\noindent\hspace*{0.15\paperwidth} % Offset from the left
+	\begin{minipage}{\textwidth}
+		
+		\color[HTML]{0b5394}\Huge Magisim\\
+		\color{black}\Large Open source resource center for simulations \\
+	\end{minipage}
+	
+	\vfill % Push the authorship information to the bottom of the page
+	\noindent
+	\begin{minipage}{\textwidth}
+		\normalsize % 12pt font size
+		Jonas Cronholm \\
+		\textbf{Gymnasiearbete 100 poäng} \\
+		\textbf{Klass:} 21 TE \\
+		\textit{Teknikprogrammet} \\
+		\textbf{Läsåret:} 2023-2024 \\
+		\textbf{Handledare:} Peter Eriksson
+	\end{minipage}
+\end{titlepage}
 
-	\begin{titlepage}
-		% Title Page
-		\title{\includegraphics[width=0.35\textwidth]{magisim_logo256.png}\par\vspace{1cm}Magisim: Open source resource center for electromagnetic simulations \let\thefootnote\relax\footnotetext{Gymnasiearbete 100p}}
-		\author{Jonas Cronholm, Rasmus C. Ljung}
-		\maketitle
-	\end{titlepage}
-
+% Titlepage for arXiv - Needs style changes soon!
+% 
+%\begin{titlepage}
+%	\title{\includegraphics[width=0.35\textwidth]{magisim_logo256.png}\par\vspace{1cm}Magisim: Open source resource center for electromagnetic simulations \let\thefootnote\relax\footnotetext{Gymnasiearbete 100p}}
+%	\author{Jonas Cronholm, Rasmus C. Ljung}
+%	\maketitle
+%\end{titlepage}
+%
 
 
 \begin{abstract}
@@ -39,7 +66,7 @@
 \setcounter{page}{2}
 \tableofcontents
 \newpage
-
+\twocolumn[]
 \section{Introduction}
 \subsection{Background}
 \subsection{Problem}
@@ -169,11 +196,11 @@ To address these challenges, we turn to parallelization, a technique that enable
 \newpage
 \section{Conclusion}
 \newpage
-\section{References}
+%\section{References}
 
 \newpage
 \newpage
-\addcontentsline{toc}{section}{Referenser} 
+\addcontentsline{toc}{section}{References} 
 \printbibliography
 
 

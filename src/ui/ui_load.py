@@ -33,9 +33,7 @@ def load_ui(app: gr.Blocks):
         with gr.Column(scale=0):  
              ## they did not say i could do this - but i did it anyway!
             # magisim logo on the left side and title on right side using row
-            with gr.Row():
-                gr.HTML("<img src='file/shared/magisim_logo256.png' width='32' height='32' style='margin-right: 10px; margin-left: 10px;'></img>")
-                
+            with gr.Row():                
                 gr.Markdown("# magisim", label="", show_label=False) 
             with gr.Accordion(label="File", open=False):
                 with gr.Group():
@@ -79,6 +77,7 @@ def load_ui(app: gr.Blocks):
                 debuginput = gr.Text(placeholder="Debug Command", elem_classes=["debuginput"], interactive=True, visible=False)
                 debugbutton = gr.Button(f"Run", variant="secondary", size="sm", elem_classes=["debugbutton"], visible=False)
 
+            gr.Markdown("alpha version 1.0.12 internal use only")
             
 
 

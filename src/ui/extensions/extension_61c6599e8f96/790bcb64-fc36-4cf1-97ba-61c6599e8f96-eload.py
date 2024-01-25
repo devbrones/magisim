@@ -21,7 +21,7 @@ class ExtensionMeta:
 		types: list = [Extension.Renderer] # list of classes
 		layoutCompat: bool = False
 		# externalNodes: str = "nodes.js" ## TODO: implement this later so developers can define their own nodes in js!
-		hasNodes: [(Extension,(list,list))] = [(Extension.Simulator, ([("Plot","matplot")],[]))]
+		hasNodes: [(Extension,(list,list))] = [(Extension.Renderer, ([("Plot","matplot")],[]))]
 		hasSettings: bool = True # can be set to be checked by a function later if needed
 
 def load_workspace(app: gr.Blocks):

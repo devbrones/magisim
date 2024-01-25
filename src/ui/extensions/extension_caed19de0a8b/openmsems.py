@@ -1,5 +1,7 @@
 from shared.router import Router
 import gradio as gr
+import pickle
+
 
 class OpenMSEMS:
     def __init__(self, extension_id):
@@ -23,12 +25,14 @@ class OpenMSEMS:
         self.send_data(data)
 
 # Instantiate your extension with the given UUID
-#openmsems_ext = OpenMSEMS("caed19de0a8b") ## uuids are stripped to last 12 anums for compability and readability
+openmsems_ext = OpenMSEMS("caed19de0a8b") ## uuids are stripped to last 12 anums for compability and readability
 
-# Call the load_data function to send data
-#def sendtest():
-#    openmsems_ext.load_data()
-        
+
+
+
+
+
+
 
 def get_grid_preview(lens_permittivity=1.5 ** 2,
                         wavelength=2,
@@ -54,7 +58,8 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
                         det_ymin=0,
                         det_ymax=0,
                         draw=None,
-                        demolens=False
+                        demolens=False,
+                        use_simple_object=False,
                         ):
     import fdtd
     import numpy as np
@@ -69,6 +74,16 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
     grid[:, -pml_yhigh:, :] = fdtd.PML(name="pml_yhigh")
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
+
+    if use_simple_object:
+        # add a object recieved from the node system
+
+        # recieve the object from the node system
+        raw_data = openmsems_ext.receive_data()
+        # is the object connected to the simple object input?
+        if raw_data["pipe"] == "Simple Object":
+            # dump pickle
+            
     
     if demolens:
         x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
@@ -170,7 +185,7 @@ def simulate(lens_permittivity=1.5 ** 2,
     grid = fdtd.Grid(shape=(grid_xsize, grid_ysize, 1), grid_spacing=0.1 * wavelength) # free air
     if use_cuda:
         print("Using CUDA")
-        #fdtd.set_backend("torch.cuda")
+        fdtd.set_backend("torch")
     # x boundaries
     grid[0:pml_xlow, :, :] = fdtd.PML(name="pml_xlow")
     grid[-pml_xhigh:, :, :] = fdtd.PML(name="pml_xhigh")

@@ -32,21 +32,21 @@ class NodeManager:
 
 
     def fetch_node_save_button():
-        #nbtn_html = f"""
-        #<html>
-        #    <head>    
-        #        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        #    </head>
-        #    <body>
-        #        <button style="width: 100%;" class="lg primary" onclick="graph.pushgraph()">{ Config.Icon.save_style_symbol }Save Nodes</button>
-        #    </body>
-        #</html>
-        #"""
-        #gr.HTML(nbtn_html)
+        nbtn_html = f"""
+        <html>
+            <head>    
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+            </head>
+            <body>
+                <button style="width: 100%;" class="lg primary smitem" onclick="graph.pushgraph()">{ Config.Icon.save_style_symbol }Save Nodes</button>
+            </body>
+        </html>
+        """
+        gr.HTML(nbtn_html)
 
         # new version using gradio 4
 
-        gr.Button(f"{Config.Icon.save_style_symbol}Save Nodes", variant="primary", interactive=True).click(js="graph.pushgraph();")
+        #gr.Button(f"{Config.Icon.save_style_symbol}Save Nodes", variant="primary", interactive=True).click(js="graph.pushgraph();")
 
 
 
