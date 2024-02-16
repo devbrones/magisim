@@ -37,5 +37,8 @@ def load_workspace(app: gr.Blocks):
             with gr.Column():
                 res = gr.Plot()
         startbtn = gr.Button("Start")
+        savebtn = gr.Button("Save as MSO")
+        output_file = gr.File(label="Output File")
         startbtn.click(stlloader.convert2d, inputs=[stlfile, slicder, max_size, xro, yro, zro], outputs=res)
+        savebtn.click(stlloader.save, inputs=[stlfile, slicder, max_size, xro, yro, zro], outputs=output_file)
 

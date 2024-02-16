@@ -2,6 +2,7 @@ from shared.router import Router, Tunnel
 import gradio as gr
 import pickle
 import tqdm
+from shared.libmso import mso, SimpleObject
 
 # Instantiate your extension with the given UUID
 openmsems_simpleobject = Tunnel("caed19de0a8b:Simple object")
@@ -10,7 +11,8 @@ def get_simple_object():
     return openmsems_simpleobject.receive_data()
 
 
-def get_grid_preview(lens_permittivity=1.5 ** 2,
+def get_grid_preview(mso_file=None,
+                        lens_permittivity=1.5 ** 2,
                         wavelength=2,
                         amplitude=50,
                         cycles=100,
@@ -56,7 +58,20 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
     grid[:, -pml_yhigh:, :] = fdtd.PML(name="pml_yhigh")
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
-    if use_simple_object:
+    if mso_file is not None and not use_simple_object:
+        # read the mso file and add it to the grid
+        simpleobject = mso.read(mso_file)
+        if not isinstance(simpleobject, SimpleObject):
+            raise ValueError("The file is not a valid SimpleObject")
+        # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
+        for i in tqdm.tqdm(range(simpleobject.data.shape[0])):
+            for j in range(simpleobject.data.shape[1]):
+                #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
+                # check if the point is existing
+                if simpleobject.data[i, j]:
+                    grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=lens_permittivity, name=f"{i}---{j}")
+
+    if use_simple_object and mso_file is None:
         simpleobject = openmsems_simpleobject.receive_data()["pickle_jar"]
         # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
         for i in tqdm.tqdm(range(simpleobject.shape[0])):
@@ -143,7 +158,8 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
     
 
 
-def simulate(lens_permittivity=1.5 ** 2, 
+def simulate(mso_file=None,
+             lens_permittivity=1.5 ** 2, 
              use_cuda=False, 
              timesteps=400, 
              wavelength=2, 
@@ -198,7 +214,20 @@ def simulate(lens_permittivity=1.5 ** 2,
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
 
-    if use_simple_object:
+    if mso_file is not None and not use_simple_object:
+        # read the mso file and add it to the grid
+        simpleobject = mso.read(mso_file)
+        if not isinstance(simpleobject, SimpleObject):
+            raise ValueError("The file is not a valid SimpleObject")
+        # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
+        for i in tqdm.tqdm(range(simpleobject.data.shape[0])):
+            for j in range(simpleobject.data.shape[1]):
+                #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
+                # check if the point is existing
+                if simpleobject.data[i, j]:
+                    grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=lens_permittivity, name=f"{i}---{j}")
+
+    if use_simple_object and mso_file is None:
         simpleobject = openmsems_simpleobject.receive_data()["pickle_jar"]
         # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
         for i in tqdm.tqdm(range(simpleobject.shape[0])):

@@ -64,6 +64,9 @@ def load_workspace(app: gr.Blocks):
 
 							with gr.Tab("Upload Object"):
 								gr.Markdown("Upload Object")
+								# the user can upload a .mso file, which contains a simple object
+								mso_file = gr.File(label="Upload .mso file", type="filepath", file_types=["mso"])
+
 
 							with gr.Tab("Simple Object"):
 								gr.Markdown("Simple Object")
@@ -144,7 +147,8 @@ def load_workspace(app: gr.Blocks):
 											det_ymin = gr.Slider(minimum=0, maximum=1000, value=80, label="Y Min")
 											det_ymax = gr.Slider(minimum=0, maximum=1000, value=120, label="Y Max")
 		
-		gpupdate.click(ems.get_grid_preview, inputs=[permittivity, 
+		gpupdate.click(ems.get_grid_preview, inputs=[mso_file,
+											permittivity, 
 											wavelength, 
 											amplitude, 
 											cycles, 
@@ -205,7 +209,8 @@ def load_workspace(app: gr.Blocks):
 	
 			
 			#update_btn.click(ems.sendtest)
-			runsim.click(ems.simulate, inputs=[permittivity, 
+			runsim.click(ems.simulate, inputs=[mso_file,
+											permittivity, 
 									  		simsettings_use_cuda, 
 											timesteps, 
 											wavelength, 
