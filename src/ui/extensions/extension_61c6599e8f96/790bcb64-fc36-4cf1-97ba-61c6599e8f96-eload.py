@@ -27,4 +27,4 @@ class ExtensionMeta:
 def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name):
 		gr.Markdown(ExtensionMeta.description)
-		vis.get_visualizer(app)
+		

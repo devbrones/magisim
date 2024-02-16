@@ -28,6 +28,7 @@ def load_workspace(app: gr.Blocks):
             with gr.Column():
                 stlfile = gr.Model3D()
                 slicder = gr.Slider(minimum=0, maximum=300, step=1, label="Slice Position")
+                max_size = gr.Number(label="Max Size")
                 with gr.Group():
                     gr.Label("Rotation in Degrees")
                     xro = gr.Number(label="X")
@@ -36,5 +37,5 @@ def load_workspace(app: gr.Blocks):
             with gr.Column():
                 res = gr.Plot()
         startbtn = gr.Button("Start")
-        startbtn.click(stlloader.convert2d, inputs=[stlfile,slicder, xro, yro, zro], outputs=res)
+        startbtn.click(stlloader.convert2d, inputs=[stlfile, slicder, max_size, xro, yro, zro], outputs=res)
 

@@ -1,37 +1,13 @@
-from shared.router import Router
+from shared.router import Router, Tunnel
 import gradio as gr
 import pickle
-
-
-class OpenMSEMS:
-    def __init__(self, extension_id):
-        self.extension_id = extension_id
-
-    def send_data(self, data):
-        Router.send_data(self.extension_id, data)
-
-    def receive_data(self):
-        return Router.receive_data(self.extension_id, callback=self.callback_func)
-
-    def callback_func(self, received_data):
-        return received_data
-
-    def load_data(self):
-        data = {
-            "id": self.extension_id,
-            "type": "ExtensionType",
-            "other_data": "Other relevant information"
-        }
-        self.send_data(data)
+import tqdm
 
 # Instantiate your extension with the given UUID
-openmsems_ext = OpenMSEMS("caed19de0a8b") ## uuids are stripped to last 12 anums for compability and readability
+openmsems_simpleobject = Tunnel("caed19de0a8b:Simple object")
 
-
-
-
-
-
+def get_simple_object():
+    return openmsems_simpleobject.receive_data()
 
 
 def get_grid_preview(lens_permittivity=1.5 ** 2,
@@ -49,6 +25,8 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
                         pml_xhigh=10,
                         pml_ylow=10,
                         pml_yhigh=10,
+                        src_type="Line",
+                        src_ct=1,
                         src_x=15,
                         src_y=50,
                         src_width=100,
@@ -60,10 +38,14 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
                         draw=None,
                         demolens=False,
                         use_simple_object=False,
+                        cache_object=True,
+                        sposx=0,
+                        sposy=0
                         ):
     import fdtd
     import numpy as np
     import matplotlib.pyplot as plt
+    print(src_type)
     c = grid_c #m/s
     grid = fdtd.Grid(shape=(grid_xsize, grid_ysize, 1), grid_spacing=0.1 * wavelength) # free air
     # x boundaries
@@ -74,18 +56,21 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
     grid[:, -pml_yhigh:, :] = fdtd.PML(name="pml_yhigh")
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
-
     if use_simple_object:
-        # add a object recieved from the node system
+        simpleobject = openmsems_simpleobject.receive_data()["pickle_jar"]
+        # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
+        for i in tqdm.tqdm(range(simpleobject.shape[0])):
+            for j in range(simpleobject.shape[1]):
+                #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
+                # check if the point is existing
+                if simpleobject[i, j]:
+                    grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=lens_permittivity, name=f"{i}---{j}")
+                
+        
+        
 
-        # recieve the object from the node system
-        raw_data = openmsems_ext.receive_data()
-        # is the object connected to the simple object input?
-        if raw_data["pipe"] == "Simple Object":
-            # dump pickle
-            
-    
     if demolens:
+        print("demolens")
         x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
         X, Y = np.meshgrid(x, y)
         lens_mask = X ** 2 + Y ** 2 <= 40000
@@ -96,31 +81,42 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
                     break
     
     # add the drawn object to the grid
-    if draw is not None:
-        #image should be a numpy array of shape (grid_xsize, grid_ysize, 3) with values between 0 and 255, 
-        #we need to convert it to a boolean array of shape (grid_xsize, grid_ysize), since we are using monochrome mode
-        #we can just take the first channel only
-        print(draw['composite'].shape)
-        draw = draw['composite'].astype(bool)
-        #iterate over the grid and create a object with the name as the coordinates
-        for i in range(grid_xsize):
-            for j in range(grid_ysize):
-                if draw[i,j]:
-                    grid[i,j] = fdtd.Object(permittivity=1.5**2, name=f"{i}---{j}")
+    #if draw is not None:
+    #    print("draw is not none")
+    #    #image should be a numpy array of shape (grid_xsize, grid_ysize, 3) with values between 0 and 255, 
+    #    #we need to convert it to a boolean array of shape (grid_xsize, grid_ysize), since we are using monochrome mode
+    #    #we can just take the first channel only
+    #    print(draw['composite'].shape)
+    #    draw = draw['composite'].astype(bool)
+    #    #iterate over the grid and create a object with the name as the coordinates
+    #    for i in range(grid_xsize):
+    #        for j in range(grid_ysize):
+    #            if draw[i,j]:
+    #                grid[i,j] = fdtd.Object(permittivity=1.5**2, name=f"{i}---{j}")
 
+    if src_type == "Line":
+        # calculate the appropriate source dimensions as a slice from the values
+        #grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+        grid[src_x, src_y:src_y+src_width, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+        print("calculated source dimensions")
+        # make 3 sources next to each other with the total width of [15, 50:150, 0]
+        #grid[15, 50:80, 0] = fdtd.LineSource(period=wavelength/c, name="source1", amplitude=amplitude, cycle=cycles)
+        #grid[15, 85:115, 0] = fdtd.LineSource(period=wavelength/c, name="source2", amplitude=amplitude, cycle=cycles)
+        #grid[15, 120:150, 0] = fdtd.LineSource(period=wavelength/c, name="source3", amplitude=amplitude, cycl2e=cycles)
+    elif src_type == "Point":
+        grid[src_x, src_y, 0] = fdtd.PointSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+        print("calculated source dimensions")
+    elif src_type == "Points":
+        # add as many points as specified by src_ct in a line of the width selected by src_width evenly spaced
+        for i in range(src_ct):
+            grid[src_x, src_y + i * src_width // src_ct, 0] = fdtd.PointSource(period=wavelength/c, name=f"source{i}", amplitude=amplitude, cycle=cycles)
+        print("calculated source dimensions")
 
-    # calculate the appropriate source dimensions as a slice from the values
-    #grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
-    grid[src_x, src_y:src_y+src_width, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
-    
-    # make 3 sources next to each other with the total width of [15, 50:150, 0]
-    #grid[15, 50:80, 0] = fdtd.LineSource(period=wavelength/c, name="source1", amplitude=amplitude, cycle=cycles)
-    #grid[15, 85:115, 0] = fdtd.LineSource(period=wavelength/c, name="source2", amplitude=amplitude, cycle=cycles)
-    #grid[15, 120:150, 0] = fdtd.LineSource(period=wavelength/c, name="source3", amplitude=amplitude, cycle=cycles)
 
 
 
     grid[det_xmin:det_xmax, det_ymin:det_ymax, 0] = fdtd.BlockDetector(name="detector")
+    print("added detector")
     #grid[224:225, 25:175, 0] = fdtd.BlockDetector(name="detector2")
     # create a detector that spans the entire grid
     #grid[0:299, 0:299, 0] = fdtd.BlockDetector(name="detector2") # enormous yikes
@@ -139,8 +135,10 @@ def get_grid_preview(lens_permittivity=1.5 ** 2,
     #descript_object.append(str(np.array([grid.source.x[-1] - grid.source.x[0] + 1, grid.source.y[-1] - grid.source.y[0] + 1, grid.source.z[-1] - grid.source.z[0] + 1])/wavelengthUnits))
     descript_object.append("\n\tObject dimensions: ")
     #descript_object.append(str([(max(map(max, x)) - min(map(min, x)) + 1)/wavelengthUnits for x in objectRange]))
+    print("created description object")
 
     # we don't need to run the simulation, just return the grid
+    print("returning grid")
     return gr.Plot(grid.visualize(z=0, show=False, plotly=False, index=0, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False))
     
 
@@ -164,6 +162,8 @@ def simulate(lens_permittivity=1.5 ** 2,
              pml_xhigh=10,
              pml_ylow=10,
              pml_yhigh=10,
+             src_type="Line",
+             src_ct=1,
              src_x=15,
              src_y=50,
              src_width=100,
@@ -174,8 +174,10 @@ def simulate(lens_permittivity=1.5 ** 2,
              det_ymax=0,
              draw=None,
              demolens=False,
-             progress=gr.Progress()
-
+             use_simple_object=False,
+             cache_object=True,
+             sposx=0,
+             sposy=0
              ):
     import os
     import fdtd
@@ -183,6 +185,7 @@ def simulate(lens_permittivity=1.5 ** 2,
     import matplotlib.pyplot as plt
     c = grid_c #m/s
     grid = fdtd.Grid(shape=(grid_xsize, grid_ysize, 1), grid_spacing=0.1 * wavelength) # free air
+    fdtd.set_backend("numpy")
     if use_cuda:
         print("Using CUDA")
         fdtd.set_backend("torch")
@@ -195,6 +198,17 @@ def simulate(lens_permittivity=1.5 ** 2,
 
     simfolder = grid.save_simulation("Lenses")  # initializing environment to save simulation data
 
+    if use_simple_object:
+        simpleobject = openmsems_simpleobject.receive_data()["pickle_jar"]
+        # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
+        for i in tqdm.tqdm(range(simpleobject.shape[0])):
+            for j in range(simpleobject.shape[1]):
+                #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
+                # check if the point is existing
+                if simpleobject[i, j]:
+                    grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=lens_permittivity, name=f"{i}---{j}")
+                
+
     if demolens:
         x, y = np.arange(-200, 200, 1), np.arange(190, 200, 1)
         X, Y = np.meshgrid(x, y)
@@ -206,36 +220,46 @@ def simulate(lens_permittivity=1.5 ** 2,
                     break
 
     # add the drawn object to the grid
-    if draw is not None:
-        #image should be a numpy array of shape (grid_xsize, grid_ysize, 3) with values between 0 and 255, 
-        #we need to convert it to a boolean array of shape (grid_xsize, grid_ysize), since we are using monochrome mode
-        #we can just take the first channel only
-        print(draw['composite'].shape)
-        draw = draw['composite'].astype(bool)
-        #iterate over the grid and create a object with the name as the coordinates
-        for i in range(grid_xsize):
-            for j in range(grid_ysize):
-                if draw[i,j]:
-                    grid[i,j] = fdtd.Object(permittivity=1.5**2, name=f"{i}---{j}")
+    #if draw is not None:
+    #    #image should be a numpy array of shape (grid_xsize, grid_ysize, 3) with values between 0 and 255, 
+    #    #we need to convert it to a boolean array of shape (grid_xsize, grid_ysize), since we are using monochrome mode
+    #    #we can just take the first channel only
+    #    print(draw['composite'].shape)
+    #    draw = draw['composite'].astype(bool)
+    #    #iterate over the grid and create a object with the name as the coordinates
+    #    for i in range(grid_xsize):
+    #        for j in range(grid_ysize):
+    #            if draw[i,j]:
+    #                grid[i,j] = fdtd.Object(permittivity=1.5**2, name=f"{i}---{j}")
 
 
 
     
-    # calculate the appropriate source dimensions as a slice from the values
-    #grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
-    grid[src_x, src_y:src_y+src_width, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
-    
-    # make 3 sources next to each other with the total width of [15, 50:150, 0]
-    #grid[15, 50:80, 0] = fdtd.LineSource(period=wavelength/c, name="source1", amplitude=amplitude, cycle=cycles)
-    #grid[15, 85:115, 0] = fdtd.LineSource(period=wavelength/c, name="source2", amplitude=amplitude, cycle=cycles)
-    #grid[15, 120:150, 0] = fdtd.LineSource(period=wavelength/c, name="source3", amplitude=amplitude, cycle=cycles)
+    if src_type == "Line":
+        # calculate the appropriate source dimensions as a slice from the values
+        #grid[15, 50:150, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+        grid[src_x, src_y:src_y+src_width, 0] = fdtd.LineSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+        print("calculated source dimensions")
+        # make 3 sources next to each other with the total width of [15, 50:150, 0]
+        #grid[15, 50:80, 0] = fdtd.LineSource(period=wavelength/c, name="source1", amplitude=amplitude, cycle=cycles)
+        #grid[15, 85:115, 0] = fdtd.LineSource(period=wavelength/c, name="source2", amplitude=amplitude, cycle=cycles)
+        #grid[15, 120:150, 0] = fdtd.LineSource(period=wavelength/c, name="source3", amplitude=amplitude, cycl2e=cycles)
+    elif src_type == "Point":
+        grid[src_x, src_y, 0] = fdtd.PointSource(period=wavelength/c, name="source", amplitude=amplitude, cycle=cycles)
+        print("calculated source dimensions")
+    elif src_type == "Points":
+        # add as many points as specified by src_ct in a line of the width selected by src_width evenly spaced
+        for i in range(src_ct):
+            grid[src_x, src_y + i * src_width // src_ct, 0] = fdtd.PointSource(period=wavelength/c, name=f"source{i}", amplitude=amplitude, cycle=cycles)
+        print("calculated source dimensions")
 
 
-
-    grid[det_xmin:det_xmax, det_ymin:det_ymax, 0] = fdtd.BlockDetector(name="detector")
+    #grid[det_xmin:det_xmax, det_ymin:det_ymax, 0] = fdtd.BlockDetector(name="detector")
     #grid[224:225, 25:175, 0] = fdtd.BlockDetector(name="detector2")
     # create a detector that spans the entire grid
     #grid[0:299, 0:299, 0] = fdtd.BlockDetector(name="detector2") # enormous yikes
+
+
 
     descript_object = []
     descript_object.append(str(grid))
@@ -253,10 +277,8 @@ def simulate(lens_permittivity=1.5 ** 2,
     #descript_object.append(str([(max(map(max, x)) - min(map(min, x)) + 1)/wavelengthUnits for x in objectRange]))
 
 
-    progress(0, desc="Starting simulation")
     for i in range(timesteps):
         grid.step()  # running simulation 1 timestep a time and animating
-        progress(i/timesteps, desc="Simulating")
         if i % 10 == 0:
             # saving frames during visualization
             # grid.visualize(z=0, animate=True, index=i, save=True, folder=simfolder)
@@ -264,8 +286,8 @@ def simulate(lens_permittivity=1.5 ** 2,
             if liveupdate:
                 grid.save_data()  # saving detector readings
                 df = np.load(os.path.join(simfolder, "detector_readings.npz"))
-                yield gr.Plot(grid.visualize(z=0, show=False, plotly=reactive, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False)), str('\n'.join(descript_object)), fdtd.dB_map_2D(df["detector (E)"], show=False, plotly=True), progress
+                yield gr.Plot(grid.visualize(z=0, show=False, plotly=reactive, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False)), str('\n'.join(descript_object)), fdtd.dB_map_2D(df["detector (E)"], show=False, plotly=True)
             else:
-                yield gr.Plot(grid.visualize(z=0, show=False, plotly=reactive, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False)), str('\n'.join(descript_object)), None, progress
+                yield gr.Plot(grid.visualize(z=0, show=False, plotly=reactive, index=i, cmap="turbo", objcolor=(1,1,1,0.1), srccolor="white", save=False)), str('\n'.join(descript_object)), None
             plt.title(f"{i:3.0f}")
 

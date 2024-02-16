@@ -28,6 +28,7 @@ class ExtensionMeta:
 def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name, id=ExtensionMeta.uuid):
 		gr.Markdown(ExtensionMeta.description)
+		
 		with gr.Tab("Space Preparation"):
 			# allow the user to change parameters such as grid size, source dimensions, frequency, 
 			# object type, position, and lens parameters if the object is a lens
@@ -61,18 +62,18 @@ def load_workspace(app: gr.Blocks):
 										lposya = gr.Slider(minimum=0, maximum=300, value=100, label="Lens Position Y A")
 										lposyb = gr.Slider(minimum=0, maximum=300, value=99, label="Lens Position Y B")
 
-
 							with gr.Tab("Upload Object"):
 								gr.Markdown("Upload Object")
 
 							with gr.Tab("Simple Object"):
 								gr.Markdown("Simple Object")
 								use_simple_object = gr.Checkbox(label="Enable Simple Object")
+								cache_object = gr.Checkbox(label="Cache Object")
 								with gr.Group("Position"):
 									gr.Markdown("Position")
 									with gr.Row():
-										posx = gr.Slider(minimum=0, maximum=300, value=30, label="Position X")
-										posy = gr.Slider(minimum=0, maximum=300, value=50, label="Position Y")
+										sposx = gr.Slider(minimum=0, maximum=300, value=30, label="Position X")
+										sposy = gr.Slider(minimum=0, maximum=300, value=50, label="Position Y")
 
 					with gr.Column():
 						with gr.Tabs():
@@ -82,7 +83,7 @@ def load_workspace(app: gr.Blocks):
 								gpupdate = gr.Button(value="Update", variant="primary")
 							with gr.Tab("Draw"):
 								gr.Markdown("Draw")
-								draw = gr.ImageEditor(label="Draw", type="numpy", width=300, height=300, image_mode="L", )
+								draw = gr.ImageEditor(label="Draw", type="numpy", width=300, height=300, image_mode="L")
 								drawpreview = gr.Plot(label="Draw Preview")
 						with gr.Column():
 							with gr.Tabs():
@@ -97,8 +98,19 @@ def load_workspace(app: gr.Blocks):
 									pml_xhigh = gr.Slider(minimum=0, maximum=1000, value=10, label="PML X High")
 									pml_ylow = gr.Slider(minimum=0, maximum=1000, value=10, label="PML Y Low")
 									pml_yhigh = gr.Slider(minimum=0, maximum=1000, value=10, label="PML Y High")
+
 								with gr.Tab("Source"):
 									gr.Markdown("Source")
+									with gr.Group("Source Type"):
+										gr.Markdown("Source Type")
+										# radio buttons for source type
+										# the user can choose between a point source or line source
+										source_type=gr.Radio(label="Source Type", choices=["Point", "Line", "Points"])
+										with gr.Row():
+											#settings for number of points if the user chooses "Points"
+											source_count = gr.Slider(minimum=0, maximum=100, value=4, label="Count")
+
+
 									with gr.Group("Source Position"):
 										gr.Markdown("Source Position")
 										with gr.Row():
@@ -147,6 +159,8 @@ def load_workspace(app: gr.Blocks):
 											pml_xhigh,
 											pml_ylow,
 											pml_yhigh,
+											source_type,
+											source_count,
 											source_x,
 											source_y,
 											source_width,
@@ -157,8 +171,10 @@ def load_workspace(app: gr.Blocks):
 											det_ymax,
 											draw,
 											demolens,
-											use_simple_object
-											], outputs=[gp])
+											use_simple_object,
+											cache_object,
+											sposx,
+											sposy], outputs=[gp])
 
 		with gr.Tab("Simulate"):
 			with gr.Column():
@@ -208,6 +224,8 @@ def load_workspace(app: gr.Blocks):
 											pml_xhigh,
 											pml_ylow,
 											pml_yhigh,
+											source_type,
+											source_count,
 											source_x,
 											source_y,
 											source_width,
@@ -217,8 +235,11 @@ def load_workspace(app: gr.Blocks):
 											det_ymin,
 											det_ymax,
 											draw,
-											demolens
-											], outputs=[sim, grid_text, detplot, prbox])
+											demolens,
+											use_simple_object,
+											cache_object,
+											sposx,
+											sposy], outputs=[sim, grid_text, detplot])
 
 def save_workspace(app: gr.Blocks):
 	pass

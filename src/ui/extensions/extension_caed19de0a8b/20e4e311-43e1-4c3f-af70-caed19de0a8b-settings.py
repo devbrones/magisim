@@ -20,4 +20,9 @@ class ExtensionMeta:
 def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name):
 		gr.Markdown(ExtensionMeta.description)
+		with gr.Group():
+			with gr.Row():
+				slid = gr.Slider(minimum=0, maximum=100, step=1, label="Slid")
+				butt = gr.Button(text="Butt")
+				
 

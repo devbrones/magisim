@@ -3,7 +3,9 @@
 import gradio as gr
 from shared.builtin import Extension
 from shared.config import Config
-from shared.projectmanager import projectmanager
+from shared.projectmanager import projectmanager 
+import extensionmgr.extensionmgr as emgr
+
 class ExtensionMeta:
 	name: str = "Magisim"
 	uuid: str = "24645031-d7fd-4bf8-bdb4-472b0d26b3a9"
@@ -30,7 +32,14 @@ def load_workspace(app: gr.Blocks):
 	landimg = gr.Image("shared/banner1-short.png",
                       label=None, show_label=False, elem_id="banner",
                       show_download_button=False, container=False)
-	projects = gr.FileExplorer(file_count="single", root=Greeter.get_project_folder(), glob="*.mse", label="Local Projects")
+	# if no extensions are installed, show the install extensions modal
+	if len(emgr.get_extensions()) == 0:
+		# show the install extensions modal
+		with gr.Group():
+			gr.HTML("<h2 style='text-align: center; !important'>You don't have any extensions installed, visit the extension marketplace or install an extension using the extension manager</h2>", )
+			gr.Button("Extension Marketplace", variant="secondary", link="https://magisim.com")
+
+	projects = gr.FileExplorer(file_count="single", root_dir=Greeter.get_project_folder(), glob="*.mse", label="Local Projects")
 	#file = gr.FileExplorer()
 	# load project button
 	with gr.Row():

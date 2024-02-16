@@ -1,3 +1,6 @@
+#
+# Main
+#
 import gradio as gr
 from shared.config import Config
 from fastapi import FastAPI, Request
@@ -59,6 +62,10 @@ litegraph_js = ""
 with open("nodemgr/static/js/litegraph.js", "r") as f:
     litegraph_js = f.read()
 
+loader_js = ""
+with open("shared/loader.js", "r") as f:
+    loader_js = f.read()
+
 
 @fapp.middleware("http")
 async def some_fastapi_middleware(request: Request, call_next):
@@ -91,7 +98,11 @@ async def some_fastapi_middleware(request: Request, call_next):
         <script type="text/javascript" id="lgscr">
         { litegraph_js }
         </script>
+        <script type="text/javascript" id="ldscr">
+        { loader_js }
+        </script>
         """
+
 
         nodes: str = nmgr.NodeManager.generate_node_db() ## outputs a string that contains all the node definitions
 
@@ -203,6 +214,9 @@ async def some_fastapi_middleware(request: Request, call_next):
 				document.body.style.padding = "0";
 			}
 		"""
+        
+
+        # inject the blur screen popup modal
 
         response_body = response_body.replace('<script>window.gradio_config', some_javascript + some2_javascript + '<script>window.gradio_config')
         response_body = response_body.replace(reps, reps + some3_javascript)
