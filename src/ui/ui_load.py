@@ -11,6 +11,7 @@ import nodemgr.builtin_nodemgr_eload as builtin_nodemgr_eload
 import nodemgr.nodemgr as nmgr
 import greeter.builtin_greeter_eload as builtin_greeter_eload
 import greeter.greeter as greeter
+import shared.router as router
 
 def doctabloader():
     return gr.Tabs(selected="builtin_doctab")
@@ -63,19 +64,23 @@ def load_ui(app: gr.Blocks):
                 for extension in emgr.get_installed_extensions():
                     values += extension + "\n"  
                 exbox.value = values
-                    
-            # tunnelview
-            with gr.Group():
-                gr.Label("TunnelView", label="", show_label=False, container=False)
-                tvplot = gr.Plot(label="", show_label=False, container=False)
-                tvrefr = gr.Button(f"Refresh", variant="secondary", size="sm", elem_classes=["smitem"])
-
 
             # debug command line
             with gr.Group():
                 debugconsole = gr.Code(label="", show_label=False, language="python", elem_classes=["debugconsole"], lines=10, interactive=False, container=False,visible=False)
                 debuginput = gr.Text(placeholder="Debug Command", elem_classes=["debuginput"], interactive=True, visible=False)
                 debugbutton = gr.Button(f"Run", variant="secondary", size="sm", elem_classes=["debugbutton"], visible=False)
+                debugbutton.click(lambda :[gr.update(visible=True)], None, [debugconsole, debuginput, debugbutton, aexlabel, exbox])
+
+            # sponsor us! we need food!
+            with gr.Group():
+                gr.Label("Consider supporting us:", label="", show_label=False, container=False)
+                gr.Button("Buy us a coffee", variant="secondary", size="sm", elem_classes=["smitem"])
+                gr.Button("Donate", variant="secondary", size="sm", elem_classes=["smitem"])
+
+
+
+
 
             gr.Markdown("alpha version 1.0.12 internal use only")
             

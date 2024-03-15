@@ -103,6 +103,17 @@ function createFullScreenOverlay() {
     spinner.style.margin = '0 auto'; // Center spinner in the container
     centerContainer.appendChild(spinner);
 
+    // create loading text
+    const loadingText = document.createElement('p');
+    loadingText.className = 'md';
+    loadingText.style.color = '#ddd';
+    loadingText.style.textAlign = 'center';
+    loadingText.style.fontSize = '12px';
+    loadingText.style.marginTop = '8px';
+    loadingText.textContent = 'Loading components';
+    centerContainer.appendChild(loadingText);
+
+
     // Remove overlay and modal after 5 seconds
     setTimeout(() => {
         overlay.remove();

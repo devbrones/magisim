@@ -8,14 +8,17 @@ class projectmanager:
         print(f"""got project to load: {project_path}""")
 
     def new_project(project_name: str):
+        file_name = ""
         if project_name is None or project_name == "":
-            print(f"""Got nothing, skipping""")
             return
-        print(f"""got project to create: {project_name}""")
         if project_name[-4:] == ".mse":
-            print(f"""with extension""")
+            file_name = project_name
         else:
-            print(f"""without extension""")
+            file_name = f"""{project_name}.mse"""
+
+        # create project file
+        
+
 
     def delete_project(project_path: str):
         pass

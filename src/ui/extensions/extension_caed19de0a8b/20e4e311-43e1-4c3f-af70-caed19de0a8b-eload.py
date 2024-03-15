@@ -5,7 +5,7 @@ from shared.config import Config
 
 # extension specific imports
 import extensions.extension_caed19de0a8b.openmsems as ems 
-
+from extensions.extension_caed19de0a8b.settings import Settings
 # no imports #
 
 
@@ -57,10 +57,10 @@ def load_workspace(app: gr.Blocks):
 									permittivity = gr.Number(value=1.5 ** 2, label="Permittivity")
 									lens_material = gr.Dropdown(label="Material", choices=["Glass", "Acrylic", "Copper", "Iron", "Custom"])
 									with gr.Accordion():
-										lposxa = gr.Slider(minimum=0, maximum=300, value=30, label="Lens Position X A")
-										lposxb = gr.Slider(minimum=0, maximum=300, value=50, label="Lens Position X B")
-										lposya = gr.Slider(minimum=0, maximum=300, value=100, label="Lens Position Y A")
-										lposyb = gr.Slider(minimum=0, maximum=300, value=99, label="Lens Position Y B")
+										lposxa = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x-1, value=30, label="Lens Position X A")
+										lposxb = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x, value=50, label="Lens Position X B")
+										lposya = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y-1, value=100, label="Lens Position Y A")
+										lposyb = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y, value=99, label="Lens Position Y B")
 
 							with gr.Tab("Upload Object"):
 								gr.Markdown("Upload Object")
@@ -75,8 +75,8 @@ def load_workspace(app: gr.Blocks):
 								with gr.Group("Position"):
 									gr.Markdown("Position")
 									with gr.Row():
-										sposx = gr.Slider(minimum=0, maximum=300, value=30, label="Position X")
-										sposy = gr.Slider(minimum=0, maximum=300, value=50, label="Position Y")
+										sposx = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x, value=30, label="Position X")
+										sposy = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y, value=50, label="Position Y")
 
 					with gr.Column():
 						with gr.Tabs():
@@ -92,15 +92,15 @@ def load_workspace(app: gr.Blocks):
 							with gr.Tabs():
 								with gr.Tab("Grid"):
 									gr.Markdown("Grid")
-									grid_xsize = gr.Slider(minimum=0, maximum=1000, value=300, label="Grid X Size")
-									grid_ysize = gr.Slider(minimum=0, maximum=1000, value=300, label="Grid Y Size")
+									grid_xsize = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x, value=300, label="Grid X Size")
+									grid_ysize = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y, value=300, label="Grid Y Size")
 									grid_c = gr.Number(value=299792458, label="Speed of Light (m/s)")
 								with gr.Tab("PML"):
 									gr.Markdown("PML")
-									pml_xlow = gr.Slider(minimum=0, maximum=1000, value=10, label="PML X Low")
-									pml_xhigh = gr.Slider(minimum=0, maximum=1000, value=10, label="PML X High")
-									pml_ylow = gr.Slider(minimum=0, maximum=1000, value=10, label="PML Y Low")
-									pml_yhigh = gr.Slider(minimum=0, maximum=1000, value=10, label="PML Y High")
+									pml_xlow = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x-1, value=10, label="PML X Low")
+									pml_xhigh = gr.Slider(minimum=1, maximum=Settings.grid_max_size_x, value=10, label="PML X High")
+									pml_ylow = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y-1, value=10, label="PML Y Low")
+									pml_yhigh = gr.Slider(minimum=1, maximum=Settings.grid_max_size_y, value=10, label="PML Y High")
 
 								with gr.Tab("Source"):
 									gr.Markdown("Source")
@@ -117,13 +117,13 @@ def load_workspace(app: gr.Blocks):
 									with gr.Group("Source Position"):
 										gr.Markdown("Source Position")
 										with gr.Row():
-											source_x = gr.Slider(minimum=0, maximum=1000, value=15, label="X")
-											source_y = gr.Slider(minimum=0, maximum=1000, value=50, label="Y")
+											source_x = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x, value=15, label="X")
+											source_y = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y, value=50, label="Y")
 									with gr.Group("Source Dimensions"):
 										gr.Markdown("Source Dimensions")
 										with gr.Row():
-											source_width = gr.Slider(minimum=0, maximum=1000, value=100, label="Width")
-											source_height = gr.Slider(minimum=0, maximum=1000, value=1, label="Height")
+											source_width = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y, value=100, label="Width")
+											source_height = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x, value=1, label="Height")
 									with gr.Group("Source Properties"):
 										gr.Markdown("Source Properties")
 										gr.Markdown(f"""_Wavelength cheatsheet:_
@@ -139,13 +139,14 @@ def load_workspace(app: gr.Blocks):
 											cycles = gr.Slider(minimum=0, maximum=1000, value=100, label="Cycles")
 								with gr.Tab("Detector"):
 									gr.Markdown("Detector")
+									use_detector = gr.Checkbox(label="Enable Detector")
 									with gr.Group("Detector Position"):
 										with gr.Row():
-											det_xmin = gr.Slider(minimum=0, maximum=1000, value=80, label="X Min")
-											det_xmax = gr.Slider(minimum=0, maximum=1000, value=200, label="X Max")
+											det_xmin = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x-1, value=80, label="X Min")
+											det_xmax = gr.Slider(minimum=0, maximum=Settings.grid_max_size_x, value=200, label="X Max")
 										with gr.Row():
-											det_ymin = gr.Slider(minimum=0, maximum=1000, value=80, label="Y Min")
-											det_ymax = gr.Slider(minimum=0, maximum=1000, value=120, label="Y Max")
+											det_ymin = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y-1, value=80, label="Y Min")
+											det_ymax = gr.Slider(minimum=0, maximum=Settings.grid_max_size_y, value=120, label="Y Max")
 		
 		gpupdate.click(ems.get_grid_preview, inputs=[mso_file,
 											permittivity, 
@@ -173,6 +174,7 @@ def load_workspace(app: gr.Blocks):
 											det_xmax,
 											det_ymin,
 											det_ymax,
+											use_detector,
 											draw,
 											demolens,
 											use_simple_object,
@@ -188,15 +190,15 @@ def load_workspace(app: gr.Blocks):
 						detplot = gr.Plot(label="Detector Readings")
 	
 					with gr.Column():						
-						timesteps = gr.Slider(minimum=0, maximum=800, value=400, label="Timesteps")
+						timesteps = gr.Slider(minimum=0, maximum=Settings.max_iterations, value=400, label="Timesteps")
 	
 						with gr.Accordion("Settings"):
 							gr.Markdown(f"""###### Some settings may not be available on your system. **If you are unsure, leave them as they are.**""")
 							gr.Markdown(f"""_Not using CUDA may put a lot of stress on your CPU, make sure you have a fire extinguisher nearby._\\ _**note**: CUDA is only available on systems with NVIDIA GPUs_""")
-							simsettings_use_cuda = gr.Checkbox(label="Use CUDA", interactive=Config.Compute.CUDA.isAvailable, value=Config.Compute.CUDA.isAvailable)
-							gr.Markdown(f"""_Reactive Plots allow you to interact with a simulation. This will ***significantly*** affect performance, but is useful for analysis._""")
-							simsettings_reactive_plot = gr.Checkbox(label="Reactive Plot")
-							gr.Markdown(f"""_Show detector plot_ **this will significantly lower performance, but is a powerful analysis tool**""")
+							simsettings_use_cuda = gr.Checkbox(label="Use CUDA", interactive=Config.Compute.CUDA.isAvailable)
+							gr.Markdown(f"""_Reactive Plots allow you to interact with a simulation.""")
+							simsettings_reactive_plot = gr.Checkbox(label="Reactive Plot", value=True)
+							gr.Markdown(f"""_Show detector plot_ **this will significantly decrease performance, but is a powerful analysis tool**""")
 							simsettings_live_update = gr.Checkbox(label="Live Update Detector readings")
 			with gr.Column():
 				prbox = gr.Textbox(label="Progress", lines=1)
@@ -239,6 +241,7 @@ def load_workspace(app: gr.Blocks):
 											det_xmax,
 											det_ymin,
 											det_ymax,
+											use_detector,
 											draw,
 											demolens,
 											use_simple_object,

@@ -200,5 +200,8 @@ src/ui/fdtd_output/*
 
 # ide 
 .vscode/
+.VSCodeCounter/
+
+
 
 

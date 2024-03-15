@@ -5,7 +5,7 @@ from shared.config import Config
 
 # extension specific imports
 import extensions.extension_caed19de0a8b.openmsems as ems 
-
+from extensions.extension_caed19de0a8b.settings import Settings
 # no imports #
 
 
@@ -20,9 +20,16 @@ class ExtensionMeta:
 def load_workspace(app: gr.Blocks):
 	with gr.Tab(ExtensionMeta.name):
 		gr.Markdown(ExtensionMeta.description)
+		# some settings that we can change in the settingsmanager
+		# i.e. the max number of iterations, the grid max size, etc.
+		# we will change the settings file for this extension
+
+		# settings
 		with gr.Group():
-			with gr.Row():
-				slid = gr.Slider(minimum=0, maximum=100, step=1, label="Slid")
-				butt = gr.Button(text="Butt")
+			Settings.max_iterations = gr.Number(1000, label="Max Iterations", maximum=100000, step=1, interactive=True)
+			Settings.grid_max_size_x = gr.Number(1000, label="Grid Max Size X", maximum=100000, step=1, interactive=True)
+			Settings.grid_max_size_y = gr.Number(1000, label="Grid Max Size Y", maximum=100000, step=1, interactive=True)
+			Settings.grid_max_size_z = gr.Number(1000, label="Grid Max Size Z", maximum=100000, step=1, interactive=True)
+
 				
 

@@ -12,7 +12,7 @@ class ExtensionMeta:
 	authors: list = ["devbrones","thegregster1111"]
 	version: str = "0.9.2"
 	license: str = "LGPL3"
-	description: str = """Magisim (MAGisim-Is-a-SIMulator)"""
+	description: str = """"""
 	# nhr meta
 	class ExtensionType:
 		types: list = [Extension.Builtin] # list of classes
