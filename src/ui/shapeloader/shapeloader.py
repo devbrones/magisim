@@ -10,11 +10,6 @@ class ShapeLoader:
         # the upload will be a dxf, we need to convert it to a numpy array, so that we can visualize it using matplotlib
     """
 
-
-
-
-
-
     @staticmethod
     
     def voxelization(input_stl_file, voxel_size):

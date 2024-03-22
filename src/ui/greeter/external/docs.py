@@ -5,7 +5,7 @@ from shared.config import Config
 class ExtensionMeta:
 	name: str = "Magisim Documentation"
 	uuid: str = "24645031-d7fd-4bf8-bdb4-472b0d26b3a9"
-	authors: list = ["devbrones","thegregster1111"]
+	authors: list = ["devbrones"]
 	version: str = "0.0.1-devel"
 	license: str = "LGPL3"
 	description: str = """ Read our documentation """

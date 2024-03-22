@@ -9,8 +9,8 @@ from settingsmgr.settingsmgr import SettingsManager
 class ExtensionMeta:
 	name: str = "Settings Manager"
 	uuid: str = "b6619c08-d0fe-41a6-83b7-89483f8ffd9c"
-	authors: list = ["devbrones","thegregster1111"]
-	version: str = "0.0.1-devel"
+	authors: list = ["devbrones"]
+	version: str = "0.9.1"
 	license: str = "LGPL3"
 	description: str = """ Settings Manager """
 	# nhr meta

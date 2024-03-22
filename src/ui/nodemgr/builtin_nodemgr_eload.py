@@ -10,7 +10,7 @@ class ExtensionMeta:
 	name: str = "Nodes"
 	uuid: str = "f53f499f-1ec9-41be-9edc-050d81f4313b"
 	authors: list = ["devbrones","thegregster1111"]
-	version: str = "0.0.1-devel"
+	version: str = "1.8.1"
 	license: str = "LGPL3"
 	description: str = """ Nodes """
 	# nhr meta

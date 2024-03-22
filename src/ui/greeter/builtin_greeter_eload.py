@@ -10,8 +10,8 @@ import greeter.external.docs as docs
 class ExtensionMeta:
 	name: str = "Magisim"
 	uuid: str = "24645031-d7fd-4bf8-bdb4-472b0d26b3a9"
-	authors: list = ["devbrones","thegregster1111"]
-	version: str = "0.0.1-devel"
+	authors: list = ["devbrones"]
+	version: str = "1.1.2"
 	license: str = "LGPL3"
 	description: str = """ Welcome to Magisim """
 	# nhr meta

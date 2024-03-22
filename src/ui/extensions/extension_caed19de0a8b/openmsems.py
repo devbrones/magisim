@@ -3,7 +3,6 @@ import gradio as gr
 import pickle
 from tqdm import tqdm
 from shared.libmso import mso, SimpleObject
-import os
 import fdtd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -11,7 +11,7 @@ class ExtensionMeta:
 	name: str = "ShapeLoader"
 	uuid: str = "0604d7bc-323a-4af4-8408-946f643b9bcb"
 	authors: list = ["devbrones"]
-	version: str = "0.0.0"
+	version: str = "1.0.3"
 	license: str = "LGPL3"
 	description: str = """ Load 3D models as numpy arrays """
 	# nhr meta

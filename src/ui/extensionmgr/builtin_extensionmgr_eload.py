@@ -13,10 +13,10 @@ import subprocess
 class ExtensionMeta:
 	name: str = "Extension Manager"
 	uuid: str = "7b7584a4-86ea-4076-9da4-1c3813605059"
-	authors: list = ["devbrones","thegregster1111"]
-	version: str = "0.0.1-devel"
+	authors: list = ["devbrones"]
+	version: str = "1.0"
 	license: str = "LGPL3"
-	description: str = """ Magisim's built in extension manager lets you install and manage extensions for Magisim. """
+	description: str = """ Magisim's built in extension manager lets you install and manage extensions. """
 	# nhr meta
 	class ExtensionType:
 		types: list = [Extension.Builtin] # list of classes
