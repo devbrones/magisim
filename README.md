@@ -46,11 +46,8 @@ We would like to express our gratitude to the open-source community for their va
 If you have any questions or need support, feel free to reach out to us via email at [magisim@protonmail.ch](mailto:magisim@protonmail.ch).
 
 
-
-
 ---
 > **Note**\
-> No alpha available, see obsidian vault for notes.
-
+> Magisim is still in development and may not be ready for production use. We are actively working on improving the software and adding new features. If you encounter any issues or have suggestions, please let us know by opening an issue on GitHub.
 
 
