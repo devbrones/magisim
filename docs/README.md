@@ -1,8 +1,3 @@
-![GitHub last commit](https://img.shields.io/github/last-commit/devbrones/magisim)
-![GitHub](https://img.shields.io/github/license/devbrones/magisim)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/devbrones/magisim)
-
-
 <p><img align="right" src="./resources/magisim_logo256.png" width=60></p>
 <h1>magisim</h1>
 
@@ -20,14 +15,7 @@ The primary goal of this project is to democratize access to high-cost simulatio
 For documentation and guides, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.
 
 ## Screenshots
-
 ![Slideshow of Magisim](resources/demo.gif)
-
-### Node Manager
-![Screenshot of the built in NodeManager Workflow](resources/nmgr2.png)
-### Epsilon0 Sim
-![Screencast of a example simulation](resources/msemsv1.gif)
-![Screenshot of the built in Epsilon0 Workflow](resources/eps0v2.png)
 
 ## Features
 
@@ -36,13 +24,9 @@ For documentation and guides, please visit the [Magisim Documentation](https://m
 - Affordable tool for educational environments.
 - Easy-to-use node interface for algorithm composition.
 - Visualize simulations, post-process data, and perform analysis.
+- Built-in electromagnetic simulation engine for FDTD simulations.
 - SOON: export simulation data to VTK format for visualization in ParaView.
 - SOON: openEMS node for FDTD simulations.
-- SOON: Epsilon0 node for FDTD simulations.
-
-## Roadmap
-
-[Outline any planned features or improvements for the future.]
 
 ## Contributing
 
@@ -50,18 +34,15 @@ We welcome contributions to make Magisim even better. If you'd like to contribut
 
 ## Acknowledgments
 
-We would like to express our gratitude to the open-source community for their valuable contributions and inspiration.
+We would like to express our gratitude to the open-source community for their valuable contributions and inspiration. We would also like to thank our teachers and mentors for their guidance and support during the development of this project.
 
 ## Contact
 
 If you have any questions or need support, feel free to reach out to us via email at [magisim@protonmail.ch](mailto:magisim@protonmail.ch).
 
 
-
-
 ---
 > **Note**\
-> No alpha available, see obsidian vault for notes.
-
+> Magisim is still in development and may not be ready for production use. We are actively working on improving the software and adding new features. If you encounter any issues or have suggestions, please let us know by opening an issue on GitHub.
 
 
