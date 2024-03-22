@@ -199,8 +199,10 @@ src/ui/shapeloader/bin/*
 src/ui/fdtd_output/*
 
 # ide 
-.vscode/
-.VSCodeCounter/
+.vscode/*
+.VSCodeCounter/*
+
+
 
 
 
