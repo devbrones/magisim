@@ -20,8 +20,8 @@ class Router:
         if not Router.redis_client:
             Router.redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-        redstring = f'connection>{extension_id_1}>{extension_id_2}' # > is used as a delimiter
-        Router.redis_client.set(redstring, 'connected')
+        connection = f'connection>{extension_id_1}>{extension_id_2}' # > is used as a delimiter
+        Router.redis_client.set(connection, 'connected')
 
     @staticmethod
     def send_data(extension_id, data):
@@ -115,11 +115,11 @@ class Router:
             if "outputs" not in node or node["outputs"] == "":
                 routemap.append({node_id: {"inputs": inputs, "outputs": None}})
                 continue
-
+            
+            # Add the node to the routemap
             outputs = [{output_link["name"]: output_link["links"]} for output_link in node["outputs"]]
             routemap.append({node_id: {"inputs": inputs, "outputs": outputs}})
 
-        #print(f"DEV_DEBUGS: ROUTEMAP: {json.dumps(routemap, indent=4, sort_keys=True)}")
         return ((202, "Data Accepted"), routemap)
     
     @staticmethod

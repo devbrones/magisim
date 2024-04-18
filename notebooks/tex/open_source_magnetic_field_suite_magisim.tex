@@ -2,6 +2,8 @@
 \usepackage[margin=3.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{minted}
+
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[style=ieee, block=ragged]{biblatex}
@@ -75,15 +77,106 @@ The field of radio engineering, particularly within the amateur radio sphere, ne
 Historically, professional-grade simulation software in electromagnetics has been tailored to meet the demanding needs of industry experts, incorporating advanced features and comprehensive simulation capabilities. While powerful, these tools come at a price point that is often beyond the reach of hobbyists and educational users. Concurrently, the free or low-cost alternatives available in the market tend to compromise either on the width of features or on user accessibility. The complexity of these tools, coupled with often inadequate documentation, further exacerbates the challenge for those new to the field, impeding practical, hands-on learning.
 
 This gap in the market led to the conceptualization of Magisim, initially envisioned as a user-friendly and cost-effective simulator specifically for electromagnetics. Targeted towards the amateur radio community, the primary goal was to demystify EM theory through interactive simulations, making it more approachable for non-professionals. However, as the project progressed, we realized the broader potential for the underlying technology. The modularity of our initial design, made the software applicable in more fields related to simulations or data analysis. This steered the development of Magisim towards becoming a more versatile platform, transcending its original scope.
-
-\subsection{Introduction to Computational Electromagnetics}
-\subsection{Previous Projects}
-\subsection{Purpose and Goals}
 \newpage
 
+\subsection{Introduction to Computational Electromagnetics}
+Computational electromagnetics (CEM) is a field of study that employs numerical methods to solve problems that involve electromagnetic interactions. These computational methods are essential for designing, analyzing, and optimizing electronic and optical devices, such as antennas, radar, waveguides, and optical fibers.
+
+A key technique in CEM is the Finite-Difference Time-Domain (FDTD) method, which simulates electromagnetic field behavior by solving Maxwell's equations across a discretized spatial and temporal grid. This method is prized for its ability to model complex interactions in various materials and structures accurately. FDTD is particularly useful in fields such as antenna design, optical device analysis, and electromagnetic compatibility testing. It allows for a detailed examination of how electromagnetic waves propagate and interact with their environment, making it an essential tool for both researchers and engineers. In educational settings, tools like Magisim utilize FDTD to help students and hobbyists understand and visualize electromagnetic phenomena in a straightforward and accessible manner.
+
+
+\subsection{Related Work}
+\subsubsection{Proprietary Software}
 
 
 
+\subsubsection{Open Source Projects}
+In the field of electromagnetic simulations, the openEMS tool, described by Liebig et al. (2012), stands out as a noteworthy open-source platform leveraging the Finite-Difference Time-Domain (FDTD) method. This tool, freely available to the public, supports various simulation needs, particularly for high-frequency electromagnetic applications. The openEMS platform uses an equivalent-circuit (EC) FDTD method, which simplifies the implementation of material dispersion, thus enhancing the simulation of complex electromagnetic environments. Although openEMS is a powerful tool, its depth and the required scripting for setup and control can be daunting for amateurs and new users. Our aim with Magisim is to maintain the rigorous simulation capabilities of openEMS while enhancing accessibility and ease of use, thereby making sophisticated electromagnetic simulations more approachable for a broader audience.
+
+In his PhD thesis, Floris Laporte employs a custom Finite-Difference Time-Domain (FDTD) simulator to analyze photonic structures that mimic neural processes for neuromorphic computing applications. The FDTD method is crucial for accurately modeling the propagation and interaction of electromagnetic fields within complex photonic devices. Laporte's work focuses on the simulation aspect, using this method to delve into the dynamic behaviors of photonic cavities and their potential as elements in brain-inspired computing architectures. In developing our simulator, Magisim, we have integrated Laporte's FDTD code as a core component. This integration allows us to leverage the established efficacy of his simulation tools to enhance our ability to model electromagnetic phenomena accurately and efficiently within our open-source platform (Laporte, 2020).
+
+\newpage
+\subsection{Method}
+The initial phase of the project involved comprehensive planning using the Kanban system implemented through Atlassian Trello. This enabled efficient organization and prioritization of envisioned functionalities for the simulator and its interface. The systematic arrangement of tasks on the Kanban board facilitated a clear visualization of the project scope, ensuring effective integration of all functionalities. Subsequently, a Gantt chart was utilized to structure the project's timeline and responsibilities, allowing for a detailed outline of the time plan and division of labor.
+
+\subsubsection{User Interface}
+
+Following the establishment of the project's framework and timeline, focus shifted to the user interface (UI) design for Magisim. Several UI development toolkits, including QT and GTK, were evaluated to determine the most suitable option based on modularity, integration ease, and development efficiency. Despite the robust features of QT and GTK, challenges were encountered with their steep learning curves and complex integration processes, including licensing constraints.
+
+The search ultimately led to the selection of Gradio, a novel UI library distinguished by its modular design and streamlined development process. Gradio's capability for rapid prototyping and its intuitive user experience made it the preferred choice for the project, facilitating the swift iteration of UI components.
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{softstruct.png}
+\end{center}
+
+Each extension describes its own user interface by using modules available in the Gradio package. This allows third parties to rapidly develop intuitive and efficient interfaces that integrate seamlessly with the core functionalities of Magisim. The use of Gradio's modules offers developers the flexibility to customize and extend the interface according to specific needs, promoting a high degree of adaptability and user-centric design.
+\newpage
+\subsubsection{Extension Model and Templates}
+
+Aiming for high modularity, the project was structured so that every component was defined as an "Extension". This approach enabled the development of a unified system where all components adhered to a set of predefined rules, including a universal code structure. Such standardization allowed for the components to be loaded by a single function at startup, simplifying the development process and reducing program complexity.
+
+\begin{minted}{python}
+	# shared extension imports
+	import gradio as gr
+	from shared.builtin import Extension
+	from shared.config import Config
+	
+	class ExtensionMeta:
+	name: str = "name"
+	uuid: str = "some-uuid-v4"
+	authors: list = ["author"]
+	version: str = "1.0.0"
+	license: str = "license"
+	description: str = """multiline description if needed"""
+
+	class ExtensionType:
+	types: list = [Extension.Simulator, Extension.Workspace]
+	hasNodes: [(Extension,(list,list))] = [
+	(Extension.Simulator, # define a simulator node
+		(
+			[ # inputs
+				("some-input","some-type")
+			],
+			[ # outputs
+				("some-output1","some-type"), 
+				("some-output2","some-type")
+			]
+		)
+	)]
+	
+	def load_workspace(app: gr.Blocks):
+		with gr.Tab(ExtensionMeta.name, id=ExtensionMeta.uuid):
+			gr.Markdown(ExtensionMeta.description)
+			# Extension UI code
+
+\end{minted}
+\newpage
+
+\subsubsection{Message Queue and Routing}
+
+In defining component interaction and data handling, the initial consideration was to develop an in-house asynchronous communication layer. However, it was soon recognized that many solutions existed for such functionality. A message queue system in combination with a "Router" was chosen to enhance modularity.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{nodegen-flow.png}
+\end{center}
+
+The router maps connections between extensions in a Redis database, allowing extensions to remain unaware of the destinations for their outputs. Using Python's Pickle library, the system enables the transmission of diverse data types, including 3D models and tensor arrays.
+\begin{minted}{python}
+	# > is used as a delimiter
+	connection = f'connection>{extension_id_1}>{extension_id_2}' 
+	Router.redis_client.set(connection, 'connected')
+\end{minted}
+
+
+
+
+
+
+\newpage
+
+\subsection{Scope}
+
+
+\iffalse
 \section{Theory}
 \subsection{Maxwell's Equations}
 
@@ -172,6 +265,7 @@ Achieving high simulation accuracy is every developers goal, especially in scien
 Conversely, computational speed is of equal importance, particularly when dealing with large-scale simulations or real-time applications. In today's fast-paced technological landscape, there's a growing demand for swift results. Delays caused by sluggish simulations can hinder progress and decrease the end users engagement with the product. 
 
 \newpage
+
 \subsection{Computation}
 \subsubsection{Introduction to parallel computing}
 A regular computer usually performs tasks serially, one operation at a time. While this might be the most efficient method for everyday tasks, it does not apply to computationally heavy tasks spanning multiple dimensions or matrix operations. This has largely been solved today thanks to the GPU (Graphics Processing Unit) or graphics card as it is more commonly referred to as.
@@ -185,12 +279,32 @@ To address these challenges, we turn to parallelization, a technique that enable
 
 
 %With parallelization, the effectiveness of a computational can be increased drastically, essentially allowing for $n-1$ dimensional computation as illustrated in the below visualizations.
+\fi
 \newpage
 \section{Approach}
 
-%We initially set for creating our own framework for fdtd simulations, however we later realised that it was both impractical and uneccesary since there are many frameworks that are available for performing fdtd simulations in python. Initially, we chose flaport/fdtd - a simple to use library that exposes many settings to the user. However, we quite quickly found that this library was insufficient for our needs and also seemed to be unmaintained by the original author. We then explored other options such as OpenEMS as well as FDTDZ - a library that utilizes JAX, a google technology used to run numpy calculation on nvidia graphics cards. %
+\subsection{Software Structure}
 
-%Both OpenEMS and FDTDZ seemed to be very capable as well as regularly maintained, choosing between the two was difficult, but we eventually settled on creating a OpenEMS integration since it is a very commonly used tool%
+
+
+
+\subsection{User Interface}
+
+The UI (User Interface) for Magisim is built using Gradio, a toolkit originally developed for rapid development of interfaces for Machine Learning projects. We found this 
+
+
+\subsection{Application Backbone}
+
+
+
+
+\subsection{Our FDTD Extension}
+In the development of our simulator extension, we initially planned to create a custom framework for Finite-Difference Time-Domain (FDTD) simulations. However, it soon became clear that developing our own framework from scratch was both impractical and unnecessary, considering the variety of existing FDTD libraries available in Python.
+
+We built our FDTD-simulation extension upon the library developed by Floris Laporte, which provides a robust framework for conducting Finite-Difference Time-Domain (FDTD) simulations.
+
+\subsection{Software Distribution}
+
 
 \newpage
 \section{Result}
@@ -199,7 +313,14 @@ To address these challenges, we turn to parallelization, a technique that enable
 \newpage
 \section{Conclusion}
 \newpage
-%\section{References}
+\section{References}
+Liebig, T., Rennings, A., Held, S., \& Erni, D. (2012). openEMS – a free and open source equivalent‐circuit (EC) FDTD simulation platform supporting cylindrical coordinates suitable for the analysis of traveling wave MRI applications. International Journal of Numerical Modelling (Print), 26(6), 680–696. https://doi.org/10.1002/jnm.1875
+
+Laporte, Floris. (2020). Novel architectures for brain-inspired photonic computers [PhD Thesis]. Ghent University.
+
+Kozlov, M., \& Turner, R. (2010). A Comparison of Ansoft HFSS and CST Microwave Studio Simulation Software for Multi-channel Coil Design and SAR Estimation at 7 T MRI. PIERS ONLINE, 6(4), 395.
+
+
 
 \newpage
 \newpage

@@ -1,0 +1,35 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} shared extension imports}
+	\PYG{k+kn}{import} \PYG{n+nn}{gradio} \PYG{k}{as} \PYG{n+nn}{gr}
+	\PYG{k+kn}{from} \PYG{n+nn}{shared.builtin} \PYG{k+kn}{import} \PYG{n}{Extension}
+	\PYG{k+kn}{from} \PYG{n+nn}{shared.config} \PYG{k+kn}{import} \PYG{n}{Config}
+	
+	\PYG{k}{class} \PYG{n+nc}{ExtensionMeta}\PYG{p}{:}
+	\PYG{n}{name}\PYG{p}{:} \PYG{n+nb}{str} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}name\PYGZdq{}}
+	\PYG{n}{uuid}\PYG{p}{:} \PYG{n+nb}{str} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}uuid\PYGZhy{}v4\PYGZdq{}}
+	\PYG{n}{authors}\PYG{p}{:} \PYG{n+nb}{list} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}author\PYGZdq{}}\PYG{p}{]}
+	\PYG{n}{version}\PYG{p}{:} \PYG{n+nb}{str} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}1.0.0\PYGZdq{}}
+	\PYG{n}{license}\PYG{p}{:} \PYG{n+nb}{str} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}license\PYGZdq{}}
+	\PYG{n}{description}\PYG{p}{:} \PYG{n+nb}{str} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}multiline description if needed\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+	\PYG{k}{class} \PYG{n+nc}{ExtensionType}\PYG{p}{:}
+	\PYG{n}{types}\PYG{p}{:} \PYG{n+nb}{list} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Extension}\PYG{o}{.}\PYG{n}{Simulator}\PYG{p}{,} \PYG{n}{Extension}\PYG{o}{.}\PYG{n}{Workspace}\PYG{p}{]}
+	\PYG{n}{hasNodes}\PYG{p}{:} \PYG{p}{[(}\PYG{n}{Extension}\PYG{p}{,(}\PYG{n+nb}{list}\PYG{p}{,}\PYG{n+nb}{list}\PYG{p}{))]} \PYG{o}{=} \PYG{p}{[}
+	\PYG{p}{(}\PYG{n}{Extension}\PYG{o}{.}\PYG{n}{Simulator}\PYG{p}{,} \PYG{c+c1}{\PYGZsh{} define a simulator node}
+		\PYG{p}{(}
+			\PYG{p}{[} \PYG{c+c1}{\PYGZsh{} inputs}
+				\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}input\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}type\PYGZdq{}}\PYG{p}{)}
+			\PYG{p}{],}
+			\PYG{p}{[} \PYG{c+c1}{\PYGZsh{} outputs}
+				\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}output1\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}type\PYGZdq{}}\PYG{p}{),}
+				\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}output2\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}some\PYGZhy{}type\PYGZdq{}}\PYG{p}{)}
+			\PYG{p}{]}
+		\PYG{p}{)}
+	\PYG{p}{)]}
+	
+	\PYG{k}{def} \PYG{n+nf}{load\PYGZus{}workspace}\PYG{p}{(}\PYG{n}{app}\PYG{p}{:} \PYG{n}{gr}\PYG{o}{.}\PYG{n}{Blocks}\PYG{p}{):}
+		\PYG{k}{with} \PYG{n}{gr}\PYG{o}{.}\PYG{n}{Tab}\PYG{p}{(}\PYG{n}{ExtensionMeta}\PYG{o}{.}\PYG{n}{name}\PYG{p}{,} \PYG{n+nb}{id}\PYG{o}{=}\PYG{n}{ExtensionMeta}\PYG{o}{.}\PYG{n}{uuid}\PYG{p}{):}
+			\PYG{n}{gr}\PYG{o}{.}\PYG{n}{Markdown}\PYG{p}{(}\PYG{n}{ExtensionMeta}\PYG{o}{.}\PYG{n}{description}\PYG{p}{)}
+			\PYG{c+c1}{\PYGZsh{} Extension UI code}
+
+\end{Verbatim}
