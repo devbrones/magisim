@@ -194,6 +194,10 @@ docs/obsidian/MAGISIM-NOTES/null*
 
 src/ui/shapeloader/bin/*
 
+#ignore tests directory for now
+
+src/tests/*
+
 # ignore fdtd_output folder
 
 src/ui/fdtd_output/*
