@@ -196,7 +196,7 @@ src/ui/shapeloader/bin/*
 
 #ignore tests directory for now
 
-src/tests/*
+src/tests/
 
 # ignore fdtd_output folder
 
