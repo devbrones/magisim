@@ -4,8 +4,8 @@ channels:
   - defaults
   - nvidia
 dependencies:
-  - cudatoolkit=11.7.0=hd8887f6_10
-  - cupy=10.4.0=py39hc3c280e_0
+#  - cudatoolkit=11.7.0=hd8887f6_10
+#  - cupy=10.4.0=py39hc3c280e_0
   - gradio
   - matplotlib
   - numba
@@ -15,8 +15,12 @@ dependencies:
   - python=3.9.18=h955ad1f_0
   - scipy
   - yaml
-    - pip:
-    - "--editable=git+https://github.com/devbrones/fdtd.git"
-  
-
- 
+  - tqdm
+  - uvicorn
+  - fastapi
+  - plotly
+  - pip:
+    - "git+https://github.com/devbrones/fdtd.git#egg=fdtd"
+    - redis
+    - coloredlogs
+    - stl-to-voxel

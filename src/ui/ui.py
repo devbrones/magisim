@@ -6,7 +6,7 @@ from shared.config import Config
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from starlette.responses import Response
-import torch
+#import torch
 from shared.router import Router
 import os
 from shared.logger import Logger
@@ -33,25 +33,25 @@ from ui_load import load_ui
 # Check if a CUDA compatible GPU is available
 # If not, print a warning and continue but set config flag to False
 
-Config.Compute.CUDA.isAvailable = torch.cuda.is_available()
-if Config.Compute.CUDA.isAvailable:
-    Config.Compute.CUDA.device = torch.cuda.current_device()
-    Config.Compute.CUDA.name = torch.cuda.get_device_name(Config.Compute.CUDA.device)
-    Config.Compute.CUDA.memory = torch.cuda.get_device_properties(0).total_memory
-else:
-    Config.Compute.CPU.cores = os.cpu_count()
-    Config.Compute.CPU.memory = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  # mem in kb
+#Config.Compute.CUDA.isAvailable = torch.cuda.is_available()
+#if Config.Compute.CUDA.isAvailable:
+#    Config.Compute.CUDA.device = torch.cuda.current_device()
+#    Config.Compute.CUDA.name = torch.cuda.get_device_name(Config.Compute.CUDA.device)
+#    Config.Compute.CUDA.memory = torch.cuda.get_device_properties(0).total_memory
+#else:
+Config.Compute.CPU.cores = os.cpu_count()
+Config.Compute.CPU.memory = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  # mem in kb
 
 
 
-fapp = FastAPI()
+msim_ui = FastAPI()
 
 # set up the custom endpoints for nodegraph as well as shape loading
 
 apilog = Logger("FastAPI")
 nodelog = Logger("NodeManager-Preload")
 
-@fapp.post("/api/nodeg-update")
+@msim_ui.post("/api/nodeg-update")
 async def nodeg_post(item: Item):
     # Print the contents of the request to the command line
     apilog.logger.info("Received nodegraph update")
@@ -67,7 +67,7 @@ with open("shared/loader.js", "r") as f:
     loader_js = f.read()
 
 
-@fapp.middleware("http")
+@msim_ui.middleware("http")
 async def some_fastapi_middleware(request: Request, call_next):
     """
     The function `some_fastapi_middleware` is a FastAPI middleware that injects litegraph.js into the
@@ -246,4 +246,4 @@ with gr.Blocks(theme=Config.UI.theme, css=css, title="Magisim") as app:
 # Launch the Gradio application
 #app.launch(server_port=Config.UI.port)
 app.allowed_paths = ["./shared"]
-gr.mount_gradio_app(fapp, app, path="/", )
+gr.mount_gradio_app(msim_ui, app, path="/", )

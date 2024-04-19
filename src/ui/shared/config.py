@@ -51,5 +51,13 @@ class Config:
         useNativeCompute: bool = True
         fallbackCPUCompute: bool = True
 
+    class Backends:
+        class redis:
+            host: str = "localhost"
+            port: int = 6379
+            db: int = 0
+
     project_folder: str = "./projects"
+
+
 

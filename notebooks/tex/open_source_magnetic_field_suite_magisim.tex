@@ -45,7 +45,9 @@
 %	\maketitle
 %\end{titlepage}
 %
-
+\newpage
+\
+\newpage
 
 \begin{abstract}
 	
@@ -87,13 +89,17 @@ A key technique in CEM is the Finite-Difference Time-Domain (FDTD) method, which
 
 \subsection{Related Work}
 \subsubsection{Proprietary Software}
+Many solutions exist for simulating electromagnetic systems, particularly in the realm of proprietary software that offers advanced capabilities but often at a cost that is prohibitive for amateurs. Tools like Ansys HFSS, Altair FEKO, and XFdtd are common in this field, each providing specialized features tailored to complex and precise electromagnetic simulation needs.
 
+\textbf{Ansys HFSS (high-frequency structure simulator)} excels in using the Finite Element Method for detailed electromagnetic field simulations, ideal for high-frequency electronics and antenna design. \textbf{Altair FEldberechnung für Körper mit beliebiger Oberﬂäche (FEKO)} offers a broad range of computational methods, making it versatile for applications across electromagnetic compatibility and antenna design, amongst others. \textbf{XFdtd} utilizes the Finite-Difference Time-Domain method, suitable for transient electromagnetic simulations and interactions, such as EMC testing and bioelectromagnetic analyses.
 
+Despite their robust features and extensive applications, these tools are often not accessible to the common amateur due to their high cost and the complex technical expertise required. This creates a significant barrier for hobbyists and smaller enterprises who might not have the resources or need for such advanced functionalities.
+\newpage
 
 \subsubsection{Open Source Projects}
-In the field of electromagnetic simulations, the openEMS tool, described by Liebig et al. (2012), stands out as a noteworthy open-source platform leveraging the Finite-Difference Time-Domain (FDTD) method. This tool, freely available to the public, supports various simulation needs, particularly for high-frequency electromagnetic applications. The openEMS platform uses an equivalent-circuit (EC) FDTD method, which simplifies the implementation of material dispersion, thus enhancing the simulation of complex electromagnetic environments. Although openEMS is a powerful tool, its depth and the required scripting for setup and control can be daunting for amateurs and new users. Our aim with Magisim is to maintain the rigorous simulation capabilities of openEMS while enhancing accessibility and ease of use, thereby making sophisticated electromagnetic simulations more approachable for a broader audience.
+In the field of electromagnetic simulations, the openEMS tool, described by Liebig et al. (2012), stands out as a noteworthy open-source platform leveraging the Finite-Difference Time-Domain (FDTD) method. This tool, freely available to the public, supports various simulation needs, particularly for high-frequency electromagnetic applications. The openEMS platform uses an equivalent-circuit (EC) FDTD method, which simplifies the implementation of material dispersion, thus enhancing the simulation of complex electromagnetic environments. Although openEMS is a powerful tool, its depth and the required scripting for setup and control can be daunting for amateurs and new users.
 
-In his PhD thesis, Floris Laporte employs a custom Finite-Difference Time-Domain (FDTD) simulator to analyze photonic structures that mimic neural processes for neuromorphic computing applications. The FDTD method is crucial for accurately modeling the propagation and interaction of electromagnetic fields within complex photonic devices. Laporte's work focuses on the simulation aspect, using this method to delve into the dynamic behaviors of photonic cavities and their potential as elements in brain-inspired computing architectures. In developing our simulator, Magisim, we have integrated Laporte's FDTD code as a core component. This integration allows us to leverage the established efficacy of his simulation tools to enhance our ability to model electromagnetic phenomena accurately and efficiently within our open-source platform (Laporte, 2020).
+In his PhD thesis, Novel architectures for brain-inspired photonic computers. Ghent University (2020), Floris Laporte employs a custom Finite-Difference Time-Domain (FDTD) simulator to analyze photonic structures that mimic neural processes for neuromorphic computing applications. Laporte's work focuses on the simulation aspect, using this method to delve into the dynamic behaviors of photonic cavities and their potential as elements in brain-inspired computing architectures. In developing our simulator, Magisim, we have integrated Laporte's FDTD code as a core component.
 
 \newpage
 \subsection{Method}
@@ -160,11 +166,6 @@ In defining component interaction and data handling, the initial consideration w
 \end{center}
 
 The router maps connections between extensions in a Redis database, allowing extensions to remain unaware of the destinations for their outputs. Using Python's Pickle library, the system enables the transmission of diverse data types, including 3D models and tensor arrays.
-\begin{minted}{python}
-	# > is used as a delimiter
-	connection = f'connection>{extension_id_1}>{extension_id_2}' 
-	Router.redis_client.set(connection, 'connected')
-\end{minted}
 
 
 

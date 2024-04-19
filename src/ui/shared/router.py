@@ -1,6 +1,7 @@
 import json
 import redis
 from shared.item import Item
+from shared.config import Config
 import codecs
 import pickle
 
@@ -18,7 +19,10 @@ class Router:
         connection between the two extensions
         """
         if not Router.redis_client:
-            Router.redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+            Router.redis_client = redis.StrictRedis(host=Config.Backends.redis.host, 
+                                                    port=Config.Backends.redis.port, 
+                                                    db=Config.Backends.redis.db,
+                                                    )
 
         connection = f'connection>{extension_id_1}>{extension_id_2}' # > is used as a delimiter
         Router.redis_client.set(connection, 'connected')
