@@ -19,11 +19,8 @@ fi
 if [ "$CONDA_DEFAULT_ENV" != "magisim" ]; then
     echo "You are not in the right conda environment. Please activate the magisim environment."
     # are we in a docker container?
-    if [ -f "/.dockerenv" ]; then
-        echo "Docker container detected."
-        conda init bash
-    else
-        continue
+    echo "Docker container detected."
+    conda init bash
     conda activate magisim
 fi
 # check if redis is running
@@ -39,7 +36,6 @@ fi
 uvicorn ui:msim_ui
 
 # if we are in a docker container, make sure to not exit
-if [ -f "/.dockerenv" ]; then
-    echo "Docker container detected. Not exiting."
-    tail -f /dev/null
-fi
+echo "Docker container detected. Not exiting."
+tail -f /dev/null
+
