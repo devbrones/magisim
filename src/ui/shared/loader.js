@@ -115,6 +115,22 @@ function createFullScreenOverlay() {
 
 
     // Remove overlay and modal after 5 seconds
+    var has_loaded = false;
+        
+        // this will run last
+        
+        // change display: none to display: block of div id nmgrtab after 100ms
+        setTimeout(() => {
+            console.log("Loading node manager...")
+            document.getElementById("nmgrtab").style.display = "block";
+            startNodeGraph();
+        }, 3500);
+        // change it back after 100ms
+        setTimeout(() => {
+            console.log("Finished loading node manager...")
+            document.getElementById("nmgrtab").style.display = "none";
+        }, 3800);
+    
     setTimeout(() => {
         overlay.remove();
         modal.remove();
