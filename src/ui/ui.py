@@ -205,14 +205,16 @@ async def some_fastapi_middleware(request: Request, call_next):
 
         """
 
-        reps = """
+        reps = """		
 			const ce = document.getElementsByTagName("gradio-app");
+
 			if (ce[0]) {
 				ce[0].addEventListener("domchange", () => {
 					document.body.style.padding = "0";
 				});
 				document.body.style.padding = "0";
 			}
+		
 		"""
         
 
