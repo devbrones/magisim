@@ -246,4 +246,4 @@ with gr.Blocks(theme=Config.UI.theme, css=css, title="Magisim") as app:
 # Launch the Gradio application
 #app.launch(server_port=Config.UI.port)
 app.allowed_paths = ["./shared"]
-gr.mount_gradio_app(msim_ui, app, path="/", )
+gr.mount_gradio_app(msim_ui, app, path="/")

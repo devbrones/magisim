@@ -35,7 +35,7 @@ else
 fi
 
 # start using uvicorn
-uvicorn ui:msim_ui
+uvicorn ui:msim_ui --host 0.0.0.0 --port 8000
 
 # if we are in a docker container, make sure to not exit
 echo "Docker container detected. Not exiting."

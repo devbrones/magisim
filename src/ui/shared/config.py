@@ -22,6 +22,7 @@ class Config:
 
     class UI:
         port: int = 8080
+        listen: str = "0.0.0.0" # change this to 127.0.0.1 if you want to run it locally
         """If you want to use a custom theme other than the ones we or gradio provides, the class must be imported"""
         theme: gr.Theme = gr.themes.Default(
                             primary_hue="fuchsia",

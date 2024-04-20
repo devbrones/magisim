@@ -12,7 +12,7 @@ RUN git clone https://github.com/devbrones/magisim.git
 # Set up the Conda environment
 RUN conda env create -f /app/magisim/environment.yml
 # Make RUN commands use the new environment:
-RUN echo "conda activate myenv" >> ~/.bashrc
+RUN echo "conda activate magisim" >> ~/.bashrc
 SHELL ["/bin/bash", "--login", "-c"]
 # Copy the startup script into the container
 RUN chmod +x /app/magisim/src/ui/start-docker.sh
@@ -26,4 +26,4 @@ EXPOSE 6379
 EXPOSE 8000
 WORKDIR /app/magisim/src/ui
 # Run the initialization script when the container launches
-CMD ["sh", "start-docker.sh"]
+CMD ["bash", "-i", "start-docker.sh"]
