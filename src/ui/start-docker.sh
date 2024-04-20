@@ -15,12 +15,14 @@ if [ -f "ui.log" ]; then
         echo "" > ui.log
     fi
 fi
+echo "Starting Magisim UI..."
 # check if we are in the right conda environment
 if [ "$CONDA_DEFAULT_ENV" != "magisim" ]; then
     echo "You are not in the right conda environment. Please activate the magisim environment."
     # are we in a docker container?
-    echo "Docker container detected."
+    echo "MAGISIM_APP: Docker container detected.\n"
     conda init bash
+    source /root/.bashrc
     conda activate magisim
 fi
 # check if redis is running
