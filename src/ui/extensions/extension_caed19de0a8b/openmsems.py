@@ -64,7 +64,7 @@ def get_grid_preview(mso_file=None,
         if not isinstance(simpleobject, SimpleObject):
             raise ValueError("The file is not a valid SimpleObject")
         # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
-        for i in tqdm.tqdm(range(simpleobject.data.shape[0])):
+        for i in tqdm(range(simpleobject.data.shape[0])):
             for j in range(simpleobject.data.shape[1]):
                 #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
                 # check if the point is existing
@@ -74,7 +74,7 @@ def get_grid_preview(mso_file=None,
     if use_simple_object and mso_file is None:
         simpleobject = openmsems_simpleobject.receive_data()["pickle_jar"]
         # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
-        for i in tqdm.tqdm(range(simpleobject.shape[0])):
+        for i in tqdm(range(simpleobject.shape[0])):
             for j in range(simpleobject.shape[1]):
                 #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
                 # check if the point is existing
@@ -223,7 +223,7 @@ def simulate(mso_file=None,
         if not isinstance(simpleobject, SimpleObject):
             raise ValueError("The file is not a valid SimpleObject")
         # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
-        for i in tqdm.tqdm(range(simpleobject.data.shape[0])):
+        for i in tqdm(range(simpleobject.data.shape[0])):
             for j in range(simpleobject.data.shape[1]):
                 #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
                 # check if the point is existing
@@ -236,7 +236,7 @@ def simulate(mso_file=None,
     if use_simple_object and mso_file is None:
         simpleobject = openmsems_simpleobject.receive_data()["pickle_jar"]
         # add the simple object to the grid at the specified position, where the x and y are the top left corner of the object it is a 2d array
-        for i in tqdm.tqdm(range(simpleobject.shape[0])):
+        for i in tqdm(range(simpleobject.shape[0])):
             for j in range(simpleobject.shape[1]):
                 #grid[sposx + i, sposy + j, 0] = fdtd.Object(permittivity=simpleobject[i, j], name=f"{i}---{j}")
                 # check if the point is existing
