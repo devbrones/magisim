@@ -6,19 +6,18 @@
 \contentsline {subsection}{\numberline {1.4}Related Work}{4}{}%
 \contentsline {subsubsection}{\numberline {1.4.1}Proprietary Software}{4}{}%
 \contentsline {subsubsection}{\numberline {1.4.2}Open Source Projects}{5}{}%
-\contentsline {subsection}{\numberline {1.5}Method}{6}{}%
-\contentsline {subsubsection}{\numberline {1.5.1}User Interface}{6}{}%
-\contentsline {subsubsection}{\numberline {1.5.2}Extension Model and Templates}{7}{}%
-\contentsline {subsubsection}{\numberline {1.5.3}Message Queue and Routing}{8}{}%
-\contentsline {subsection}{\numberline {1.6}Scope}{9}{}%
-\contentsline {section}{\numberline {2}Approach}{10}{}%
-\contentsline {subsection}{\numberline {2.1}Software Structure}{10}{}%
-\contentsline {subsection}{\numberline {2.2}User Interface}{10}{}%
-\contentsline {subsection}{\numberline {2.3}Application Backbone}{10}{}%
-\contentsline {subsection}{\numberline {2.4}Our FDTD Extension}{10}{}%
-\contentsline {subsection}{\numberline {2.5}Software Distribution}{10}{}%
+\contentsline {subsection}{\numberline {1.5}Scope}{5}{}%
+\contentsline {section}{\numberline {2}Method}{7}{}%
+\contentsline {subsection}{\numberline {2.1}Project Structure}{7}{}%
+\contentsline {subsection}{\numberline {2.2}User Interface}{8}{}%
+\contentsline {subsection}{\numberline {2.3}Extension Model and Templates}{9}{}%
+\contentsline {subsection}{\numberline {2.4}Message Queue and Routing}{10}{}%
+\contentsline {subsection}{\numberline {2.5}FDTD Simulator}{10}{}%
+\contentsline {subsection}{\numberline {2.6}Software Distribution}{10}{}%
 \contentsline {section}{\numberline {3}Result}{11}{}%
-\contentsline {section}{\numberline {4}Discussion}{12}{}%
-\contentsline {section}{\numberline {5}Conclusion}{13}{}%
-\contentsline {section}{\numberline {6}References}{14}{}%
-\contentsline {section}{References}{15}{}%
+\contentsline {subsection}{\numberline {3.1}User interface}{11}{}%
+\contentsline {subsection}{\numberline {3.2}Simulation Process}{11}{}%
+\contentsline {subsection}{\numberline {3.3}Simulation Performance Characterization}{11}{}%
+\contentsline {section}{\numberline {4}Conclusion}{13}{}%
+\contentsline {section}{References}{14}{}%
+\contentsline {section}{Appendices}{15}{}%

@@ -21,7 +21,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "worknotes/notes.md",
+                "file": "Marketing and Pitching/Pitching.md",
                 "mode": "source",
                 "source": false
               }
@@ -76,7 +76,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -142,7 +142,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "Marketing and Pitching/Pitching.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -159,7 +159,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Research And Development/Whitepapers.md",
+                "file": "Marketing and Pitching/Pitching.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Research And Development/Whitepapers.md"
+                "file": "Marketing and Pitching/Pitching.md"
               }
             }
           },
@@ -192,7 +192,9 @@
             "state": {
               "type": "all-properties",
               "state": {
-                "sortOrder": "frequency"
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
               }
             }
           }
@@ -213,19 +215,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "d9c510e6946e6b3d",
+  "active": "08f39fb0422a811b",
   "lastOpenFiles": [
-    "ui dev notes.md",
-    "worknotes/notes.md",
-    "Extension SDK/Extension SDK notes.md",
+    "Marketing and Pitching/Marketplace.md",
     "GitHub Inspiration/links.md",
-    "Research And Development/Videos and Courses.md",
+    "Extension SDK/Extension SDK notes.md",
+    "worknotes/notes.md",
+    "ui dev notes.md",
+    "magisim_logo256.png",
     "Research And Development/Whitepapers.md",
+    "Research And Development/Videos and Courses.md",
     "ui deb",
     "Marketing and Pitching/Pitching.md",
     "Extension SDK",
     "worknotes",
-    "magisim_logo256.png",
     "GitHub Inspiration",
     "Surveys",
     "Marketing and Pitching",

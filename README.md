@@ -15,6 +15,11 @@ Magisim is a versatile simulation hub that brings together individual computatio
 
 The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing and analyzing different aspects of simulations.
 
+## Quick Start Guide
+
+Magisim has a pre-built Docker image that you can use to run the software on your local machine. To get started, follow these steps:
+
+
 ## Documentation
 
 For documentation and guides, please visit the [Magisim Documentation](https://magisim.mintlify.app/introduction) on Mintlify.
