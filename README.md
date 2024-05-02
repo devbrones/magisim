@@ -15,6 +15,14 @@ Magisim is a versatile simulation hub that brings together individual computatio
 
 The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing and analyzing different aspects of simulations.
 
+## News
+As of May 2024, Magisim has reached a functional state and is now available for use. for this release, version number 1.1.0 has been assigned "Iridescent Iguana". This release includes the following features:
+- Fixed a bug that caused the node editor to not load properly.
+- Added object cache in the simulation engine.
+- Moved grid and source properties to the right hand side of the screen in order to reduce clutter.
+- MSO (Magisim Simple Object) support is being added to the simulation engine.
+
+
 ## Quick Start Guide
 
 Magisim has a pre-built Docker image that you can use to run the software on your local machine. To get started, follow these steps:
