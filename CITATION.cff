@@ -2,56 +2,44 @@ cff-version: 1.2.0
 message: Please cite this project using these metadata.
 title: "Magisim: Open source resource center for electromagnetic simulations"
 abstract: >-
-  With serious competition in the modern market it is not trivial to create a
-  product that can match the expectations of professional users and still appeal
-  to hobby engineers, especially at a modest price point. The gap in capabilities
-  between enterprise and open source simulation software is growing bigger due to
-  lack of funding, which often results in limited research and development for
-  open source projects. This growing disparity poses a significant challenge for
-  developers aiming to balance advanced features with affordability. Striking a
-  harmony between meeting the rigorous demands of professionals while remaining
-  accessible to enthusiasts is a complex task involving compromises.
-  Enterprise simulation software benefits from substantial financial backing,
-  enabling teams to invest in cutting-edge research, continuous enhancements, and
-  dedicated customer support. This translates to robust features, high accuracy,
-  and comprehensive technical support, making them the preferred choice for
-  intricate and mission-critical projects. However, the cost associated with
-  these solutions can be prohibitive for smaller businesses and individual
-  hobbyists. This gap is further exacerbated by the intricate nature of
-  simulation software. Meeting the needs of professionals frequently involves
-  complex algorithms, intricate modeling, and high-performance computing.
-  Striving to offer similar capabilities within a modest price range for
-  hobbyists can be daunting, as the associated costs can quickly spiral
-  upwards.
-  This paper presents a proof-of-concept software project that aims to illustrate
-  the potential of open source magnetic field simulations utilizing parallelized
-  computing techniques on consumer-grade hardware. Magnetic field simulations
-  hold immense significance across scientific, engineering, and technological
-  domains, yet their resource-intensive nature often limits accessibility,
-  particularly in the context of proprietary software and high-cost hardware. By
-  conducting a thorough analysis of existing open source simulation tools,
-  parallel computing frameworks, and optimization strategies, we lay the
-  groundwork for a proof-of-concept that showcases the potential of democratizing
-  magnetic field simulations. This paper provides an in-depth exposition of the
-  technical underpinnings involved in parallelization implementation,
-  optimization techniques, and comprehensive performance evaluations. Through our
-  preliminary experimentation, we offer empirical evidence of substantial
-  reductions in simulation runtime while maintaining accuracy levels comparable
-  to established proprietary solutions.
-  Moreover, the paper acknowledges and addresses the inherent challenges
-  intrinsic to parallel programming, hardware limitations, and scalability
-  concerns when deploying simulations on consumer-grade hardware. By providing
-  practical insights and strategic recommendations, we outline potential avenues
-  to navigate these challenges and attain optimal performance across varying
-  hardware configurations.
+  With serious competition in the modern market it is not trivial to create a 
+  product that can match the expectations of professional users and still appeal 
+  to hobby engineers, especially at a modest price point. The gap in capabilities 
+  between enterprise and open source simulation software is growing bigger due to 
+  lack of funding, which often results in limited research and development for 
+  free and open source projects. This growing disparity poses a significant challenge 
+  for developers aiming to balance advanced features with affordability. 
+	
+	Enterprise simulation software benefits from substantial financial backing, enabling 
+  teams to invest in cutting-edge research, continuous enhancements, and dedicated 
+  customer support. This translates to robust features, high accuracy, and comprehensive 
+  technical support, making them the preferred choice for intricate and mission-critical 
+  projects. However, the cost associated with these solutions can be prohibitive for 
+  smaller businesses and individual hobbyists. This gap is further exacerbated by the 
+  intricate nature of simulation software. Meeting the needs of professionals frequently 
+  involves complex algorithms, intricate modeling, and high-performance computing. 
+  Striving to offer similar capabilities within a modest price range for hobbyists can 
+  be daunting, as the associated costs can quickly spiral upwards.
+	
+	Addressing this challenge, Magisim, an open-source project developed using modern 
+  tools such as machine learning technology, is introduced as a versatile solution. 
+  Designed primarily as an educational tool, Magisim allows for the integration of a 
+  wide range of simulation algorithms, and the programming of data flow using a node 
+  graph interface. This approach not only democratizes the learning and application of 
+  complex simulations but also bridges the gap in performance between high-cost 
+  enterprise solutions and open-source software. Consequently, Magisim serves as a 
+  testament to the potential of open-source development in narrowing the divide in 
+  technological capabilities, fostering an environment where both professionals and 
+  hobbyists can explore, learn, and contribute to the evolving field of simulation 
+  and data analysis.
 
 authors:
   - family-names: Cronholm
     given names: Jonas
-  - family-names: Colliander Ljung
-    given names: Rasmus
+#  - family-names: Colliander Ljung
+#    given names: Rasmus
 
 doi: N/A
 date-released: 2024-01-01
-url: https://magisim.com/papers/magisim-final.pdf
+url: https://github.com/devbrones/magisim/blob/queue-devel/notebooks/tex/open_source_magnetic_field_suite_magisim.pdf
 
