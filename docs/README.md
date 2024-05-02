@@ -8,8 +8,8 @@
 
 ![Magisim project banner](resources/banner1.png)
 
+*you are probably looking for our [github repository](https://github.com/devbrones/magisim), this site is still under construction!*
 ## Description
-
 
 Magisim is a versatile simulation hub that brings together individual computational algorithms through an interactive graphical user interface. It is designed to be hosted on a server, allowing multiple users to access it simultaneously. This makes Magisim an affordable and powerful tool for educational environments.
 
