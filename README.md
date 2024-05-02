@@ -17,7 +17,8 @@ The primary goal of this project is to democratize access to high-cost simulatio
 
 ## News
 ![Iridescent Iguana](resources/iridescent_iguana.png)
-As of May 2024, Magisim has reached a functional state and is now available for use. for this release, version number 1.1.0 has been assigned "Iridescent Iguana". This release includes the following features:
+
+As of **May 2024**, Magisim has reached a functional state and is now available for use. for this release, version number 1.1.0 has been assigned *"Iridescent Iguana"*. This release includes the following features:
 - Fixed a bug that caused the node editor to not load properly.
 - Added object cache in the simulation engine.
 - Moved grid and source properties to the right hand side of the screen in order to reduce clutter.
