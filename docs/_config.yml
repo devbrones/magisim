@@ -5,10 +5,10 @@ plugins:
   - jekyll-include-cache
 
 minimal_mistakes_skin: "dark"
-
+repository: "devbrones/magisim"
 title: Magisim
 description: Democratizing intuitive computation
-show_downloads: false
+show_downloads: true
 github:
   zip_url: https://cdn.magisim.com/eu-se1/core/latest.zip
   tar_url: https://cdn.magisim.com/eu-se1/core/latest.tar.gz

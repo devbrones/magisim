@@ -1,3 +1,8 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/devbrones/magisim)
+![GitHub](https://img.shields.io/github/license/devbrones/magisim)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/devbrones/magisim)
+
+
 <p><img align="right" src="./resources/magisim_logo256.png" width=60></p>
 <h1>magisim</h1>
 
@@ -9,6 +14,11 @@
 Magisim is a versatile simulation hub that brings together individual computational algorithms through an interactive graphical user interface. It is designed to be hosted on a server, allowing multiple users to access it simultaneously. This makes Magisim an affordable and powerful tool for educational environments.
 
 The primary goal of this project is to democratize access to high-cost simulation tools, particularly for electromagnetic and other physical simulations. Magisim is designed for hobbyists, amateurs, and individuals who want to learn about these physical phenomena by visualizing and analyzing different aspects of simulations.
+
+## Quick Start Guide
+
+Magisim has a pre-built Docker image that you can use to run the software on your local machine. To get started, follow these steps:
+
 
 ## Documentation
 
